@@ -5,7 +5,7 @@ import discord
 from discord.ext import commands
 import random
 TOKEN=''
-VERSION='v2.0.1'
+VERSION='v2.0.2'
 
 # 接続に必要なオブジェクトを生成
 description = '''BさんのBBBot (v2.0.2)'''
