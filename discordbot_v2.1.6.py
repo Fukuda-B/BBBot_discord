@@ -162,9 +162,9 @@ class youtube(commands.Cog):
         self.bot = bot
         self._last_member = None
 
-    @commands.command(description='youtube-dl (.mp4)')
+    @commands.command(description='noconico-dl (.mp4)')
     async def ndl(self, ctx, url: str):
-        """niconico-dl url : DL [.mp4 / max 8MB]"""
+        """niconico-dl(β) url : DL [.mp4 / max 8MB]"""
         ydl_opts0={}
         with youtube_dl.YoutubeDL(ydl_opts0) as ydl:
             meta = ydl.extract_info(url, download=False) 
@@ -209,7 +209,7 @@ class youtube(commands.Cog):
             except: print('ok')
     @commands.command(description='youtube-dl audio only')
     async def ydl_m(self, ctx, url: str):
-        """youtube-dl url : DL audio [.mp3/Best max 8MB]"""
+        """youtube-dl url : DL audio [.mp3 / max 8MB]"""
         ydl_opts0={}
         with youtube_dl.YoutubeDL(ydl_opts0) as ydl:
             meta = ydl.extract_info(url, download=False) 
@@ -237,7 +237,7 @@ class youtube(commands.Cog):
             except: print('ok')
     @commands.command(description='youtube-dl audio only(m4a_best)')
     async def ydl_m4a(self, ctx, url: str):
-        """youtube-dl url : DL audio(m4a_best) [.m4a/max 8MB]"""
+        """youtube-dl url : DL audio [.m4a / max 8MB]"""
         ydl_opts0={}
         with youtube_dl.YoutubeDL(ydl_opts0) as ydl:
             meta = ydl.extract_info(url, download=False) 
