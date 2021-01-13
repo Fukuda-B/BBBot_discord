@@ -78,10 +78,10 @@ class Calc(commands.Cog):
     @commands.command(description='エントロピー計算')
     async def ent(self, ctx, p: str):
         """Entropy P()"""
+        p = float(eval(p))
         if p == 0.0:
             await ctx.send(0.0)
         else:
-            p = eval(p);
             await ctx.send(-p*math.log2(p)-(1-p)*math.log2(1-p))
 
 
