@@ -79,7 +79,7 @@ class Calc(commands.Cog):
     async def ent(self, ctx, p: str):
         """Entropy P()"""
         p = eval(p);
-        await ctx.send(-p*math.log2(p)-(1-p)*math.log2(1-p)*math.log2(1-p))
+        await ctx.send(-p*math.log2(p)-(1-p)*math.log2(1-p))
 
 
 #---------------------------------------------------------- B系
