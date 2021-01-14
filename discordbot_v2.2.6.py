@@ -90,7 +90,7 @@ class Calc(commands.Cog):
     async def rand(self, ctx, p: str):
         """Random(int) 1~x"""
         p = int(eval(p))
-        if p>0:
+        if p>1:
             await ctx.send(random.randint(1, p))
         else:
             await ctx.send(random.randint(p, 1))
@@ -98,7 +98,7 @@ class Calc(commands.Cog):
     async def randd(self, ctx, p: str):
         """Random(float) 1.0~x"""
         p = float(eval(p))
-        if p>0.0:
+        if p>1.0:
             await ctx.send(random.uniform(1.0, p))
         else:
             await ctx.send(random.uniform(p, 1.0))
