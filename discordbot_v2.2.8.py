@@ -59,13 +59,13 @@ async def on_ready():
     await p2peq_check()
 
 # メッセージ受信時に動作する処理
-@bot.event
-async def on_message(message):
-    if message.author.bot:
-        return
-    lChannel = bot.get_channel(LOG_C)
-    if message.content.startswith('?'):
-        await lChannel.send("@"+message.author.name+":\n"+message.content)
+# @bot.event
+# async def on_message(message):
+#     if message.author.bot:
+#         return
+#     lChannel = bot.get_channel(LOG_C)
+#     if message.content.startswith('?'):
+#         await lChannel.send("@"+message.author.name+":\n"+message.content)
 
 #---------------------------------------------------------- 定期実行系
 async def p2peq_check():
