@@ -378,8 +378,10 @@ class Youtube(commands.Cog):
             with youtube_dl.YoutubeDL(ytdl_opts) as ydl:
                 info = ydl.extract_info(url, download=True)
                 filename = ydl.prepare_filename(info)
-                if (ytdl_opts['postprocessors'][0]['preferredcodec']) is not None:
+                try:
                     filename = pathlib.PurePath(filename).stem + '.' + ytdl_opts['postprocessors'][0]['preferredcodec']
+                except KeyError:
+                    pass
                 try:
                     with open(filename, 'rb') as fp:
                         await ctx.send(file=discord.File(fp, filename))
