@@ -101,6 +101,7 @@ class EqCheck:
                                     and len(str(res_json[i]['earthquake']['maxScale'])) >= 1\
                                     and int(res_json[i]['earthquake']['maxScale']) >= P2PEW_NMIN_LOG:
                                         await lChannel.send(await EqCheck.castRes(self,res_json, i))
+                                        res_log  = res_json[i]
                                     break
 
             except urllib.error.URLError as err:
