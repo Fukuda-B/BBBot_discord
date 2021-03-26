@@ -96,6 +96,7 @@ class EqCheck:
                                     and res_json[i]['earthquake']['domesticTsunami'] != "Checking" :
                                         res_log  = res_json[i]
                                         await mChannel.send(await EqCheck.castRes(self, res_json, i))
+                                        await lChannel.send(await EqCheck.castRes(self,res_json, i))
                                         # await lChannel.send(res_json)
                                     elif res_log != res_json[i] \
                                     and len(str(res_json[i]['earthquake']['maxScale'])) >= 1\
