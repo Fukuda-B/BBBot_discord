@@ -135,7 +135,7 @@ class EqCheck:
             return status
 
     async def castRes(self, res_json, i: int):
-        return "```\n"\
+        return "```yaml\n"\
             + "Earthquake : " + str(res_json[i]['time']) + "\n"\
             + "Place      : " + str(res_json[i]['earthquake']['hypocenter']['name'])\
             + " [" + str(res_json[i]['earthquake']['hypocenter']['latitude']) + " "\
