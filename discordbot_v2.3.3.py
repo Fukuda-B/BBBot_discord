@@ -35,7 +35,7 @@ TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
 P2PEQ_URI='https://api.p2pquake.net/v1/human-readable'
 # P2PEQ_URI='http://localhost:1011/p2p_ex/'
 P2PEQ_INT=5 # GET interval (s)
-P2PEW_NMIN=40 # Notification minimum earthquake scale
+P2PEW_NMIN=30 # Notification minimum earthquake scale
 P2PEW_NMIN_LOG=20 # Notification minimum earthquake scale (log)
 
 description = '''BさんのBBBot (v2.3.3)'''
