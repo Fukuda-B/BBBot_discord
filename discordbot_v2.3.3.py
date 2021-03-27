@@ -138,8 +138,8 @@ class EqCheck:
         return "```yaml\n"\
             + "Earthquake : " + str(res_json[i]['time']) + "\n"\
             + "Place      : " + str(res_json[i]['earthquake']['hypocenter']['name'])\
-            + " [" + str(res_json[i]['earthquake']['hypocenter']['latitude']) + " "\
-            + str(res_json[i]['earthquake']['hypocenter']['longitude']) + "]\n"\
+            + " (" + str(res_json[i]['earthquake']['hypocenter']['latitude']) + " "\
+            + str(res_json[i]['earthquake']['hypocenter']['longitude']) + ")\n"\
             + "Depth      : " + str(res_json[i]['earthquake']['hypocenter']['depth']) + "\n"\
             + "MaxScale   : " + await EqCheck.castScale(self, res_json[i]['earthquake']['maxScale'])+"\n"\
             + "Magnitude  : " + str(res_json[i]['earthquake']['hypocenter']['magnitude'])+"\n"\
