@@ -35,7 +35,7 @@ TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
 P2PEQ_URI='https://api.p2pquake.net/v1/human-readable'
 # P2PEQ_URI='http://localhost:1011/p2p_ex/'
 P2PEQ_INT=5 # GET interval (s)
-P2PEW_NMIN=30 # Notification minimum earthquake scale
+P2PEW_NMIN=40 # Notification minimum earthquake scale
 P2PEW_NMIN_LOG=20 # Notification minimum earthquake scale (log)
 
 description = '''BさんのBBBot (v2.3.3)'''
@@ -92,7 +92,7 @@ class EqCheck:
                                         res_log  = res_json[i]
                                     elif res_log != res_json[i] \
                                     and len(str(res_json[i]['earthquake']['maxScale'])) >= 1\
-                                    and res_json[i]['earthquake']['maxScale'] >= P2PEW_NMIN \
+                                    and int(res_json[i]['earthquake']['maxScale']) >= P2PEW_NMIN \
                                     and res_json[i]['earthquake']['domesticTsunami'] != "Checking" :
                                         res_log  = res_json[i]
                                         await mChannel.send(await EqCheck.castRes(self, res_json, i))
