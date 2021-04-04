@@ -4,6 +4,7 @@
 # This Discord bot uses PyNaCl & FFmpeg in VoiceChat class.
 # ver1.4.0 of PyNaCl requires python 2.7, 3.5 - 3.8. (It did not work with ptyhon 3.9.3).
 
+
 from __future__ import unicode_literals
 
 import my_key # get my api keys
@@ -31,7 +32,7 @@ import pathlib
 from gtts import gTTS
 
 
-VERSION='v2.4.0'
+VERSION='v2.4.1'
 
 TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C = my_key.get_keys()
@@ -42,7 +43,7 @@ P2PEQ_INT=5 # GET interval (s)
 P2PEW_NMIN=40 # Notification minimum earthquake scale
 P2PEW_NMIN_LOG=20 # Notification minimum earthquake scale (log)
 
-description = '''BさんのBBBot (v2.4.0)'''
+description = '''BさんのBBBot (v2.4.1)'''
 bot = commands.Bot(command_prefix='?', description=description)
 #----------------------------------------------------------
 
@@ -425,9 +426,17 @@ class VoiceChat(commands.Cog):
 
     @commands.command(description='Discord_VoiceChat TTS')
     async def v_boice(self, ctx, *tx:str):
-        """Voice TTS"""
+        """Voice TTS (Japanese)"""
         text = ' '.join(tx)
         gTTS(str(text), lang='ja').save('tts.mp3')
+        audio_source = discord.FFmpegPCMAudio('tts.mp3')
+        ctx.voice_client.play(audio_source)
+
+    @commands.command(description='Discord_VoiceChat TTS EN')
+    async def v_boice_en(self, ctx, *tx:str):
+        """Voice TTS EN (English)"""
+        text = ' '.join(tx)
+        gTTS(str(text), lang='en').save('tts.mp3')
         audio_source = discord.FFmpegPCMAudio('tts.mp3')
         ctx.voice_client.play(audio_source)
     
