@@ -441,7 +441,15 @@ class VoiceChat(commands.Cog):
         if os.path.exists('tts.mp3'):
             audio_source = discord.FFmpegPCMAudio('tts.mp3')
             ctx.voice_client.play(audio_source)
-    
+
+    @commands.command(description='Discord_VoiceChat ALL D')
+    async def v_bd(self, ctx):
+        """Voice ALL D"""
+        channel = ctx.author.voice.channel
+        for ch in channel.guild.voice_channels:
+            for member in ch.members:
+                await member.move_to(None)
+
 
 #---------------------------------------------------------- ASCII Encode
 class Encode(commands.Cog):
