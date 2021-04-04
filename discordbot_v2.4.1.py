@@ -429,16 +429,18 @@ class VoiceChat(commands.Cog):
         """Voice TTS (Japanese)"""
         text = ' '.join(tx)
         gTTS(str(text), lang='ja').save('tts.mp3')
-        audio_source = discord.FFmpegPCMAudio('tts.mp3')
-        ctx.voice_client.play(audio_source)
+        if os.path.exists('tts.mp3'):
+            audio_source = discord.FFmpegPCMAudio('tts.mp3')
+            ctx.voice_client.play(audio_source)
 
     @commands.command(description='Discord_VoiceChat TTS EN')
     async def v_boice_en(self, ctx, *tx:str):
         """Voice TTS EN (English)"""
         text = ' '.join(tx)
         gTTS(str(text), lang='en').save('tts.mp3')
-        audio_source = discord.FFmpegPCMAudio('tts.mp3')
-        ctx.voice_client.play(audio_source)
+        if os.path.exists('tts.mp3'):
+            audio_source = discord.FFmpegPCMAudio('tts.mp3')
+            ctx.voice_client.play(audio_source)
     
 
 #---------------------------------------------------------- ASCII Encode
