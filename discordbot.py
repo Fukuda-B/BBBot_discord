@@ -563,7 +563,7 @@ class Timer(commands.Cog):
                 await asyncio.sleep(5)
                 await dest.edit(content = f'{mention}'+" | "+setCnt+"/"+setCnt_+" break left: "+ str(int(time2/60)).zfill(2)+":"+str(int(time2%60)).zfill(2))
             setCnt -= 1
-        await dest.edit(content = f'{mention}'+"Good jobbb!\nRecode: cnt="+str(setCnt)+", work: "+str(int(time_/60))+"(min) / break: "+str(int(time2_/60))+"(min)")
+        await dest.edit(content = f'{mention}'+" Good jobbb!\nRecode: cnt="+str(setCnt)+", work: "+str(int(time_/60))+"(min) / break: "+str(int(time2_/60))+"(min)")
 
 
 # Botの起動とDiscordサーバーへの接続
