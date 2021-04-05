@@ -557,11 +557,11 @@ class Timer(commands.Cog):
             while time > 0: # work
                 time -= 5
                 await asyncio.sleep(5)
-                await dest.edit(content = f'{mention}'+" | "+str(setCnt)+"/"+str(setCnt_)+" work left: "+ str(int(time/60)).zfill(2)+":"+str(int(time%60)).zfill(2))
+                await dest.edit(content = f'{mention}'+" | "+str(setCnt_ - setCnt)+"/"+str(setCnt_)+" work left: "+ str(int(time/60)).zfill(2)+":"+str(int(time%60)).zfill(2))
             while time2 > 0: # break
                 time2 -= 5
                 await asyncio.sleep(5)
-                await dest.edit(content = f'{mention}'+" | "+str(setCnt)+"/"+str(setCnt_)+" break left: "+ str(int(time2/60)).zfill(2)+":"+str(int(time2%60)).zfill(2))
+                await dest.edit(content = f'{mention}'+" | "+str(setCnt_ - setCnt)+"/"+str(setCnt_)+" break left: "+ str(int(time2/60)).zfill(2)+":"+str(int(time2%60)).zfill(2))
             setCnt -= 1
         await dest.edit(content = f'{mention}'+" Good jobbb!\nRecode: cnt="+str(setCnt)+", work: "+str(int(time_/60))+"(min) / break: "+str(int(time2_/60))+"(min)")
 
