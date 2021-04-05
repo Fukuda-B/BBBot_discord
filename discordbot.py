@@ -34,7 +34,7 @@ import pathlib
 from gtts import gTTS
 
 
-VERSION='v2.4.2'
+VERSION='v2.4.3'
 
 TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C = my_key.get_keys()
@@ -45,7 +45,7 @@ P2PEQ_INT=5 # GET interval (s)
 P2PEW_NMIN=40 # Notification minimum earthquake scale
 P2PEW_NMIN_LOG=20 # Notification minimum earthquake scale (log)
 
-description = '''BさんのBBBot (v2.4.2)'''
+description = '''BさんのBBBot (v2.4.3)'''
 bot = commands.Bot(command_prefix='?', description=description)
 #----------------------------------------------------------
 
@@ -519,6 +519,51 @@ class Translate(commands.Cog):
                     res_json = await res.json()
                     await ctx.send(res_json['res'])
 
+#---------------------------------------------------------- Timer
+class Timer(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+        self._last_member = None
+
+    @commands.command(description='Timer (s)')
+    async def timer(self, ctx, time:int):
+        """Timer (s)"""
+        mention = str(ctx.message.author.mention)
+        dest = await ctx.send("Ready!")
+        while time > 0:
+            time -= 1
+            await asyncio.sleep(1)
+            await dest.edit(content = f'{mention}'+" | left: "+str(time))
+        await dest.edit(content = f'{mention}'+" | Time up!")
+
+    @commands.command(description='pomodoro set, work(min), break(min)')
+    async def pomodoro(self, ctx, *tset:int):
+        """
+        pomodoro set, work(min), break(min)
+        default 25min+5min x 4set
+        """
+        if len(tset)>=1 : setCnt = tset[0]
+        else: setCnt = 4 # 4set
+        if len(tset)>=2 : time_ = tset[1] * 60
+        else: time_ = 1500 # 25min
+        if len(tset)>=3 : time2_ = tset[2] * 60
+        else: time2_ = 300 # 5min
+
+        dest = await ctx.send("Ready!")
+        mention = str(ctx.message.author.mention)
+        while setCnt > 0:
+            time, time2 = time_, time2_ # reset time
+            while time > 0: # work
+                time -= 5
+                await asyncio.sleep(5)
+                await dest.edit(content = f'{mention}'+" | work left: "+ str(int(time/60)).zfill(2)+":"+str(int(time%60)).zfill(2))
+            while time2 > 0: # break
+                time2 -= 5
+                await asyncio.sleep(5)
+                await dest.edit(content = f'{mention}'+" | break left: "+ str(int(time2/60)).zfill(2)+":"+str(int(time2%60)).zfill(2))
+            setCnt -= 1
+        await dest.edit(content = f'{mention}'+"Good jobbb!\nRecode: cnt="+str(setCnt)+", work: "+str(int(time_/60))+"(min) / break: "+str(int(time2_/60))+"(min)")
+
 
 # Botの起動とDiscordサーバーへの接続
 bot.add_cog(Calc(bot))
@@ -529,4 +574,5 @@ bot.add_cog(Youtube(bot))
 bot.add_cog(VoiceChat(bot))
 bot.add_cog(Encode(bot))
 bot.add_cog(Translate(bot))
+bot.add_cog(Timer(bot))
 bot.run(TOKEN)
