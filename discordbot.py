@@ -542,8 +542,8 @@ class Timer(commands.Cog):
         pomodoro set, work(min), break(min)
         default 25min+5min x 4set
         """
-        if len(tset)>=1 : setCnt = tset[0]
-        else: setCnt = 4 # 4set
+        if len(tset)>=1 : setCnt_ = tset[0]
+        else: setCnt_ = 4 # 4set
         if len(tset)>=2 : time_ = tset[1] * 60
         else: time_ = 1500 # 25min
         if len(tset)>=3 : time2_ = tset[2] * 60
@@ -551,16 +551,17 @@ class Timer(commands.Cog):
 
         dest = await ctx.send("Ready!")
         mention = str(ctx.message.author.mention)
+        setCnt = setCnt_
         while setCnt > 0:
             time, time2 = time_, time2_ # reset time
             while time > 0: # work
                 time -= 5
                 await asyncio.sleep(5)
-                await dest.edit(content = f'{mention}'+" | work left: "+ str(int(time/60)).zfill(2)+":"+str(int(time%60)).zfill(2))
+                await dest.edit(content = f'{mention}'+" | "+setCnt+"/"+setCnt_+" work left: "+ str(int(time/60)).zfill(2)+":"+str(int(time%60)).zfill(2))
             while time2 > 0: # break
                 time2 -= 5
                 await asyncio.sleep(5)
-                await dest.edit(content = f'{mention}'+" | break left: "+ str(int(time2/60)).zfill(2)+":"+str(int(time2%60)).zfill(2))
+                await dest.edit(content = f'{mention}'+" | "+setCnt+"/"+setCnt_+" break left: "+ str(int(time2/60)).zfill(2)+":"+str(int(time2%60)).zfill(2))
             setCnt -= 1
         await dest.edit(content = f'{mention}'+"Good jobbb!\nRecode: cnt="+str(setCnt)+", work: "+str(int(time_/60))+"(min) / break: "+str(int(time2_/60))+"(min)")
 
