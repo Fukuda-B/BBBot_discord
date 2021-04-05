@@ -14,7 +14,7 @@ If you want to use "Translate" class, set up main.gs in Google Apps Script and a
 ---  
   
 # Command list
-BBBot v2.4.2 (prefix is "?")
+BBBot v2.4.3 (prefix is "?")
 ```c
 ?B hello            // -> Hello B!
 ?add 1000 11        // -> 1011
@@ -33,7 +33,7 @@ BBBot v2.4.2 (prefix is "?")
 | B hello | Hello B! |
 | B block | show block B |
 | B typing | set typing state |
-| BLOOP | send meny "B". (BLOOP number<=11) |
+| BLOOP | send meny "B". (BLOOP number<=11) ex: `?BLOOP 5`|
   
  **Calc**
 | command | outline |
@@ -87,3 +87,9 @@ BBBot v2.4.2 (prefix is "?")
 | ydl_m | youtube-dl audio only [ mp3 ] |
 | ydl_m4a | youtube-dl audio only [ m4a ] |
 | ydl_m4a_min | youtube-dl audio only [ m4a 128kbps ] |
+
+**Timer** (v2.4.3+)
+| command | outline |
+--- | ---
+| timer | Timer (s)  🍜`?timer 180` |
+| pomodoro | set, work(min), break(min). Default: `?pomodoro 4 25 5` |
