@@ -21,6 +21,7 @@ import urllib.parse
 import json
 import discord
 from discord.ext import commands
+# from discord_slash import SlashCommand
 import random
 import youtube_dl
 import socket
