@@ -482,13 +482,14 @@ class Encode(commands.Cog):
         self._last_member = None
 
     @commands.command(description='ASCII Encode')
-    async def asc_enc(self, ctx, text:str):
+    async def asc_enc(self, ctx, *text:str):
         """ASCII Encode"""
         lists=list(text)
         send = ''
         for w in lists:
             send = send + ' ' + str(ord(w))
         await ctx.send(send);
+
     @commands.command(description='ASCII Decode')
     async def asc_dec(self, ctx, *text:int):
         """ASCII Decode"""
