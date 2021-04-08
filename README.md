@@ -93,3 +93,11 @@ BBBot v2.4.3 (prefix is "?")
 --- | ---
 | timer | Timer (s)  🍜`?timer 180` |
 | pomodoro | set, work(min), break(min). Default: `?pomodoro 4 25 5` |
+
+**URL** (v2.4.4+)
+| command | outline |
+--- | ---
+| url_short | Generate Shorter URL |
+| url_expand | Restore the shortened URL |
+| url_enc | URL encode |
+| url_dec | URL decode |
