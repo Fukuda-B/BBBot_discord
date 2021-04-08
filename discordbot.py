@@ -32,9 +32,10 @@ import time
 import asyncio
 import pathlib
 from gtts import gTTS
+from pyshorteners import Shortener
 
 
-VERSION='v2.4.3'
+VERSION='v2.4.4'
 
 TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C = my_key.get_keys()
@@ -45,7 +46,7 @@ P2PEQ_INT=5 # GET interval (s)
 P2PEW_NMIN=40 # Notification minimum earthquake scale
 P2PEW_NMIN_LOG=20 # Notification minimum earthquake scale (log)
 
-description = '''BさんのBBBot (v2.4.3)'''
+description = '''BさんのBBBot (v2.4.4)'''
 bot = commands.Bot(command_prefix='?', description=description)
 #----------------------------------------------------------
 
@@ -54,7 +55,7 @@ bot = commands.Bot(command_prefix='?', description=description)
 async def on_ready():
     # ログイン通知
     print(bot.user.name + ' is logged in.')
-    await bot.change_presence(status=discord.Status.idle, activity=discord.Game(name="B", emoji="🍝"))
+    await bot.change_presence(status=discord.Status.idle, activity=discord.Game(name="B～♪", emoji="🍝"))
     lChannel = bot.get_channel(LOG_C)
     await lChannel.send('BBBot is Ready! ' + VERSION)
 
@@ -163,7 +164,7 @@ class Calc(commands.Cog):
     # Evalなので攻撃しないでください。
     async def calc(self, ctx, inc: str):
         """Calc number Eval"""
-        await ctx.send(eval(inc));
+        await ctx.send(eval(inc))
     @commands.command(description='足し算')
     async def add(self, ctx, left: str, right: str):
         """Add number + number"""
@@ -227,7 +228,7 @@ class B(commands.Cog):
     async def BLOOP(self, ctx, times: int):
         """BLOOP number<=11"""
         if times > 12 :
-            await ctx.send('too B!');
+            await ctx.send('too B!')
             return
         for i in range(times):
             await ctx.send('B')
@@ -399,7 +400,7 @@ class Youtube(commands.Cog):
                         await ctx.send(file=discord.File(fp, filename))
                 except discord.errors.HTTPException:
                     await ctx.send('Error: File size is too large? [Max 8MB]\nYou can use "?ydl_m4a_min" command!!\n')
-                except discord.errors:
+                except:
                     await ctx.send('Error: Unknown')
                 finally:
                     if os.path.exists(filename):
@@ -488,12 +489,12 @@ class Encode(commands.Cog):
         send = ''
         for w in lists:
             send = send + ' ' + str(ord(w))
-        await ctx.send(send);
+        await ctx.send(send)
 
     @commands.command(description='ASCII Decode')
     async def asc_dec(self, ctx, *text:int):
         """ASCII Decode"""
-        await ctx.send('{}'.format(len(text), ''.join(chr(text))));
+        await ctx.send('{}'.format(len(text), ''.join(chr(text))))
 
 #---------------------------------------------------------- GoogleTranslate
 class Translate(commands.Cog):
@@ -566,6 +567,44 @@ class Timer(commands.Cog):
             setCnt -= 1
         await dest.edit(content = f'{mention}'+" Good jobbb!\nRecord: cnt="+str(setCnt_)+", work: "+str(int(time_/60))+"(min) / break: "+str(int(time2_/60))+"(min)")
 
+#---------------------------------------------------------- BrainF*ck
+class BrainFuck(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+        self._last_member = None
+
+    @commands.command(description='Exec BrainF*ck')
+    async def bf(self, ctx, tx:str):
+        """Exec BrainF*ck"""
+
+#---------------------------------------------------------- URL
+class URL(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+        self._last_member = None
+
+    @commands.command(description='Generate Shorter URL')
+    async def url_short(self, ctx, tx:str):
+        """Generate shorter url"""
+        await ctx.send(Shortener().tinyurl.short(tx))
+
+    @commands.command(description='Restore the shortened URL')
+    async def url_expand(self, ctx, tx:str):
+        """Restore the shortened URL"""
+        await ctx.send(Shortener().tinyurl.expand(tx))
+
+    @commands.command(description='URL encode')
+    async def url_enc(self, ctx, *tx:str):
+        """URL encode"""
+        s = ' '.join(tx)
+        await ctx.send(urllib.parse.quote(s))
+
+    @commands.command(description='URL decode')
+    async def url_dec(self, ctx, *tx:str):
+        """URL decode"""
+        s = ' '.join(tx)
+        await ctx.send(urllib.parse.unquote(s))
+
 
 # Botの起動とDiscordサーバーへの接続
 bot.add_cog(Calc(bot))
@@ -577,4 +616,6 @@ bot.add_cog(VoiceChat(bot))
 bot.add_cog(Encode(bot))
 bot.add_cog(Translate(bot))
 bot.add_cog(Timer(bot))
+# bot.add_cog(BrainFuck(bot))
+bot.add_cog(URL(bot))
 bot.run(TOKEN)
