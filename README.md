@@ -14,7 +14,7 @@ If you want to use "Translate" class, set up main.gs in Google Apps Script and a
 ---  
   
 # Command list
-BBBot v2.4.3 (prefix is "?")
+BBBot v2.4.4 (prefix is "?")
 ```c
 ?B hello            // -> Hello B!
 ?add 1000 11        // -> 1011
@@ -74,7 +74,7 @@ BBBot v2.4.3 (prefix is "?")
 **VoiceChat** (v2.4.0+)
 | command | outline |
 --- | ---
-| v_bd | ALL D |
+| v_bd | ALL D (Disconnect) |
 | v_boice | Voice TTS (Japanese) |
 | v_boice_en | Voice TTS (English) |
 | v_connect | Voice Connect |
@@ -93,3 +93,11 @@ BBBot v2.4.3 (prefix is "?")
 --- | ---
 | timer | Timer (s)  🍜`?timer 180` |
 | pomodoro | set, work(min), break(min). Default: `?pomodoro 4 25 5` |
+
+**URL** (v2.4.4+)
+| command | outline |
+--- | ---
+| url_short | Generate Shorter URL |
+| url_expand | Restore the shortened URL |
+| url_enc | URL encode |
+| url_dec | URL decode |
