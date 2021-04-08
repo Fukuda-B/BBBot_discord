@@ -35,7 +35,7 @@ from gtts import gTTS
 from pyshorteners import Shortener
 
 
-VERSION='v2.4.4'
+VERSION='v2.4.5'
 
 TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C = my_key.get_keys()
@@ -46,7 +46,7 @@ P2PEQ_INT=5 # GET interval (s)
 P2PEW_NMIN=40 # Notification minimum earthquake scale
 P2PEW_NMIN_LOG=20 # Notification minimum earthquake scale (log)
 
-description = '''BさんのBBBot (v2.4.4)'''
+description = '''BさんのBBBot (v2.4.5)'''
 bot = commands.Bot(command_prefix='?', description=description)
 #----------------------------------------------------------
 
@@ -344,7 +344,8 @@ class Youtube(commands.Cog):
     @commands.command(description='youtube-dl audio only')
     async def ydl(self, ctx, url: str):
         """youtube-dl audio only [ org / max 8MB ]"""
-        await Youtube.ydl_proc(self, ctx, url, Youtube.ytdl_opts)
+        filename = await Youtube.ydl_proc(self, ctx, url, Youtube.ytdl_opts)
+        await Youtube.ydl_send(self, ctx, filename)
 
     @commands.command(description='youtube-dl audio mp3')
     async def ydl_m(self, ctx, url: str):
@@ -356,7 +357,8 @@ class Youtube(commands.Cog):
             }]
         }
         #await Youtube.ydl_proc(self, ctx, url, (Youtube.ytdl_opts | setOpt)) # Python 3.9+
-        await Youtube.ydl_proc(self, ctx, url, dict(Youtube.ytdl_opts, **setOpt))
+        filename = await Youtube.ydl_proc(self, ctx, url, dict(Youtube.ytdl_opts, **setOpt))
+        await Youtube.ydl_send(self, ctx, filename)
         # await ctx.send(json.dumps(Youtube.ytdl_opts | setOpt)) #Debug
 
     @commands.command(description='youtube-dl audio m4a')
@@ -369,7 +371,8 @@ class Youtube(commands.Cog):
             }]
         }
         #await Youtube.ydl_proc(self, ctx, url, (Youtube.ytdl_opts | setOpt)) # Python 3.9+
-        await Youtube.ydl_proc(self, ctx, url, dict(Youtube.ytdl_opts, **setOpt))
+        filename = await Youtube.ydl_proc(self, ctx, url, dict(Youtube.ytdl_opts, **setOpt))
+        await Youtube.ydl_send(self, ctx, filename)
         # await ctx.send(json.dumps(Youtube.ytdl_opts | setOpt)) #Debug
 
     @commands.command(description='youtube-dl audio m4a 128kbps')
@@ -383,7 +386,8 @@ class Youtube(commands.Cog):
             }]
         }
         #await Youtube.ydl_proc(self, ctx, url, (Youtube.ytdl_opts | setOpt)) # Python 3.9+
-        await Youtube.ydl_proc(self, ctx, url, dict(Youtube.ytdl_opts, **setOpt))
+        filename = await Youtube.ydl_proc(self, ctx, url, dict(Youtube.ytdl_opts, **setOpt))
+        await Youtube.ydl_send(self, ctx, filename)
         # await ctx.send(json.dumps(Youtube.ytdl_opts | setOpt)) #Debug
 
     async def ydl_proc(self, ctx, url:str, ytdl_opts):
@@ -395,17 +399,20 @@ class Youtube(commands.Cog):
                     filename = pathlib.PurePath(filename).stem + '.' + ytdl_opts['postprocessors'][0]['preferredcodec']
                 except KeyError:
                     pass
-                try:
-                    with open(filename, 'rb') as fp:
-                        await ctx.send(file=discord.File(fp, filename))
-                except discord.errors.HTTPException:
-                    await ctx.send('Error: File size is too large? [Max 8MB]\nYou can use "?ydl_m4a_min" command!!\n')
-                except:
-                    await ctx.send('Error: Unknown')
-                finally:
-                    if os.path.exists(filename):
-                        os.remove(filename)
-                    print(filename)
+                return filename
+
+    async def ydl_send(self, ctx, filename):
+        try:
+            with open(filename, 'rb') as fp:
+                await ctx.send(file=discord.File(fp, filename))
+        except discord.errors.HTTPException:
+            await ctx.send('Error: File size is too large? [Max 8MB]\nYou can use "?ydl_m4a_min" command!!\n')
+        except:
+            await ctx.send('Error: Unknown')
+        finally:
+            if os.path.exists(filename):
+                os.remove(filename)
+            print(filename)
 
 
 #---------------------------------------------------------- Discord_VoiceChat
@@ -445,9 +452,26 @@ class VoiceChat(commands.Cog):
 
     @commands.command(description='same as v_boice_en')
     async def v_voice_en(self, ctx, *tx:str):
+        """seme as v_boice_en"""
         tx = ' '.join(tx)
         await VoiceChat.v_boice_en(self, ctx, tx)
+
+    @commands.command(description='same as v_boice_en')
+    async def v_music(self, ctx, tx:str):
         """seme as v_boice_en"""
+        ytdl_opts = {
+            'format' : 'bestaudio/best',
+            'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
+            'restrictfilenames': True,
+            'noplaylist': True,
+            'nocheckcertificate': True,
+            'no_warnings': True,
+            'default_search': 'auto',
+            'source_address': '0.0.0.0'
+        }
+        filename = await Youtube.ydl_proc(self, ctx, tx, ytdl_opts)
+        await VoiceChat.voice_send(self, ctx, filename)
+    
 
     async def make_tts(self, ctx, text, lg):
         voice_client = ctx.message.guild.voice_client
@@ -459,13 +483,16 @@ class VoiceChat(commands.Cog):
 
         if not voice_client: # join voice channel
             await ctx.author.voice.channel.connect()
+        VoiceChat.voice_send(self, ctx, filename)
 
+    async def voice_send(self, ctx, filename):
         if os.path.exists(filename):
             audio_source = discord.FFmpegPCMAudio(filename)
             ctx.voice_client.play(audio_source)
             while ctx.guild.voice_client.is_playing():
                 await asyncio.sleep(1)
             os.remove(filename)
+        
 
     @commands.command(description='Discord_VoiceChat ALL D')
     async def v_bd(self, ctx):
