@@ -74,7 +74,7 @@ BBBot v2.4.3 (prefix is "?")
 **VoiceChat** (v2.4.0+)
 | command | outline |
 --- | ---
-| v_bd | ALL D |
+| v_bd | ALL D (Disconnect) |
 | v_boice | Voice TTS (Japanese) |
 | v_boice_en | Voice TTS (English) |
 | v_connect | Voice Connect |
