@@ -35,7 +35,7 @@ from gtts import gTTS
 from pyshorteners import Shortener
 
 
-VERSION='v2.4.5'
+VERSION='v2.4.6'
 
 TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C = my_key.get_keys()
@@ -46,7 +46,13 @@ P2PEQ_INT=5 # GET interval (s)
 P2PEW_NMIN=40 # Notification minimum earthquake scale
 P2PEW_NMIN_LOG=20 # Notification minimum earthquake scale (log)
 
-description = '''BさんのBBBot (v2.4.5)'''
+UP_SERVER = [ # wake up server uri
+    '',
+    '',
+    ]
+UP_SERVER_INT = 5 # up interval (min)
+
+description = '''BさんのBBBot (v2.4.6)'''
 bot = commands.Bot(command_prefix='?', description=description)
 #----------------------------------------------------------
 
@@ -55,12 +61,15 @@ bot = commands.Bot(command_prefix='?', description=description)
 async def on_ready():
     # ログイン通知
     print(bot.user.name + ' is logged in.')
-    await bot.change_presence(status=discord.Status.idle, activity=discord.Game(name="B～♪", emoji="🍝"))
+    await bot.change_presence(status=discord.Status.idle, activity=discord.Game(name="B", emoji="🍝"))
     lChannel = bot.get_channel(LOG_C)
     await lChannel.send('BBBot is Ready! ' + VERSION)
 
-    p2peq = EqCheck(bot)
-    await p2peq.p2peq_check()
+    # 非同期並行処理
+    await asyncio.gather(
+        EqCheck(bot).p2peq_check(),
+        UpServer(bot).up_server()
+    )
 
 # メッセージ受信時に動作する処理
 @bot.event
@@ -153,6 +162,20 @@ class EqCheck:
             + "Magnitude  : " + str(res_json[i]['earthquake']['hypocenter']['magnitude'])+"\n"\
             + "Tsunami    : " + await EqCheck.castTsunami(self, res_json[i]['earthquake']['domesticTsunami'])+"\n"\
             + "```"
+
+class UpServer:
+    def __init__(self, bot):
+        self.bot = bot
+
+    async def up_server(self):
+        lChannel = bot.get_channel(LOG_C)
+        while True:
+            for i in UP_SERVER:
+                req = urllib.request.Request(i)
+                with urllib.request.urlopen(req) as res:
+                    body = res.read()
+            await asyncio.sleep(60*UP_SERVER_INT)
+
 
 #---------------------------------------------------------- 計算系
 class Calc(commands.Cog):
