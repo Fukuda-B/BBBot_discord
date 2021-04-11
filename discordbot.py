@@ -170,10 +170,15 @@ class UpServer:
     async def up_server(self):
         lChannel = bot.get_channel(LOG_C)
         while True:
-            for i in UP_SERVER:
-                req = urllib.request.Request(i)
-                with urllib.request.urlopen(req) as res:
-                    body = res.read()
+            # await lChannel.send('up server')
+            try:
+                for i in UP_SERVER:
+                    req = urllib.request.Request(i)
+                    with urllib.request.urlopen(req) as res:
+                        body = res.read()
+            except urllib.error.URLError as err:
+                print(err.reason)
+
             await asyncio.sleep(60*UP_SERVER_INT)
 
 
