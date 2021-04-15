@@ -78,7 +78,7 @@ async def on_message(message):
         return
     lChannel = bot.get_channel(LOG_C)
     if message.content.startswith('?'):
-        await lChannel.send("```\n@"+str(message.author.name)+"\n"+str(message.content)+" ```")
+        await lChannel.send("```\n@"+str(message.author.name)+"\n"+str(message.author.id)+"\n"+str(message.content)+" ```")
         await bot.process_commands(message)
 
 #---------------------------------------------------------- 定期実行系
