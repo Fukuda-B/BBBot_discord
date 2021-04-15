@@ -177,11 +177,8 @@ class UpServer:
                     with urllib.request.urlopen(req) as res:
                         body = res.read()
             except urllib.error.URLError as err:
-<<<<<<< Updated upstream
-                print(err.reason)
-=======
                 # print(err.reason)
->>>>>>> Stashed changes
+                pass
 
             await asyncio.sleep(60*UP_SERVER_INT)
 
