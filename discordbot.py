@@ -192,7 +192,7 @@ class Calc(commands.Cog):
         self._last_member = None
 
     @commands.command(description='計算 Eval')
-    # Evalなので攻撃しないでください。
+    # Evalなので攻撃しないでください。ゆるして..（ﾉД｀）゜
     async def calc(self, ctx, inc: str):
         """Calc number Eval"""
         await ctx.send(eval(inc))
@@ -297,7 +297,30 @@ class B(commands.Cog):
     async def hattori(self, ctx):
         """ ﾊｯﾄﾘｨ- """
         mChannel = bot.get_channel(MAIN_C)
-        await mChannel.send('ﾊｯﾄﾘｨ-')
+        randl = [
+            'ﾊｯﾄﾘｨ-',
+            'ﾊｯﾄﾘｨ-',
+            'ﾊｯﾄﾘｨ-',
+            'ﾊｯﾄﾘｨ-',
+            'ﾊｯﾄﾘｨ-',
+            'Oh.. ﾊｯﾄﾘｨ-',
+            'ﾊｯﾄﾘｨ- ﾊｯﾄﾘｨ- ﾊｯﾄﾘｨ-'
+            'もう夜だよ。ﾊｯﾄﾘｨ-',
+            'Goob morning B! ﾊｯﾄﾘｨ-',
+            '今日は星がきれいに見えるね ﾊｯﾄﾘｨ-',
+            '何十時間寝てるの ﾊｯﾄﾘｨ-',
+            'そろそろ起きる時間よ ﾊｯﾄﾘｨ-',
+            '家の時差を調節しなさい ﾊｯﾄﾘｨ-',
+            'もうネタ切れだよ ﾊｯﾄﾘｨ-',
+            '何とかしなさい ﾊｯﾄﾘｨ-',
+            'ﾊｯﾄﾘｨｯ!!!!!! あっ… ﾊｯﾄﾘｨが出てしま…ました失礼しました。',
+            'ﾊｯﾄﾘｨｯ!!',
+            'あつ森ｯ!!'
+            'Hello B!',
+            'I would like to intoroduce you to my BBBBBBBrainf*cken friends. He is ﾊｯﾄﾘｨ-'
+        ]
+        # await mChannel.send(randl[random.randrange(len(randl))])
+        await ctx.send(randl[random.randrange(len(randl))])
     # @B.command()
     # async def morning_call(self, ctx):
     #     """強制モーニングコールが行われる"""
