@@ -11,5 +11,13 @@ def get_keys():
     # MAIN_C= # SEND Channel (本番用)
     MAIN_C= # SEND Channel (試験用)
     VOICE_C= # VOICE Channel (試験用)
+    HA = # sleeping people
+
+    UP_SERVER = [ # wake up server uri
+        '',
+        '',
+    ]
+
+    M_CALL = ''
 
     return TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL, LOG_C, MAIN_C, VOICE_C

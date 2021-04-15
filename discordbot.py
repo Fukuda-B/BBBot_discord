@@ -35,10 +35,11 @@ from gtts import gTTS
 from pyshorteners import Shortener
 
 
-VERSION='v2.4.6'
+VERSION='v2.4.7'
 
 TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
-    LOG_C, MAIN_C, VOICE_C = my_key.get_keys()
+    LOG_C, MAIN_C, VOICE_C, HA, UP_SERVER,\
+    M_CALL = my_key.get_keys()
 
 P2PEQ_URI='https://api.p2pquake.net/v1/human-readable'
 # P2PEQ_URI='http://localhost:1011/p2p_ex/'
@@ -46,14 +47,15 @@ P2PEQ_INT=5 # GET interval (s)
 P2PEW_NMIN=40 # Notification minimum earthquake scale
 P2PEW_NMIN_LOG=20 # Notification minimum earthquake scale (log)
 
-UP_SERVER = [ # wake up server uri
-    '',
-    '',
-    ]
 UP_SERVER_INT = 5 # up interval (min)
 
-description = '''BさんのBBBot (v2.4.6)'''
-bot = commands.Bot(command_prefix='?', description=description)
+description = '''BさんのBBBot (v2.4.7)'''
+bot = commands.Bot(
+    command_prefix='?', # コマンドの最初の文字
+    description=description,
+    case_insensitive = True, # コマンドの大文字小文字
+)
+
 #----------------------------------------------------------
 
 # 起動時に動作する処理
@@ -168,7 +170,7 @@ class UpServer:
         self.bot = bot
 
     async def up_server(self):
-        lChannel = bot.get_channel(LOG_C)
+        # lChannel = bot.get_channel(LOG_C)
         while True:
             # await lChannel.send('up server')
             try:
@@ -293,8 +295,18 @@ class B(commands.Cog):
             await ctx.send('B')
     @B.command()
     async def hattori(self, ctx):
+        """ ﾊｯﾄﾘｨ- """
         mChannel = bot.get_channel(MAIN_C)
         await mChannel.send('ﾊｯﾄﾘｨ-')
+    # @B.command()
+    # async def morning_call(self, ctx):
+    #     """強制モーニングコールが行われる"""
+    #     vChannel = bot.get_channel(VOICE_C)
+    #     user = bot.fetch_user(HA) # get user from id
+    #     await ctx.send(user)
+    #     await user.move_to(vChannel)
+    #     await vChannel.connect()
+    #     VoiceChat.v_music(self, ctx, M_CALL)
 
 
 #---------------------------------------------------------- 画像系
