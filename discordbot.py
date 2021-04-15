@@ -177,7 +177,11 @@ class UpServer:
                     with urllib.request.urlopen(req) as res:
                         body = res.read()
             except urllib.error.URLError as err:
+<<<<<<< Updated upstream
                 print(err.reason)
+=======
+                # print(err.reason)
+>>>>>>> Stashed changes
 
             await asyncio.sleep(60*UP_SERVER_INT)
 
@@ -290,6 +294,10 @@ class B(commands.Cog):
             await asyncio.sleep(10)
             ctx.typing()
             await ctx.send('B')
+    @B.command()
+    async def hattori(self, ctx):
+        mChannel = bot.get_channel(MAIN_C)
+        await mChannel.send('ﾊｯﾄﾘｨ-')
 
 
 #---------------------------------------------------------- 画像系
@@ -499,7 +507,7 @@ class VoiceChat(commands.Cog):
         }
         filename = await Youtube.ydl_proc(self, ctx, tx, ytdl_opts)
         await VoiceChat.voice_send(self, ctx, filename)
-    
+
 
     async def make_tts(self, ctx, text, lg):
         voice_client = ctx.message.guild.voice_client
