@@ -460,14 +460,14 @@ class Youtube(commands.Cog):
 
     async def ydl_proc(self, ctx, url:str, ytdl_opts):
         async with ctx.typing():
-            with youtube_dl.YoutubeDL(ytdl_opts) as ydl:
-                info = ydl.extract_info(url, download=True)
-                filename = ydl.prepare_filename(info)
-                try:
+            try:
+                with youtube_dl.YoutubeDL(ytdl_opts) as ydl:
+                    info = ydl.extract_info(url, download=True)
+                    filename = ydl.prepare_filename(info)
                     filename = pathlib.PurePath(filename).stem + '.' + ytdl_opts['postprocessors'][0]['preferredcodec']
-                except KeyError:
-                    pass
-                return filename
+                    return filename
+            except KeyError:
+                pass
 
     async def ydl_send(self, ctx, filename):
         try:
