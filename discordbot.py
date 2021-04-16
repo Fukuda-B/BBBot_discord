@@ -551,7 +551,7 @@ class VoiceChat(commands.Cog):
 
         if not voice_client: # join voice channel
             await ctx.author.voice.channel.connect()
-        VoiceChat.voice_send(self, ctx, filename)
+        await VoiceChat.voice_send(self, ctx, filename)
 
     async def voice_send(self, ctx, filename):
         if os.path.exists(filename):
