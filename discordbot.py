@@ -317,7 +317,8 @@ class B(commands.Cog):
             'ﾊｯﾄﾘｨｯ!!',
             'あつ森ｯ!!'
             'Hello B!',
-            'I would like to intoroduce you to my BBBBBBBrainf*cken friends. He is ﾊｯﾄﾘｨ-'
+            'I would like to intoroduce you to my BBBBBBBrainf*cken friends. He is ﾊｯﾄﾘｨ-',
+            'ﾄﾞﾝﾄﾞﾝﾄﾞﾝﾄﾞﾝﾄﾞﾝﾄﾞﾝﾄﾞﾝ!! ﾄﾞﾝﾄﾞﾝﾄﾞﾝﾄﾞﾝﾄﾞﾝﾄﾞﾝﾄﾞﾝﾄﾞﾝﾄﾞﾝ!!!! こんばんはー! ﾊｯﾄﾘｨくん いますかー！',
         ]
         # await mChannel.send(randl[random.randrange(len(randl))])
         await ctx.send(randl[random.randrange(len(randl))])
@@ -460,14 +461,14 @@ class Youtube(commands.Cog):
 
     async def ydl_proc(self, ctx, url:str, ytdl_opts):
         async with ctx.typing():
-            try:
-                with youtube_dl.YoutubeDL(ytdl_opts) as ydl:
-                    info = ydl.extract_info(url, download=True)
-                    filename = ydl.prepare_filename(info)
+            with youtube_dl.YoutubeDL(ytdl_opts) as ydl:
+                info = ydl.extract_info(url, download=True)
+                filename = ydl.prepare_filename(info)
+                try:
                     filename = pathlib.PurePath(filename).stem + '.' + ytdl_opts['postprocessors'][0]['preferredcodec']
-                    return filename
-            except KeyError:
-                pass
+                except KeyError:
+                    pass
+                return filename
 
     async def ydl_send(self, ctx, filename):
         try:
@@ -551,7 +552,7 @@ class VoiceChat(commands.Cog):
 
         if not voice_client: # join voice channel
             await ctx.author.voice.channel.connect()
-        await VoiceChat.voice_send(self, ctx, filename)
+        VoiceChat.voice_send(self, ctx, filename)
 
     async def voice_send(self, ctx, filename):
         if os.path.exists(filename):
