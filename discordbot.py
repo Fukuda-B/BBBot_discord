@@ -601,7 +601,7 @@ class Translate(commands.Cog):
     @commands.command(description='Translate en -> ja')
     async def trans(self, ctx, *text):
         """Translate  English -> Japanese"""
-        gReq = '?text='+str(" ".join(text).replace('"', "'"))+'&source=en&target=ja'
+        gReq = '?text='+str(' '.join(text))+'&source=en&target=ja'
         await Translate.transA(self, ctx, GoogleTranslateAPP_URL+gReq)
 
     @commands.command(description='Translate ja -> en')
