@@ -461,14 +461,14 @@ class Youtube(commands.Cog):
 
     async def ydl_proc(self, ctx, url:str, ytdl_opts):
         async with ctx.typing():
-            with youtube_dl.YoutubeDL(ytdl_opts) as ydl:
-                info = ydl.extract_info(url, download=True)
-                filename = ydl.prepare_filename(info)
-                try:
+            try:
+                with youtube_dl.YoutubeDL(ytdl_opts) as ydl:
+                    info = ydl.extract_info(url, download=True)
+                    filename = ydl.prepare_filename(info)
                     filename = pathlib.PurePath(filename).stem + '.' + ytdl_opts['postprocessors'][0]['preferredcodec']
-                except KeyError:
-                    pass
-                return filename
+                    return filename
+            except KeyError:
+                pass
 
     async def ydl_send(self, ctx, filename):
         try:
@@ -552,7 +552,7 @@ class VoiceChat(commands.Cog):
 
         if not voice_client: # join voice channel
             await ctx.author.voice.channel.connect()
-        VoiceChat.voice_send(self, ctx, filename)
+        await VoiceChat.voice_send(self, ctx, filename)
 
     async def voice_send(self, ctx, filename):
         if os.path.exists(filename):
@@ -601,7 +601,7 @@ class Translate(commands.Cog):
     @commands.command(description='Translate en -> ja')
     async def trans(self, ctx, *text):
         """Translate  English -> Japanese"""
-        gReq = '?text='+str(' '.join(text))+'&source=en&target=ja'
+        gReq = '?text='+str(" ".join(text).replace('"', "'"))+'&source=en&target=ja'
         await Translate.transA(self, ctx, GoogleTranslateAPP_URL+gReq)
 
     @commands.command(description='Translate ja -> en')
