@@ -2,7 +2,8 @@
 BrainF-ck.py
 
 [ Compiler specification ]
-Based on Brainfuck (bf20041219),
+with some memory improvements and changes for Discord implementation.
+Unfortunately, BrainCrash is not supported.
 
 Characteristic behavior
 Incrementing 255 will set it to 0.
