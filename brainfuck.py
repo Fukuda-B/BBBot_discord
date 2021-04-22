@@ -31,9 +31,9 @@ class BrainFuck():
     
             vs = str(tx[i])
             if vs == '+': # 255未満ならインクリメント、255以上なら0
-                arr[shift] += 1 if arr[shift] < 255 else 0
+                arr[shift] = (arr[shift]+1) if arr[shift] < 255 else 0
             elif vs == '-': # 0より大きい場合はデクリメント、0未満なら255
-                arr[shift] -= 1 if arr[shift] > 0 else 255
+                arr[shift] = (arr[shift]-1) if arr[shift] > 0 else 255
             elif vs == '>': # ポインタをインクリメント (+)
                 if len(arr) <= shift+1: arr.append(0)
                 shift += 1
@@ -83,7 +83,7 @@ class BrainFuck():
             result += chr(out[i])
 
         # 出力, エラー, 結果,
-        # 展開後のコード, ステップ数
+        # 展開後のコード, ステップ数, ステップデバッグ
         return result, Error, out,\
         tx, len(tx), debug
 
