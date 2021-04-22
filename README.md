@@ -14,7 +14,7 @@ If you want to use "Translate" class, set up main.gs in Google Apps Script and a
 ---  
   
 # Command list
-BBBot v2.4.7 (prefix is "?")
+BBBot v2.4.8 (prefix is "?")
 ```c
 ?B hello            // -> Hello B!
 ?add 1000 11        // -> 1011
@@ -36,6 +36,12 @@ BBBot v2.4.7 (prefix is "?")
 | B hattori | ﾊｯﾄﾘｨ- |
 | BLOOP | send meny "B". (BLOOP number<=11) ex: `?BLOOP 5`|
   
+ **BrainFuck**
+ | command | outline |
+--- | ---
+| bf | Exec BrainF\*ck |
+| bf_debug | Debug BrainF\*ck |
+
  **Calc**
 | command | outline |
 --- | ---
