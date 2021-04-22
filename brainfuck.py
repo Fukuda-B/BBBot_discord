@@ -2,8 +2,7 @@
 BrainF-ck.py
 
 [ Compiler specification ]
-with some memory improvements and changes for Discord implementation.
-Unfortunately, BrainCrash is not supported.
+Based on Brainfuck (bf20041219),
 
 Characteristic behavior
 Incrementing 255 will set it to 0.
@@ -64,6 +63,13 @@ class BrainFuck():
                             res_loop += tx[(i+1):(e_ptr-1)]
                     tx = str(tx[:(s_ptr)]) + str(res_loop) + str(tx[(e_ptr):]) # コード展開
                     i -= 1 # コード展開により "[" 1命令文減るため、戻す
+                else: # "[" かつポインタの指す値が0だった場合
+                    while 1:
+                        i += 1
+                        if tx[i] == ']': break
+                        if i > len(tx):
+                            Error = "Corresponding brackets are missing."
+                            break
             i += 1
             # print(tx, arr, i)
             # print(tx[i], arr, arr[shift], "||", tx[i+1])
