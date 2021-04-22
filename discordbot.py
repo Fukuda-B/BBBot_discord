@@ -8,6 +8,7 @@
 from __future__ import unicode_literals
 
 import my_key # get my api keys
+import brainfuck # my brainfuck interpreter
 
 import os
 import io
@@ -35,7 +36,7 @@ from gtts import gTTS
 from pyshorteners import Shortener
 
 
-VERSION='v2.4.7'
+VERSION='v2.4.8'
 
 TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, UP_SERVER,\
@@ -49,7 +50,7 @@ P2PEW_NMIN_LOG=20 # Notification minimum earthquake scale (log)
 
 UP_SERVER_INT = 5 # up interval (min)
 
-description = '''BさんのBBBot (v2.4.7)'''
+description = '''BさんのBBBot (v2.4.8)'''
 bot = commands.Bot(
     command_prefix='?', # コマンドの最初の文字
     description=description,
@@ -670,8 +671,25 @@ class BrainFuck(commands.Cog):
         self._last_member = None
 
     @commands.command(description='Exec BrainF*ck')
-    async def bf(self, ctx, tx:str):
+    async def bf(self, ctx, *tx:str):
         """Exec BrainF*ck"""
+        tx = ''.join(tx)
+        bfc = brainfuck.BrainFuck()
+        res = bfc.bf(tx, 0)
+        await ctx.send(res[0])
+
+    @commands.command(description='Debug BrainF*ck')
+    async def bf_debug(self, ctx, *tx:str):
+        """Debug BrainF*ck"""
+        tx = ''.join(tx)
+        bfc = brainfuck.BrainFuck()
+        res = bfc.bf(tx, 0)
+        s = "```\nOutput: "+str(res[0])+"\n"+\
+            "Error: "+str(res[1])+"\n"+\
+            "Array: "+str(res[2])+"\n"+\
+            "Parsed: "+str(res[3])+"\n"+\
+            "Step: "+str(res[4])+"\n```"
+        await ctx.send(s)
 
 #---------------------------------------------------------- URL
 class URL(commands.Cog):
@@ -712,6 +730,6 @@ bot.add_cog(VoiceChat(bot))
 bot.add_cog(Encode(bot))
 bot.add_cog(Translate(bot))
 bot.add_cog(Timer(bot))
-# bot.add_cog(BrainFuck(bot))
+bot.add_cog(BrainFuck(bot))
 bot.add_cog(URL(bot))
 bot.run(TOKEN)
