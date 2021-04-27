@@ -300,10 +300,6 @@ class B(commands.Cog):
         mChannel = bot.get_channel(MAIN_C)
         randl = [
             'ﾊｯﾄﾘｨ-',
-            'ﾊｯﾄﾘｨ-',
-            'ﾊｯﾄﾘｨ-',
-            'ﾊｯﾄﾘｨ-',
-            'ﾊｯﾄﾘｨ-',
             'Oh.. ﾊｯﾄﾘｨ-',
             'ﾊｯﾄﾘｨ- ﾊｯﾄﾘｨ- ﾊｯﾄﾘｨ-'
             'もう夜だよ。ﾊｯﾄﾘｨ-',
@@ -316,10 +312,13 @@ class B(commands.Cog):
             '何とかしなさい ﾊｯﾄﾘｨ-',
             'ﾊｯﾄﾘｨｯ!!!!!! あっ… ﾊｯﾄﾘｨが出てしま…ました失礼しました。',
             'ﾊｯﾄﾘｨｯ!!',
-            'あつ森ｯ!!'
-            'Hello B!',
+            'あつ森ｯ!! (ﾊｯﾄﾘｨｯ!!)'
+            'Hello ﾊｯﾄﾘｨ- B!',
             'I would like to intoroduce you to my BBBBBBBrainf*cken friends. He is ﾊｯﾄﾘｨ-',
             'ﾄﾞﾝﾄﾞﾝﾄﾞﾝﾄﾞﾝﾄﾞﾝﾄﾞﾝﾄﾞﾝ!! ﾄﾞﾝﾄﾞﾝﾄﾞﾝﾄﾞﾝﾄﾞﾝﾄﾞﾝﾄﾞﾝﾄﾞﾝﾄﾞﾝ!!!! こんばんはー! ﾊｯﾄﾘｨくん いますかー！',
+            '早くしないとパスタが冷めるよ ﾊｯﾄﾘｨ',
+            '＼ﾊｯﾄ デェェェェン ﾘｨ~／',
+            'Brainf*cken message (ﾊｯﾄﾘｨ-) received.',
         ]
         # await mChannel.send(randl[random.randrange(len(randl))])
         await ctx.send(randl[random.randrange(len(randl))])
