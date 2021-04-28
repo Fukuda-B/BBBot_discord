@@ -20,5 +20,9 @@ def get_hattori():
         '早くしないとパスタが冷めるよ ﾊｯﾄﾘｨ',
         '＼ﾊｯﾄ デェェェェン ﾘｨ~／',
         'Brainf*cken message (ﾊｯﾄﾘｨ-) received.',
+        '22時間睡眠がデフォなのか..',
+        'ﾊｯﾄﾘｨ いつ起きてるんだい?',
+        'ﾊｯﾄﾘｨ~?',
+        'ﾊｯﾄﾘｨ sleeps well. Yes, ﾊｯﾄﾘｨ often sleeps.',
     ]
     return l
