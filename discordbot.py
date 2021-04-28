@@ -9,6 +9,7 @@ from __future__ import unicode_literals
 
 import my_key # get my api keys
 import brainfuck # my brainfuck interpreter
+import htr # get hattori
 
 import os
 import io
@@ -41,6 +42,8 @@ VERSION='v2.4.8'
 TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, UP_SERVER,\
     M_CALL = my_key.get_keys()
+
+HTR_LIST = htr.get_hattori()
 
 P2PEQ_URI='https://api.p2pquake.net/v1/human-readable'
 # P2PEQ_URI='http://localhost:1011/p2p_ex/'
@@ -296,32 +299,10 @@ class B(commands.Cog):
             await ctx.send('B')
     @B.command()
     async def hattori(self, ctx):
-        """ ﾊｯﾄﾘｨ- """
+        """ htr """
         mChannel = bot.get_channel(MAIN_C)
-        randl = [
-            'ﾊｯﾄﾘｨ-',
-            'Oh.. ﾊｯﾄﾘｨ-',
-            'ﾊｯﾄﾘｨ- ﾊｯﾄﾘｨ- ﾊｯﾄﾘｨ-'
-            'もう夜だよ。ﾊｯﾄﾘｨ-',
-            'Goob morning B! ﾊｯﾄﾘｨ-',
-            '今日は星がきれいに見えるね ﾊｯﾄﾘｨ-',
-            '何十時間寝てるの ﾊｯﾄﾘｨ-',
-            'そろそろ起きる時間よ ﾊｯﾄﾘｨ-',
-            '家の時差を調節しなさい ﾊｯﾄﾘｨ-',
-            'もうネタ切れだよ ﾊｯﾄﾘｨ-',
-            '何とかしなさい ﾊｯﾄﾘｨ-',
-            'ﾊｯﾄﾘｨｯ!!!!!! あっ… ﾊｯﾄﾘｨが出てしま…ました失礼しました。',
-            'ﾊｯﾄﾘｨｯ!!',
-            'あつ森ｯ!! (ﾊｯﾄﾘｨｯ!!)'
-            'Hello ﾊｯﾄﾘｨ- B!',
-            'I would like to intoroduce you to my BBBBBBBrainf*cken friends. He is ﾊｯﾄﾘｨ-',
-            'ﾄﾞﾝﾄﾞﾝﾄﾞﾝﾄﾞﾝﾄﾞﾝﾄﾞﾝﾄﾞﾝ!! ﾄﾞﾝﾄﾞﾝﾄﾞﾝﾄﾞﾝﾄﾞﾝﾄﾞﾝﾄﾞﾝﾄﾞﾝﾄﾞﾝ!!!! こんばんはー! ﾊｯﾄﾘｨくん いますかー！',
-            '早くしないとパスタが冷めるよ ﾊｯﾄﾘｨ',
-            '＼ﾊｯﾄ デェェェェン ﾘｨ~／',
-            'Brainf*cken message (ﾊｯﾄﾘｨ-) received.',
-        ]
-        # await mChannel.send(randl[random.randrange(len(randl))])
-        await ctx.send(randl[random.randrange(len(randl))])
+        # await mChannel.send(HTR_LIST[random.randrange(len(HTR_LIST))])
+        await ctx.send(HTR_LIST[random.randrange(len(HTR_LIST))])
     # @B.command()
     # async def morning_call(self, ctx):
     #     """強制モーニングコールが行われる"""
