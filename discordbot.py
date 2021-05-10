@@ -661,7 +661,7 @@ class BrainFuck(commands.Cog):
     async def bf_debug(self, ctx, *tx:str):
         """Debug BrainF*ck"""
         tx = ''.join(tx)
-        bfc = brainfuck.BrainFuck(tx, 0).bf()
+        bfc = brainfuck.BrainFuck(tx, 4).bf()
         await ctx.send(bfc.debug)
 
 #---------------------------------------------------------- URL
