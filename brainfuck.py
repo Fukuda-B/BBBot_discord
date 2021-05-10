@@ -1,6 +1,5 @@
 # https://github.com/Fukuda-B/BrainF-ck_py
 
-# ----- Main
 class BrainFuck():
     
     def __init__(self, code, option):
@@ -15,6 +14,7 @@ class BrainFuck():
         self.debug = [] # debug result
         self.out = [] # output (list)
         self.out_asc = "" # output string
+        self.limit = 2**16 # max loop
 
     def bf_main(self, code:str):
         """ Exec BrainF*ck """
@@ -57,13 +57,16 @@ class BrainFuck():
                 while self.arr[self.shift] > 0:
                     self.arr = BrainFuck.bf_main(self, tx[i+1:i+l_cnt-1])
                     lc += 1
-                    if lc > 10**10: break
+                    if lc > self.limit:
+                        self.error = 'The loop limit has been exceeded.'
+                        break
                 i += l_cnt-1
 
             i += 1
             if i >= len(tx):
                 self.i += i
                 break
+            elif len(self.error)>0: return self.arr
         return self.arr
 
     def bf_res(self):
