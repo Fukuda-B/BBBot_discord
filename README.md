@@ -36,7 +36,7 @@ BBBot v2.4.8 (prefix is "?")
 | B hattori | ﾊｯﾄﾘｨ- |
 | BLOOP | send meny "B". (BLOOP number<=11) ex: `?BLOOP 5`|
   
- **BrainFuck**
+ **BrainFuck** based on [BrainF-ck.py](https://github.com/Fukuda-B/BrainF-ck_py)
  | command | outline |
 --- | ---
 | bf | Exec BrainF\*ck |
