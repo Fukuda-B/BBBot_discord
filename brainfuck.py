@@ -80,7 +80,7 @@ class BrainFuck():
         for i in self.out:
             buf.append(chr(i))
         self.out_asc = ''.join(buf)
-        if self.option == 4: self.debug = f'Output: {self.out_asc}\nError: {self.error}\nArray: {self.arr}\nParsed: {self.parsed}\nStep: {len(self.parsed)}'
+        if self.option == 4: self.debug = f'```c\nOutput: {self.out_asc}\nError: {self.error}\nArray: {self.arr}\nParsed: {self.parsed}\nStep: {len(self.parsed)}\n```'
         return self
 
     # delete comment
