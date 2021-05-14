@@ -563,10 +563,9 @@ class Encode(commands.Cog):
     @commands.command(description='ASCII Encode')
     async def asc_enc(self, ctx, *text:str):
         """ASCII Encode"""
-        lists=list(text)
         send = ''
-        for w in lists:
-            send = send + ' ' + str(ord(w))
+        for i in range(len(text)):
+            send += ' ' + str(ord(text[i]))
         await ctx.send(send)
 
     @commands.command(description='ASCII Decode')
