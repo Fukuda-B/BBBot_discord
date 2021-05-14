@@ -13,6 +13,7 @@ import htr # get hattori
 
 import os
 import io
+import re
 import math
 import random
 import string
@@ -37,7 +38,7 @@ from gtts import gTTS
 from pyshorteners import Shortener
 
 
-VERSION='v2.4.9'
+VERSION='v2.5.0'
 
 TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, UP_SERVER,\
@@ -53,7 +54,7 @@ P2PEW_NMIN_LOG=20 # Notification minimum earthquake scale (log)
 
 UP_SERVER_INT = 5 # up interval (min)
 
-description = '''BさんのBBBot (v2.4.9)'''
+description = '''BさんのBBBot (v2.5.0)'''
 bot = commands.Bot(
     command_prefix='?', # コマンドの最初の文字
     description=description,
@@ -196,10 +197,10 @@ class Calc(commands.Cog):
         self._last_member = None
 
     @commands.command(description='計算 Eval')
-    # Evalなので攻撃しないでください。ゆるして..（ﾉД｀）゜
+    # Evalなので攻撃しないでください。
     async def calc(self, ctx, inc: str):
         """Calc number Eval"""
-        await ctx.send(eval(inc))
+        await ctx.send(eval(inc.sub(r"[\u3000 \t]", "", inc)))
     @commands.command(description='足し算')
     async def add(self, ctx, left: str, right: str):
         """Add number + number"""
