@@ -198,9 +198,11 @@ class Calc(commands.Cog):
 
     @commands.command(description='計算 Eval')
     # Evalなので攻撃しないでください。
-    async def calc(self, ctx, inc: str):
+    async def calc(self, ctx, *inc: str):
         """Calc number Eval"""
-        await ctx.send(eval(inc.sub(r"[\u3000 \t]", "", inc)))
+        inc = ''.join(inc)
+        inc = re.sub(r"[\u3000 \t]", "", inc)
+        await ctx.send(eval(inc))
     @commands.command(description='足し算')
     async def add(self, ctx, left: str, right: str):
         """Add number + number"""
@@ -563,6 +565,7 @@ class Encode(commands.Cog):
     @commands.command(description='ASCII Encode')
     async def asc_enc(self, ctx, *text:str):
         """ASCII Encode"""
+        text = ' '.join(text)
         send = ''
         for i in range(len(text)):
             send += ' ' + str(ord(text[i]))
@@ -571,7 +574,10 @@ class Encode(commands.Cog):
     @commands.command(description='ASCII Decode')
     async def asc_dec(self, ctx, *text:int):
         """ASCII Decode"""
-        await ctx.send('{}'.format(len(text), ''.join(chr(text))))
+        send = ''
+        for i in range(len(text)):
+            send += chr(text[i])
+        await ctx.send(send)
 
 #---------------------------------------------------------- GoogleTranslate
 class Translate(commands.Cog):
@@ -662,6 +668,7 @@ class BrainFuck(commands.Cog):
         """Debug BrainF*ck"""
         tx = ''.join(tx)
         bfc = brainfuck.BrainFuck(tx, 4).bf()
+        # if len(bfc.debug) > 2000:
         await ctx.send(bfc.debug)
 
 #---------------------------------------------------------- URL
