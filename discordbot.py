@@ -11,6 +11,7 @@ import my_key # get my api keys
 import brainfuck # my brainfuck interpreter
 import htr # get hattori
 import htr_end
+import htr_dead
 
 import os
 import io
@@ -39,7 +40,7 @@ from gtts import gTTS
 from pyshorteners import Shortener
 
 
-VERSION='v2.5.1'
+VERSION='v2.5.3'
 
 TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, UP_SERVER,\
@@ -47,6 +48,7 @@ TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
 
 HTR_LIST = htr.get_hattori()
 HTRE_LIST = htr_end.end_hattori()
+HTRD_LIST = htr_dead.dead_hattori()
 
 P2PEQ_URI='https://api.p2pquake.net/v1/human-readable'
 # P2PEQ_URI='http://localhost:1011/p2p_ex/'
@@ -56,7 +58,7 @@ P2PEW_NMIN_LOG=20 # Notification minimum earthquake scale (log)
 
 UP_SERVER_INT = 5 # up interval (min)
 
-description = '''BさんのBBBot (v2.5.1)'''
+description = '''BさんのBBBot (v2.5.3)'''
 bot = commands.Bot(
     command_prefix='?', # コマンドの最初の文字
     description=description,
@@ -303,16 +305,16 @@ class B(commands.Cog):
             ctx.typing()
             await ctx.send('B')
     @B.command()
-    async def hattori(self, ctx, *tx):
+    async def hattori(self, ctx, *tx:str):
         """ htr """
+        txx = ' '.join(tx)
         # mChannel = bot.get_channel(MAIN_C)
-        if not tx:
-            # await mChannel.send(HTR_LIST[random.randrange(len(HTR_LIST))])
-            await ctx.send(HTR_LIST[random.randrange(len(HTR_LIST))])
-            # await mChannel.send(HTR_LIST[random.randrange(len(HTR_LIST))])
-        else:
+        if 'end' in txx.lower():
             await ctx.send(HTRE_LIST[random.randrange(len(HTRE_LIST))])
-            # await mChannel.send(HTRE_LIST[random.randrange(len(HTRE_LIST))])
+        elif 'd' in txx.lower():
+            await ctx.send(HTRD_LIST[random.randrange(len(HTRD_LIST))])
+        else:
+            await ctx.send(HTR_LIST[random.randrange(len(HTR_LIST))])
             
     # @B.command()
     # async def morning_call(self, ctx):
