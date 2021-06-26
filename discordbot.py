@@ -2,7 +2,10 @@
 # Video and audio are file-like objects.
 
 # This Discord bot uses PyNaCl & FFmpeg in VoiceChat class.
-# ver1.4.0 of PyNaCl requires python 2.7, 3.5 - 3.8. (It did not work with ptyhon 3.9.3).
+
+# pip update
+# powershell: pip3 install --upgrade ((pip3 freeze) -replace '==.+','')
+# https://www.yukkuriikouze.com/2019/07/12/3105/
 
 
 from __future__ import unicode_literals
@@ -40,7 +43,7 @@ from gtts import gTTS
 from pyshorteners import Shortener
 
 
-VERSION='v2.5.3'
+VERSION='v2.5.4'
 
 TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, UP_SERVER,\
@@ -58,7 +61,7 @@ P2PEW_NMIN_LOG=20 # Notification minimum earthquake scale (log)
 
 UP_SERVER_INT = 5 # up interval (min)
 
-description = '''BさんのBBBot (v2.5.3)'''
+description = 'BさんのBBBot ('+VERSION+')'
 bot = commands.Bot(
     command_prefix='?', # コマンドの最初の文字
     description=description,
@@ -72,7 +75,8 @@ bot = commands.Bot(
 async def on_ready():
     # ログイン通知
     print(bot.user.name + ' is logged in.')
-    await bot.change_presence(status=discord.Status.idle, activity=discord.Game(name="B", emoji="🍝"))
+    await bot.change_presence(status=discord.Status.idle, activity=discord.Game(name="BBBot "+VERSION, emoji="🍝"))
+    # await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name="Debug "+VERSION, emoji="🍝"))
     lChannel = bot.get_channel(LOG_C)
     await lChannel.send('BBBot is Ready! ' + VERSION)
 
@@ -411,7 +415,7 @@ class Youtube(commands.Cog):
         await Youtube.ydl_send(self, ctx, filename)
 
     @commands.command(description='youtube-dl audio mp3')
-    async def ydl_m(self, ctx, url: str):
+    async def ydl_mp3(self, ctx, url: str):
         """youtube-dl audio only [ mp3 / max 8MB ]"""
         setOpt = {
             'postprocessors': [{
@@ -438,14 +442,13 @@ class Youtube(commands.Cog):
         await Youtube.ydl_send(self, ctx, filename)
         # await ctx.send(json.dumps(Youtube.ytdl_opts | setOpt)) #Debug
 
-    @commands.command(description='youtube-dl audio m4a 128kbps')
-    async def ydl_m4a_min(self, ctx, url: str):
-        """youtube-dl audio only [ m4a 128kbps / max 8MB ]"""
+    @commands.command(description='youtube-dl audio aac')
+    async def ydl_aac(self, ctx, url: str):
+        """youtube-dl audio only [ aac / max 8MB ]"""
         setOpt = {
             'postprocessors': [{
                 'key': 'FFmpegExtractAudio',
-                'preferredcodec': 'm4a',
-                "preferredquality": "128"
+                'preferredcodec': 'aac',
             }]
         }
         #await Youtube.ydl_proc(self, ctx, url, (Youtube.ytdl_opts | setOpt)) # Python 3.9+
@@ -459,12 +462,14 @@ class Youtube(commands.Cog):
                 with youtube_dl.YoutubeDL(ytdl_opts) as ydl:
                     info = ydl.extract_info(url, download=True)
                     filename = ydl.prepare_filename(info)
-                    filename = pathlib.PurePath(filename).stem + '.' + ytdl_opts['postprocessors'][0]['preferredcodec']
+                    if 'postprocessors' in ytdl_opts:
+                        filename = pathlib.PurePath(filename).stem + '.' + ytdl_opts['postprocessors'][0]['preferredcodec']
                     return filename
             except KeyError:
                 pass
 
     async def ydl_send(self, ctx, filename):
+        print(filename)
         try:
             with open(filename, 'rb') as fp:
                 await ctx.send(file=discord.File(fp, filename))
@@ -483,6 +488,8 @@ class VoiceChat(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self._last_member = None
+        self.now = None # now playing
+        self.volume = 1.0
 
     @commands.command(description='Discord_VoiceChat Connect')
     async def v_connect(self, ctx):
@@ -519,22 +526,25 @@ class VoiceChat(commands.Cog):
         tx = ' '.join(tx)
         await VoiceChat.v_boice_en(self, ctx, tx)
 
-    @commands.command(description='same as v_boice_en')
+    @commands.command(description='play music')
     async def v_music(self, ctx, tx:str):
-        """seme as v_boice_en"""
-        ytdl_opts = {
-            'format' : 'bestaudio/best',
-            'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
-            'restrictfilenames': True,
-            'noplaylist': True,
-            'nocheckcertificate': True,
-            'no_warnings': True,
-            'default_search': 'auto',
-            'source_address': '0.0.0.0'
-        }
-        filename = await Youtube.ydl_proc(self, ctx, tx, ytdl_opts)
-        await VoiceChat.voice_send(self, ctx, filename)
-
+        """play music"""
+        if tx.lower() == 'stop' and self.now != None:
+            self.now.stop()
+            self.now = None
+        else:
+            ytdl_opts = {
+                'format' : 'bestaudio/best',
+                'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
+                'restrictfilenames': True,
+                'noplaylist': True,
+                'nocheckcertificate': True,
+                'no_warnings': True,
+                'default_search': 'auto',
+                'source_address': '0.0.0.0'
+            }
+            filename = await Youtube.ydl_proc(self, ctx, tx, ytdl_opts)
+            await VoiceChat.voice_send(self, ctx, filename)
 
     async def make_tts(self, ctx, text, lg):
         voice_client = ctx.message.guild.voice_client
@@ -550,12 +560,63 @@ class VoiceChat(commands.Cog):
 
     async def voice_send(self, ctx, filename):
         if os.path.exists(filename):
-            audio_source = discord.FFmpegPCMAudio(filename)
-            ctx.voice_client.play(audio_source)
+            audio_source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(filename), volume=self.volume)
+            self.now = ctx.voice_client
+            self.now.play(audio_source) # 再生
             while ctx.guild.voice_client.is_playing():
                 await asyncio.sleep(1)
             os.remove(filename)
-        
+            self.now = None
+
+    @commands.command(description='change music volume')
+    async def v_volume(self, ctx, vol:str):
+        """change music volume"""
+        try:
+            if float(vol) > 1.0: vol = 1.0
+            elif float(vol) < 0: vol = 0.0 
+            self.volume = float(vol)
+        except:
+            self.volume = 1.0
+        await ctx.send('volume : '+str(self.volume))
+
+    @commands.command(description='Channel member list')
+    async def v_list(self, ctx):
+        """Channel member list"""
+        channel = ctx.author.voice.channel
+        out = ''
+        cnt = 1
+        for ch in channel.guild.voice_channels:
+            for member in ch.members:
+                out += str(cnt) +' | '+ str(member) + '\n'
+                cnt += 1
+            #     await member.move_to(None)
+        await ctx.send('```py\n'+out+'```')
+
+    @commands.command(description='voice mute')
+    async def v_mute(self, ctx, no):
+        """voice mute"""
+        channel = ctx.author.voice.channel
+        try:
+            no = int(no)
+            if no <= 0: return
+        except: return
+
+        for ch in channel.guild.voice_channels:
+            if len(ch.members)-1 < no: return
+            await ch.members[no-1].edit(mute = True)
+
+    @commands.command(description='voice unmute')
+    async def v_unmute(self, ctx, no):
+        """voice unmute"""
+        channel = ctx.author.voice.channel
+        try:
+            no = int(no)
+            if no <= 0: return
+        except: return
+
+        for ch in channel.guild.voice_channels:
+            if len(ch.members)-1 < no: return
+            await ch.members[no-1].edit(mute = False)
 
     @commands.command(description='Discord_VoiceChat ALL D')
     async def v_bd(self, ctx):
