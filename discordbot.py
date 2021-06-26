@@ -29,7 +29,8 @@ import urllib.parse
 import json
 import discord
 from discord.ext import commands
-# from discord_slash import SlashCommand
+from discord_slash import SlashCommand
+from discord_slash import cog_ext, SlashContext
 import random
 import youtube_dl
 import socket
@@ -43,7 +44,7 @@ from gtts import gTTS
 from pyshorteners import Shortener
 
 
-VERSION='v2.5.4'
+VERSION='v2.5.5'
 
 TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, UP_SERVER,\
@@ -67,6 +68,8 @@ bot = commands.Bot(
     description=description,
     case_insensitive = True, # コマンドの大文字小文字
 )
+slash = SlashCommand(bot, sync_commands=True, sync_on_cog_reload=True)
+
 
 #----------------------------------------------------------
 
@@ -302,6 +305,9 @@ class B(commands.Cog):
     @B.command()
     async def block(self, ctx):
         await ctx.send('□□□□□□□□\n□■■■■□□□\n□■□□□■□□\n□■□□□■□□\n□■■■■□□□\n□■□□□■□□\n□■□□□□■□\n□■□□□□■□\n□■■■■■□□\n□□□□□□□□')
+    @B.command()
+    async def ping(self, ctx):
+        await ctx.send(f"{bot.latency*1000}ms")
     @B.command()
     async def typing(self, ctx):
         async with ctx.typing():
@@ -770,6 +776,35 @@ class URL(commands.Cog):
         s = ' '.join(tx)
         await ctx.send(urllib.parse.unquote(s))
 
+#---------------------------------------------------------- Slash
+class Slash(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
+    @cog_ext.cog_slash(name="ping")
+    async def ping(self, ctx:SlashContext):
+        await ctx.send(f"{bot.latency*1000}ms")
+
+    @cog_ext.cog_slash(name="hattori")
+    async def hattori(self, ctx):
+        await B.hattori(self, ctx)
+
+    @cog_ext.cog_slash(name="v_connect")
+    async def v_connect(self, ctx):
+        await VoiceChat.v_connect(self, ctx)
+
+    @cog_ext.cog_slash(name="v_disconnect")
+    async def v_disconnect(self, ctx):
+        await VoiceChat.v_disconnect(self, ctx)
+
+    @cog_ext.cog_slash(name="v_voice_en")
+    async def v_voice_en(self, ctx, *tx):
+        tx = ' '.join(tx)
+        await VoiceChat.v_boice_en(self, ctx, tx)
+
+    @cog_ext.cog_slash(name="v_bd")
+    async def v_bd(self, ctx):
+        await VoiceChat.v_bd(self, ctx)
 
 # Botの起動とDiscordサーバーへの接続
 bot.add_cog(Calc(bot))
@@ -783,4 +818,5 @@ bot.add_cog(Translate(bot))
 bot.add_cog(Timer(bot))
 bot.add_cog(BrainFuck(bot))
 bot.add_cog(URL(bot))
+bot.add_cog(Slash(bot))
 bot.run(TOKEN)
