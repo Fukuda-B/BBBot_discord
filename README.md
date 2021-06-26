@@ -86,7 +86,7 @@ BBBot v2.5.4 (prefix is "?")
 | v_boice_en | Voice TTS (English) |
 | v_connect | Voice Connect |
 | v_disconnect | Voice Disconnect |
-| v_music | yt player. play; `?v_music url`. stop:`?v_music stop` |
+| v_music | yt player. play: `?v_music url`. stop: `?v_music stop` |
 | v_volume | volume ( 0.0 - 1.0 ) |
 | v_list | voice channel member list |
 | v_mute | mute member's voice |
