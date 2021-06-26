@@ -14,7 +14,7 @@ If you want to use "Translate" class, set up main.gs in Google Apps Script and a
 ---  
   
 # Command list
-BBBot v2.5.0 (prefix is "?")
+BBBot v2.5.4 (prefix is "?")
 ```c
 ?B hello            // -> Hello B!
 ?add 1000 11        // -> 1011
@@ -86,15 +86,19 @@ BBBot v2.5.0 (prefix is "?")
 | v_boice_en | Voice TTS (English) |
 | v_connect | Voice Connect |
 | v_disconnect | Voice Disconnect |
-| v_music | yt player |
+| v_music | yt player. play; `?v_music url`. stop:`?v_music stop` |
+| v_volume | volume ( 0.0 - 1.0 ) |
+| v_list | voice channel member list |
+| v_mute | mute member's voice |
+| v_unmute | unmute member's voice |
 
 **ydl**
 | command | outline |
 --- | ---
 | ydl | youtube-dl audio only [ org ] |
-| ydl_m | youtube-dl audio only [ mp3 ] |
+| ydl_mp3 | youtube-dl audio only [ mp3 ] |
 | ydl_m4a | youtube-dl audio only [ m4a ] |
-| ydl_m4a_min | youtube-dl audio only [ m4a 128kbps ] |
+| ydl_aac | youtube-dl audio only [ aac ] |
 
 **Timer** (v2.4.3+)
 | command | outline |
