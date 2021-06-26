@@ -78,7 +78,7 @@ BBBot v2.5.4 (prefix is "?")
 | trans | Translate  English -> Japanese |
 | transJ | Translate Japanese -> English |
 
-**VoiceChat** (v2.4.0+)
+**VoiceChat** (v2.4.0+, v2.5.4+)
 | command | outline |
 --- | ---
 | v_bd | ALL D (Disconnect) |
