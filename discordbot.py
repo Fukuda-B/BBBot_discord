@@ -15,6 +15,7 @@ import brainfuck # my brainfuck interpreter
 import htr # get hattori
 import htr_end
 import htr_dead
+import kawaii_voice_gtts
 
 import os
 import io
@@ -44,7 +45,7 @@ from gtts import gTTS
 from pyshorteners import Shortener
 
 
-VERSION='v2.5.5'
+VERSION='v2.5.6'
 
 TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, UP_SERVER,\
@@ -513,22 +514,22 @@ class VoiceChat(commands.Cog):
     @commands.command(description='Discord_VoiceChat TTS')
     async def v_boice(self, ctx, *tx:str):
         """Voice TTS (Japanese)"""
-        await VoiceChat.make_tts(self, ctx, tx, 'ja')
+        await VoiceChat.make_tts(self, ctx, tx, 'ja', 1)
 
     @commands.command(description='same as v_boice')
     async def v_voice(self, ctx, *tx:str):
-        """seme as v_boice"""
+        """same as v_boice"""
         tx = ' '.join(tx)
         await VoiceChat.v_boice(self, ctx, tx)
 
     @commands.command(description='Discord_VoiceChat TTS EN')
     async def v_boice_en(self, ctx, *tx:str):
         """Voice TTS EN (English)"""
-        await VoiceChat.make_tts(self, ctx, tx, 'en')
+        await VoiceChat.make_tts(self, ctx, tx, 'en', 0)
 
     @commands.command(description='same as v_boice_en')
     async def v_voice_en(self, ctx, *tx:str):
-        """seme as v_boice_en"""
+        """same as v_boice_en"""
         tx = ' '.join(tx)
         await VoiceChat.v_boice_en(self, ctx, tx)
 
@@ -552,13 +553,18 @@ class VoiceChat(commands.Cog):
             filename = await Youtube.ydl_proc(self, ctx, tx, ytdl_opts)
             await VoiceChat.voice_send(self, ctx, filename)
 
-    async def make_tts(self, ctx, text, lg):
+    async def make_tts(self, ctx, text, lg, k_option): # text=text, lg=language, k_option=kawaii_voice_gtts(0=false, 1=true)
         voice_client = ctx.message.guild.voice_client
         text = ' '.join(text)
         pool = string.ascii_letters + string.digits
         randm = ''.join(random.choice(pool) for i in range(16))
         filename = str(randm) + ".mp3"
         gTTS(str(text), lang=lg).save(filename)
+
+        if k_option == 1:
+            imouto = kawaii_voice_gtts.kawaii_voice(filename)
+            imouto = imouto.pitch(0.4)
+            imouto.audio.export(filename, 'mp3')
 
         if not voice_client: # join voice channel
             await ctx.author.voice.channel.connect()
