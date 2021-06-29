@@ -607,7 +607,7 @@ class VoiceChat(commands.Cog):
                 'preferredcodec': 'mp3',
             }]
         }
-        filename = await Youtube.ydl_proc(ctx, tx, ytdl_opts)
+        filename = await Youtube.ydl_proc(self, ctx, tx, ytdl_opts)
         imouto = kawaii_voice_gtts.kawaii_voice(filename)
         imouto = imouto.music_pack1()
         imouto.audio.export(filename, 'mp3')
