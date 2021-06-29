@@ -10,43 +10,47 @@
 
 from __future__ import unicode_literals
 
+# ---- my module ----
 import my_key # get my api keys
 import brainfuck # my brainfuck interpreter
 import htr # get hattori
 import htr_end
 import htr_dead
 import kawaii_voice_gtts
-
+# ----- basic module ----
 import os
 import io
 import re
 import math
 import random
 import string
-import aiohttp #画像転送系
-# import requests #req
-import urllib.request
-import urllib.parse
 import json
+import random
+import socket
+import time
+import platform
+import threading
+# ----- extend module -----
+import aiohttp #画像転送系
+from pyshorteners import Shortener
+from gtts import gTTS
+import asyncio
+import pathlib
+import psutil
+import cpuid
+import youtube_dl
 import discord
 from discord.ext import commands
 from discord_slash import SlashCommand
 from discord_slash import cog_ext, SlashContext
-import random
-import youtube_dl
-import socket
-import platform
-import psutil
-import cpuid
-import time
-import asyncio
-import pathlib
-from gtts import gTTS
-from pyshorteners import Shortener
-import threading
+import urllib.request
+import urllib.parse
+from niconico_dl_async import NicoNico
+import ffmpeg
+# import requests #req
 
 
-VERSION='v2.5.8'
+VERSION='v2.5.9'
 
 TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, UP_SERVER,\
@@ -80,8 +84,8 @@ slash = SlashCommand(bot, sync_commands=True, sync_on_cog_reload=True)
 async def on_ready():
     # ログイン通知
     print(bot.user.name + ' is logged in.')
-    await bot.change_presence(status=discord.Status.idle, activity=discord.Game(name="BBBot "+VERSION, emoji="🍝"))
-    # await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name="Debug "+VERSION, emoji="🍝"))
+    # await bot.change_presence(status=discord.Status.idle, activity=discord.Game(name="BBBot "+VERSION+'beta', emoji="🍝"))
+    await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="BBBot "+VERSION+'beta', emoji="🍝"))
     lChannel = bot.get_channel(LOG_C)
     await lChannel.send('BBBot is Ready! ' + VERSION)
 
@@ -128,7 +132,7 @@ class EqCheck:
                                     if len(res_log) <= 0: # 初回の処理
                                         res_log  = res_json[i]
                                     elif res_log != res_json[i] \
-                                    and len(str(res_json[i]['earthquake']['maxScale'])) >= 1\
+                                    and str(res_json[i]['earthquake']['maxScale']) != 'null'\
                                     and int(res_json[i]['earthquake']['maxScale']) >= P2PEW_NMIN \
                                     and res_json[i]['earthquake']['domesticTsunami'] != "Checking" :
                                         res_log  = res_json[i]
@@ -136,7 +140,7 @@ class EqCheck:
                                         await lChannel.send(await EqCheck.castRes(self,res_json, i))
                                         # await lChannel.send(res_json)
                                     elif res_log != res_json[i] \
-                                    and len(str(res_json[i]['earthquake']['maxScale'])) >= 1\
+                                    and str(res_json[i]['earthquake']['maxScale']) != 'null'\
                                     and int(res_json[i]['earthquake']['maxScale']) >= P2PEW_NMIN_LOG:
                                         await lChannel.send(await EqCheck.castRes(self,res_json, i))
                                         res_log  = res_json[i]
@@ -199,9 +203,11 @@ class UpServer:
                     # with urllib.request.urlopen(req) as res:
                     #     pass
                     #     body = res.read()
-            except urllib.error.URLError as err:
-                print(err.reason)
+            except urllib.error.URLError:
                 pass
+            # except urllib.error.URLError as err:
+            #     print(err.reason)
+            #     pass
 
             await asyncio.sleep(60*UP_SERVER_INT)
 
@@ -423,10 +429,9 @@ class Youtube(commands.Cog):
     @commands.command(description='youtube-dl audio only')
     async def ydl(self, ctx, url: str):
         """youtube-dl audio only [ org / max 8MB ]"""
-        parsed_url = urllib.parse.urlparse(url)
-        if 'soundcloud' in parsed_url.netloc: # if soundcloud, will download weve format
+        if 'soundcloud' in urllib.parse.urlparse(url).netloc: # soundcloud
             await self.ydl_m4a(ctx, url)
-        else:
+        else: # youtube (or niconico)
             filename = await self.ydl_proc(ctx, url, self.ytdl_opts)
             await self.ydl_send(ctx, filename)
 
@@ -467,22 +472,45 @@ class Youtube(commands.Cog):
                 'preferredcodec': 'aac',
             }]
         }
-        #await self.ydl_proc(ctx, url, (Youtube.ytdl_opts | setOpt)) # Python 3.9+
-        filename = await self.ydl_proc(ctx, url, dict(Youtube.ytdl_opts, **setOpt))
+        #await self.ydl_proc(ctx, url, (self.ytdl_opts | setOpt)) # Python 3.9+
+        filename = await self.ydl_proc(ctx, url, dict(self.ytdl_opts, **setOpt))
         await self.ydl_send(ctx, filename)
         # await ctx.send(json.dumps(self.ytdl_opts | setOpt)) #Debug
 
     async def ydl_proc(self, ctx, url:str, ytdl_opts):
-        async with ctx.typing():
-            try:
-                with youtube_dl.YoutubeDL(ytdl_opts) as ydl:
-                    info = ydl.extract_info(url, download=True)
-                    filename = ydl.prepare_filename(info)
-                    if 'postprocessors' in ytdl_opts:
-                        filename = pathlib.PurePath(filename).stem + '.' + ytdl_opts['postprocessors'][0]['preferredcodec']
-                    return filename
-            except KeyError:
-                pass
+        if 'nico' in urllib.parse.urlparse(url).netloc: # niconico
+            return await Youtube.ndl_proc(self, ctx, url)
+        else: # youtube
+            async with ctx.typing():
+                try:
+                    with youtube_dl.YoutubeDL(ytdl_opts) as ydl:
+                        info = ydl.extract_info(url, download=True)
+                        filename = ydl.prepare_filename(info)
+                        if 'postprocessors' in ytdl_opts:
+                            filename = pathlib.PurePath(filename).stem + '.' + ytdl_opts['postprocessors'][0]['preferredcodec']
+                        return filename
+                except KeyError:
+                    pass
+
+    # niconico download
+    async def ndl_proc(self, ctx, url:str):
+        nico_path = pathlib.Path(str(url)).name
+        nico = NicoNico(nico_path)
+        nico_data = await nico.get_info()
+        title = nico_data["video"]["title"] + '.mp4'
+        await nico.download(title) # download & save
+        nico.close()
+        return await Youtube.ffmpeg(self, title, 'm4a')
+
+    # convert (need install ffmpeg) fmt = m4a, mp3, ...
+    async def ffmpeg(self, filename:str, fmt):
+        stream = ffmpeg.input(filename)
+        stream = ffmpeg.output(stream, filename+'.'+fmt, format=fmt)
+        ffmpeg.run(stream)
+        try:
+            os.remove(filename)
+        finally:
+            return filename+'.'+fmt
 
     async def ydl_send(self, ctx, filename):
         print(filename)
@@ -490,7 +518,7 @@ class Youtube(commands.Cog):
             with open(filename, 'rb') as fp:
                 await ctx.send(file=discord.File(fp, filename))
         except discord.errors.HTTPException:
-            await ctx.send('Error: File size is too large? [Max 8MB]\nYou can use "?ydl_mp3, ?ydl_m4a, ?ydl_aac" command!\n')
+            await ctx.send('Error: File size is too large? [Max 8MB]\n')
         except:
             await ctx.send('Error: Unknown')
         finally:
@@ -579,7 +607,7 @@ class VoiceChat(commands.Cog):
                 'preferredcodec': 'mp3',
             }]
         }
-        filename = await Youtube.ydl_proc(self, ctx, tx, ytdl_opts)
+        filename = await Youtube.ydl_proc(ctx, tx, ytdl_opts)
         imouto = kawaii_voice_gtts.kawaii_voice(filename)
         imouto = imouto.music_pack1()
         imouto.audio.export(filename, 'mp3')
