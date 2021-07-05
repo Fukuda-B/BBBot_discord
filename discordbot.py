@@ -50,7 +50,7 @@ import ffmpeg
 # import requests #req
 
 
-VERSION='v2.5.9'
+VERSION='v2.5.10'
 
 TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, UP_SERVER,\
@@ -577,6 +577,11 @@ class VoiceChat(commands.Cog):
             self.now.stop()
             self.now = None
         else:
+            try: # try connect url
+                f = urllib.request.urlopen(tx)
+                f.close()
+            except: return False
+
             ytdl_opts = {
                 'format' : 'bestaudio/best',
                 'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
@@ -593,6 +598,11 @@ class VoiceChat(commands.Cog):
     @commands.command(description='play music + kawaii_voice_gtts.music_pack1')
     async def v_music_pack1(self, ctx, tx:str):
         """play music + kawaii_voice_gtts.music_pack1"""
+        try: # try connect url
+            f = urllib.request.urlopen(tx)
+            f.close()
+        except: return False
+
         ytdl_opts = {
             'format' : 'bestaudio/best',
             'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
@@ -873,6 +883,10 @@ class Slash(commands.Cog):
     @cog_ext.cog_slash(name="v_bd")
     async def v_bd(self, ctx):
         await VoiceChat.v_bd(self, ctx)
+
+    @cog_ext.cog_slash(name="v_volume")
+    async def v_volume(self, ctx, volume:str):
+        await VoiceChat.v_volume(self, ctx, volume)
 
 # Botの起動とDiscordサーバーへの接続
 bot.add_cog(Calc(bot))
