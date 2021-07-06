@@ -681,8 +681,10 @@ class VoiceChat(commands.Cog):
         """voice mute"""
         channel = ctx.author.voice.channel
         if str(no).lower() == 'b': # 全員
+            cnt = 0
             for ch in channel.guild.voice_channels:
-                await ch.members[no-1].edit(mute = True)
+                await ch.members[cnt].edit(mute = True)
+                cnt += 1
         else: # 通常のミュート
             try:
                 if int(no) <= 0: return
@@ -696,8 +698,10 @@ class VoiceChat(commands.Cog):
         """voice unmute"""
         channel = ctx.author.voice.channel
         if str(no).lower() == 'b': # 全員
+            cnt = 0
             for ch in channel.guild.voice_channels:
-                await ch.members[no-1].edit(mute = False)
+                await ch.members[cnt].edit(mute = False)
+                cnt += 1
         else: # 通常のアンミュート
             try:
                 if int(no) <= 0: return
@@ -770,18 +774,19 @@ class Timer(commands.Cog):
         self._last_member = None
 
     @commands.command(description='Timer (s)')
-    async def timer(self, ctx, time:int):
+    async def timer(self, ctx, time_set:float):
         """Timer (s)"""
         mention = str(ctx.message.author.mention)
         dest = await ctx.send("Ready!")
-        while time > 0:
-            time -= 1
+        start = time.time()
+        while float(time_set)-float(time.time()-start) > 0:
             await asyncio.sleep(1)
-            await dest.edit(content = f'{mention}'+" | left: "+str(time))
+            left = str('{:.1f}'.format(float(time_set)-float(time.time()-start)))
+            await dest.edit(content = f'{mention}'+" | left: "+left+'s')
         await dest.edit(content = f'{mention}'+" | Time up!")
 
     @commands.command(description='pomodoro set, work(min), break(min)')
-    async def pomodoro(self, ctx, *tset:int):
+    async def pomodoro(self, ctx, *tset:float):
         """
         pomodoro set, work(min), break(min)
         default 25min+5min x 4set
@@ -797,15 +802,16 @@ class Timer(commands.Cog):
         mention = str(ctx.message.author.mention)
         setCnt = setCnt_
         while setCnt > 0:
-            time, time2 = time_, time2_ # reset time
-            while time > 0: # work
-                time -= 5
-                await asyncio.sleep(5)
-                await dest.edit(content = f'{mention}'+" | "+str(setCnt_ - setCnt + 1)+"/"+str(setCnt_)+" work left: "+ str(int(time/60)).zfill(2)+":"+str(int(time%60)).zfill(2))
-            while time2 > 0: # break
-                time2 -= 5
-                await asyncio.sleep(5)
-                await dest.edit(content = f'{mention}'+" | "+str(setCnt_ - setCnt + 1)+"/"+str(setCnt_)+" break left: "+ str(int(time2/60)).zfill(2)+":"+str(int(time2%60)).zfill(2))
+            times, time2 = time_, time2_ # reset time
+            start = time.time()
+            while float(times)-float(time.time()-start) > 0: # work
+                await asyncio.sleep(1)
+                left = int(float(times)-float(time.time()-start))
+                await dest.edit(content = f'{mention}'+" | "+str(setCnt_ - setCnt + 1)+"/"+str(setCnt_)+" work left: "+ str(int(left/60)).zfill(2)+":"+str(int(left%60)).zfill(2))
+            while float(time2)-float(time.time()-start) > 0: # break
+                await asyncio.sleep(1)
+                left = int(float(time2)-float(time.time()-start))
+                await dest.edit(content = f'{mention}'+" | "+str(setCnt_ - setCnt + 1)+"/"+str(setCnt_)+" break left: "+ str(int(left/60)).zfill(2)+":"+str(int(left%60)).zfill(2))
             setCnt -= 1
         await dest.edit(content = f'{mention}'+" Good jobbb!\nRecord: cnt="+str(setCnt_)+", work: "+str(int(time_/60))+"(min) / break: "+str(int(time2_/60))+"(min)")
 
