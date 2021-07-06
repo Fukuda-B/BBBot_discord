@@ -589,6 +589,9 @@ class VoiceChat(commands.Cog):
             self.now = None
 
         elif tx.lower() == 'b':
+            if self.now != None:
+                self.now.stop()
+                self.now = None
             music, sagyou_music = my_music.get_my_music()
 
             brand_n = list(music)[random.randint(0,int(len(music))-1)]
@@ -604,6 +607,10 @@ class VoiceChat(commands.Cog):
                 f = urllib.request.urlopen(tx)
                 f.close()
             except: return False
+
+            if self.now != None:
+                self.now.stop()
+                self.now = None
 
             filename = await Youtube.ydl_proc(self, ctx, tx, ytdl_opts)
             await VoiceChat.voice_send(self, ctx, filename)
