@@ -709,7 +709,8 @@ class VoiceChat(commands.Cog):
                 cnt += 1
         else: # 通常のミュート
             try:
-                if int(no) <= 0: return
+                no = int(no)
+                if no <= 0: return
             except: return
             for ch in channel.guild.voice_channels:
                 if len(ch.members)-1 < no: return
