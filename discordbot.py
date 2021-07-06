@@ -50,7 +50,7 @@ import ffmpeg
 # import requests #req
 
 
-VERSION='v2.5.11'
+VERSION='v2.5.12'
 
 TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, UP_SERVER,\
@@ -780,9 +780,9 @@ class Timer(commands.Cog):
         dest = await ctx.send("Ready!")
         start = time.time()
         while float(time_set)-float(time.time()-start) > 0:
-            await asyncio.sleep(1)
             left = str('{:.1f}'.format(float(time_set)-float(time.time()-start)))
             await dest.edit(content = f'{mention}'+" | left: "+left+'s')
+            await asyncio.sleep(1)
         await dest.edit(content = f'{mention}'+" | Time up!")
 
     @commands.command(description='pomodoro set, work(min), break(min)')
@@ -805,13 +805,13 @@ class Timer(commands.Cog):
             times, time2 = time_, time2_ # reset time
             start = time.time()
             while float(times)-float(time.time()-start) > 0: # work
-                await asyncio.sleep(1)
                 left = int(float(times)-float(time.time()-start))
                 await dest.edit(content = f'{mention}'+" | "+str(setCnt_ - setCnt + 1)+"/"+str(setCnt_)+" work left: "+ str(int(left/60)).zfill(2)+":"+str(int(left%60)).zfill(2))
-            while float(time2)-float(time.time()-start) > 0: # break
                 await asyncio.sleep(1)
+            while float(time2)-float(time.time()-start) > 0: # break
                 left = int(float(time2)-float(time.time()-start))
                 await dest.edit(content = f'{mention}'+" | "+str(setCnt_ - setCnt + 1)+"/"+str(setCnt_)+" break left: "+ str(int(left/60)).zfill(2)+":"+str(int(left%60)).zfill(2))
+                await asyncio.sleep(1)
             setCnt -= 1
         await dest.edit(content = f'{mention}'+" Good jobbb!\nRecord: cnt="+str(setCnt_)+", work: "+str(int(time_/60))+"(min) / break: "+str(int(time2_/60))+"(min)")
 
