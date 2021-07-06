@@ -12,6 +12,7 @@ from __future__ import unicode_literals
 
 # ---- my module ----
 import my_key # get my api keys
+import my_music
 import brainfuck # my brainfuck interpreter
 import htr # get hattori
 import htr_end
@@ -50,7 +51,7 @@ import ffmpeg
 # import requests #req
 
 
-VERSION='v2.5.12'
+VERSION='v2.5.13'
 
 TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, UP_SERVER,\
@@ -572,26 +573,38 @@ class VoiceChat(commands.Cog):
 
     @commands.command(description='play music')
     async def v_music(self, ctx, tx:str):
-        """play music"""
+        """play music. (b = random)"""
+        ytdl_opts = {
+            'format' : 'bestaudio/best',
+            'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
+            'restrictfilenames': True,
+            'noplaylist': True,
+            'nocheckcertificate': True,
+            'no_warnings': True,
+            'default_search': 'auto',
+            'source_address': '0.0.0.0'
+        }
         if tx.lower() == 'stop' and self.now != None:
             self.now.stop()
             self.now = None
+
+        elif tx.lower() == 'b':
+            music, sagyou_music = my_music.get_my_music()
+
+            brand_n = list(music)[random.randint(0,int(len(music))-1)]
+            brand = music[brand_n]
+            mm = brand[random.randint(0,int(len(brand))-1)]
+
+            filename = await Youtube.ydl_proc(self, ctx, mm['url'], ytdl_opts)
+            await ctx.send(f'`{brand_n}` - `{mm["title"]}`')
+            await VoiceChat.voice_send(self, ctx, filename)
+
         else:
             try: # try connect url
                 f = urllib.request.urlopen(tx)
                 f.close()
             except: return False
 
-            ytdl_opts = {
-                'format' : 'bestaudio/best',
-                'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
-                'restrictfilenames': True,
-                'noplaylist': True,
-                'nocheckcertificate': True,
-                'no_warnings': True,
-                'default_search': 'auto',
-                'source_address': '0.0.0.0'
-            }
             filename = await Youtube.ydl_proc(self, ctx, tx, ytdl_opts)
             await VoiceChat.voice_send(self, ctx, filename)
 
@@ -617,6 +630,8 @@ class VoiceChat(commands.Cog):
                 'preferredcodec': 'mp3',
             }]
         }
+        self.now.stop()
+        self.now = None
         filename = await Youtube.ydl_proc(self, ctx, tx, ytdl_opts)
         imouto = kawaii_voice_gtts.kawaii_voice(filename)
         imouto = imouto.music_pack1()
@@ -678,7 +693,7 @@ class VoiceChat(commands.Cog):
 
     @commands.command(description='voice mute')
     async def v_mute(self, ctx, no):
-        """voice mute"""
+        """voice mute. (b = all)"""
         channel = ctx.author.voice.channel
         if str(no).lower() == 'b': # 全員
             cnt = 0
@@ -695,7 +710,7 @@ class VoiceChat(commands.Cog):
 
     @commands.command(description='voice unmute')
     async def v_unmute(self, ctx, no):
-        """voice unmute"""
+        """voice unmute. (b = all)"""
         channel = ctx.author.voice.channel
         if str(no).lower() == 'b': # 全員
             cnt = 0
