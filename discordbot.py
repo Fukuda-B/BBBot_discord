@@ -50,7 +50,7 @@ import ffmpeg
 # import requests #req
 
 
-VERSION='v2.5.10'
+VERSION='v2.5.11'
 
 TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, UP_SERVER,\
@@ -680,27 +680,31 @@ class VoiceChat(commands.Cog):
     async def v_mute(self, ctx, no):
         """voice mute"""
         channel = ctx.author.voice.channel
-        try:
-            no = int(no)
-            if no <= 0: return
-        except: return
-
-        for ch in channel.guild.voice_channels:
-            if len(ch.members)-1 < no: return
-            await ch.members[no-1].edit(mute = True)
+        if str(no).lower() == 'b': # 全員
+            for ch in channel.guild.voice_channels:
+                await ch.members[no-1].edit(mute = True)
+        else: # 通常のミュート
+            try:
+                if int(no) <= 0: return
+            except: return
+            for ch in channel.guild.voice_channels:
+                if len(ch.members)-1 < no: return
+                await ch.members[no-1].edit(mute = True)
 
     @commands.command(description='voice unmute')
     async def v_unmute(self, ctx, no):
         """voice unmute"""
         channel = ctx.author.voice.channel
-        try:
-            no = int(no)
-            if no <= 0: return
-        except: return
-
-        for ch in channel.guild.voice_channels:
-            if len(ch.members)-1 < no: return
-            await ch.members[no-1].edit(mute = False)
+        if str(no).lower() == 'b': # 全員
+            for ch in channel.guild.voice_channels:
+                await ch.members[no-1].edit(mute = False)
+        else: # 通常のアンミュート
+            try:
+                if int(no) <= 0: return
+            except: return
+            for ch in channel.guild.voice_channels:
+                if len(ch.members)-1 < no: return
+                await ch.members[no-1].edit(mute = False)
 
     @commands.command(description='Discord_VoiceChat ALL D')
     async def v_bd(self, ctx):
