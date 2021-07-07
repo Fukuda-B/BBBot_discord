@@ -211,7 +211,7 @@ def get_my_music():
             {"title":"knot～絆の魔法～ ED", "url":"https://www.youtube.com/watch?v=38IfmepP5k0"},
         ],
         "Lump of Sugar":[
-            # https://www.youtube.com/user/lumpofsugaroffcial/videos
+            # https://www.youtube.com/user/lumpofsugaroffcial
             #
             # ----- Lump of Sugar -----
             #
@@ -250,7 +250,204 @@ def get_my_music():
             {"title":"サノバウィッチ OP", "url":"https://www.youtube.com/watch?v=W7ARsYs-Gq0"},
             {"title":"RIDDLE JOKER OP", "url":"https://www.youtube.com/watch?v=0EJ7HvJYe1M"},
             {"title":"喫茶ステラと死神の蝶 OP", "url":"https://www.youtube.com/watch?v=M-yz3abHY3o"},
-        ]
+        ],
+        "Laplacian":[
+            # https://www.youtube.com/channel/UCJfztRTXdvhBDjfA8Zv1CEQ
+            #
+            # ----- Laplacian -----
+            #
+            {"title":"キミトユメミシ", "url":"https://www.youtube.com/watch?v=uzVMLDRYRJY"},
+            {"title":"ニュートンと林檎の樹", "url":"https://www.youtube.com/watch?v=5My3PEvHhI4"},
+            {"title":"白昼夢の青写真 CASE-0 OP", "url":"https://www.youtube.com/watch?v=fov1aJ3lc3E"},
+        ],
+        "HOOK SOFT":[
+            # https://www.youtube.com/channel/UCSzkgp26xJ5tC3hkvh93q7A
+            #
+            # ----- HOOK SOFT -----
+            #
+            {"title":"さくらビットマップ OP", "url":"https://www.youtube.com/watch?v=ZXlt9MK5p-4"},
+            {"title":"さくらビットマップ MV2", "url":"https://www.youtube.com/watch?v=6ZAjLENl7eE"},
+            {"title":"ラブラブル OP", "url":"https://www.youtube.com/watch?v=IYfxsavETRc"},
+            {"title":"SuGirly Wish OP", "url":"https://www.youtube.com/watch?v=9M6rTpmkRv4"},
+            {"title":"Strawberry Nauts OP", "url":"https://www.youtube.com/watch?v=6TK1VdcptJs"},
+            {"title":"同棲ラブラブル OP", "url":"https://www.youtube.com/watch?v=TstuEaGQkSM"},
+            {"title":"LOVELY QUEST OP", "url":"https://www.youtube.com/watch?v=6JQd_Xczkec"},
+            {"title":"ピュア×コネクト OP", "url":"https://www.youtube.com/watch?v=oiMk32k40CY"},
+            {"title":"トラベリングスターズ OP", "url":"https://www.youtube.com/watch?v=0J4NM0ST2TU"},
+            {"title":"カノジョ＊ステップ OP", "url":"https://www.youtube.com/watch?v=YzW8OCXiS6U"},
+            {"title":"Amenity's Life OP", "url":"https://www.youtube.com/watch?v=rgElTXAdlNc"},
+            {"title":"Making*Lovers OP", "url":"https://www.youtube.com/watch?v=4705SQQFR5U"},
+            {"title":"IxSHE Tell OP", "url":"https://www.youtube.com/watch?v=_8cAzY7xjxE"},
+            {"title":"かりぐらし恋愛 OP", "url":"https://www.youtube.com/watch?v=zdspD1pbTmY"},
+            {"title":"Sugar*Style OP", "url":"https://www.youtube.com/watch?v=Tx-8WmSV2Ko"},
+            {"title":"Eスクールライフ OP", "url":"https://www.youtube.com/watch?v=SvdTuEeN5Co"},
+            {"title":"恋愛、借りちゃいました OP", "url":"https://www.youtube.com/watch?v=xkzfrlZSO3s"},
+            {"title":"どっちのiが好きですか？ OP", "url":"https://www.youtube.com/watch?v=ocNyy3U0-8I"},
+            {"title":"HaremKingdom OP", "url":"https://www.youtube.com/watch?v=ZWHw263bkL4"},
+            {"title":"放課後シンデレラ OP", "url":"https://www.youtube.com/watch?v=_UaHvUvYP-I"},
+            {"title":"HoneyComing OP", "url":"https://www.youtube.com/watch?v=WZxrTgRPpd8"},
+            {"title":"@HoneyComing RoyalSweet OP", "url":"https://www.youtube.com/watch?v=kyQHfjzNMNQ"},
+            {"title":"FairlyLife", "url":"https://www.youtube.com/watch?v=PDsgVTT6PJo"},
+            {"title":"恋愛×ロワイアル OP", "url":"https://www.youtube.com/watch?v=rYUlY05gRII"},
+            {"title":"ゆびさきコネクション OP", "url":"https://www.youtube.com/watch?v=vvMWcYz_1tk"},
+            {"title":"Making*Lovers OP FHD", "url":"https://www.youtube.com/watch?v=AEaAHBzpI6k"},
+            {"title":"ハジラブ -Making*Lovers- OP", "url":"https://www.youtube.com/watch?v=mUGKuLvHCiE"},
+            {"title":"ハジラブ -Making*Lovers- OP", "url":"https://www.youtube.com/watch?v=P6iaZSEcqCU"},
+        ],
+        "FAVORITE":[
+            # https://www.youtube.com/channel/UC4hZsj494Gkf72PCJJ8DUzA
+            #
+            # ----- FAVORITE -----
+            #
+            {"title":"アストラエアの白き永遠", "url":"https://www.youtube.com/watch?v=5l8w6dBvmVA"},
+            {"title":"紅い瞳に映るセカイ OP", "url":"https://www.youtube.com/watch?v=p92mJG9B1js"},
+            {"title":"紅い瞳に映るセカイ OP v1.01", "url":"https://www.youtube.com/watch?v=BPaEa0E4guk"},
+            {"title":"アストラエアの白き永遠 Finale -白き星の夢- OP", "url":"https://www.youtube.com/watch?v=1gJuQD8n_Vk"},
+            {"title":"いろとりどりのセカイ ワールズエンド・トリロジーＢＯＸ PV セカイ編", "url":"https://www.youtube.com/watch?v=MMutOkhoWNo"},
+            {"title":"いろとりどりのセカイ ワールズエンド・トリロジーＢＯＸ PV ヒカリ編", "url":"https://www.youtube.com/watch?v=6A6RR-ie2UE"},
+            {"title":"いろとりどりのセカイ ワールズエンド・トリロジーＢＯＸ PV 紅い瞳編", "url":"https://www.youtube.com/watch?v=3-dYpzdk2Mk"},
+            {"title":"さくら、もゆ。-as the Night's, Reincarnation- OP", "url":"https://www.youtube.com/watch?v=A1dz7xQHrlo"},
+            {"title":"星空のメモリア -Wish upon a shooting star- OP", "url":"https://www.youtube.com/watch?v=lw4aET29N1Q"},
+            {"title":"星空のメモリア Eternal Heart OP", "url":"https://www.youtube.com/watch?v=BontkD8ADq0"},
+            {"title":"ハッピーライヴ ショウアップ！ OP", "url":"https://www.youtube.com/watch?v=4XZAnoMqLFQ"},
+        ],
+        "sprite":[
+            # https://www.youtube.com/user/fairysmovie
+            #
+            # ----- sprite -----
+            #
+            {"title":"いますぐお兄ちゃんに妹だっていいたい！グランドOP", "url":"https://www.youtube.com/watch?v=VshGzEEX2GI"},
+            {"title":"蒼の彼方のフォーリズム 2ndOP", "url":"https://www.youtube.com/watch?v=tJ-6-ygxehM&t=1s"},
+            {"title":"蒼の彼方のフォーリズム PS VITA版 OP", "url":"https://www.youtube.com/watch?v=EsfRdBQ7Do4"},
+            {"title":"蒼の彼方のフォーリズム PS VITA 2nd OP", "url":"https://www.youtube.com/watch?v=nr9mu4c_bkU"},
+            {"title":"蒼の彼方のフォーリズム PS VITA版 グランドOP", "url":"https://www.youtube.com/watch?v=miocQ5Gi-54"},
+            {"title":"蒼の彼方のフォーリズム PS4 グランド OP", "url":"https://www.youtube.com/watch?v=xr8_wQK3-qE"},
+            {"title":"蒼の彼方のフォーリズム PS4 OP", "url":"https://www.youtube.com/watch?v=O7K1G2vV8MA"},
+            {"title":"蒼の彼方のフォーリズム EXTRA1 OP", "url":"https://www.youtube.com/watch?v=1hLZ-CxNQb4"},
+            {"title":"蒼の彼方のフォーリズム for Nintendo Switch", "url":"https://www.youtube.com/watch?v=d3LdpWI712k&t=7s"},
+            {"title":"恋と選挙とチョコレート OP", "url":"https://www.youtube.com/watch?v=zgYDdQgh9Ms"},
+            {"title":"蒼の彼方のフォーリズム 挿入歌 - INFINITE SKY", "url":"https://www.youtube.com/watch?v=-WO1UuEq3QY"},
+            {"title":"蒼の彼方のフォーリズム High Resolution", "url":"https://www.youtube.com/watch?v=aDwOJb9p2lg"},
+            {"title":"恋と選挙とチョコレート High Resolution", "url":"https://www.youtube.com/watch?v=e-rKk_uDOTU"},
+            {"title":"蒼の彼方のフォーリズム EXTRA2 主題歌", "url":"https://www.youtube.com/watch?v=nSVMrYAThHg"},
+
+            # 非公式
+            {"title":"Believe in the Sky", "url":"https://www.youtube.com/watch?v=ykhIMEEEvCM"},
+        ],
+        "CANVAS+GARDEN":[
+            # https://www.youtube.com/channel/UCdbSf42LH2m_gp9VrINa8Xw
+            #
+            # ----- CANVAS+GARDEN -----
+            #
+            {"title":"恋ニ、甘味ヲソエテ OP", "url":"https://www.youtube.com/watch?v=P0UnHr62bkE"},
+            {"title":"恋ニ、甘味ヲソエテ２ OP", "url":"https://www.youtube.com/watch?v=LCaxZZWaVeg"},
+        ],
+            # https://www.youtube.com/user/AmuseCraft001
+            #
+            # ----- AMUSE CRAFT -----
+            #
+        "AMUSE CRAFT - Harts":[
+            {"title":"恋咲く都に愛の約束を ～Annaffiare～ OP", "url":"https://www.youtube.com/watch?v=8hqYySQznw8"},
+            {"title":"恋するココロと魔法のコトバ OP", "url":"https://www.youtube.com/watch?v=0XkyE8Sk9Jk"},
+            {"title":"ナツイロココロログ OP", "url":"https://www.youtube.com/watch?v=OIRauNfxTF4"},
+            {"title":"ナツイロココロログHappySummer OP", "url":"https://www.youtube.com/watch?v=37GX-yOvHjk"},
+            {"title":"恋するココロと魔法のコトバ OP ver2", "url":"https://www.youtube.com/watch?v=KSj_0xSZfnI"},
+        ],
+        "AMUSE CRAFT - Qoobrand":[
+            {"title":"魔女こいにっき OP", "url":"https://www.youtube.com/watch?v=LRP6paRRSco"},
+        ],
+        "AMUSE CRAFT - Us:track":[
+            {"title":"恋×シンアイ彼女 OP", "url":"https://www.youtube.com/watch?v=AdPtQZNzBRY"},
+        ],
+        "AMUSE CRAFT - ユニゾンシフト":[
+            {"title":"時計仕掛けのレイライン －朝霧に散る花－ PV", "url":"https://www.youtube.com/watch?v=wU3Bc8yMlyE"},
+            {"title":"あなたに恋する恋愛ルセット", "url":"https://www.youtube.com/watch?v=xHiA2Gebjxc"},
+        ],
+        "AMUSE CRAFT - CRYSTALiA":[
+            {"title":"絆きらめく恋いろは OP", "url":"https://www.youtube.com/watch?v=WmpyzZYsW_Y"},
+            {"title":"絆きらめく恋いろは-椿恋歌- OP", "url":"https://www.youtube.com/watch?v=1xwCFcC4Oi4"},
+            {"title":"白刃きらめく恋しらべ", "url":"https://www.youtube.com/watch?v=m4NN_Xs4BUU"},
+            {"title":"紅月ゆれる恋あかり", "url":"https://www.youtube.com/watch?v=5wYva2gAgF8"},
+        ],
+        "Nana Wind":[
+            # https://www.youtube.com/user/nanawindchannel
+            #
+            # ----- Nana Wind -----
+            #
+            {"title":"ALIA's CARNIVAL! OP", "url":"https://www.youtube.com/watch?v=tlZZi4XX0aY"},
+            {"title":"ALIA's CARNIVAL! フラワリングスカイ OP", "url":"https://www.youtube.com/watch?v=w3dAx_ao8U0"},
+            {"title":"春音アリス＊グラム OP", "url":"https://www.youtube.com/watch?v=RRyhgyX6LsI"},
+            {"title":"白恋サクラ＊グラム OP", "url":"https://www.youtube.com/watch?v=78OT2IKmpfE"},
+        ],
+        "みらーじゅそふと":[
+            # https://www.youtube.com/channel/UC_pZucDbqMVwoKm-bb9cVtQ
+            #
+            # ----- みらーじゅそふと -----
+            #
+            {"title":"君とつながる恋フラグ OP", "url":"https://www.youtube.com/watch?v=u5DI7T-PGxg"},
+
+            # 非公式
+            {"title":"君とつながる恋フラグ ED", "url":"https://www.youtube.com/watch?v=PgFk3Y3XnCw"},
+        ],
+        "きゃべつそふと":[
+            # https://www.youtube.com/channel/UC4xzLeGojK-zTYQ8xjQFoSQ
+            #
+            # ----- きゃべつそふと -----
+            #
+            {"title":"アメイジング・グレイス OP", "url":"https://www.youtube.com/watch?v=nl_fBSYY8e8"},
+            {"title":"あまいろショコラータ OP", "url":"https://www.youtube.com/watch?v=jVXvAeulJzM"},
+            {"title":"さくらの雲＊スカアレットの恋 OP", "url":"https://www.youtube.com/watch?v=ze7LofS9bC0"},
+            {"title":"あまいろショコラータ２ OP", "url":"https://www.youtube.com/watch?v=pBh5DyzMqjo"},
+        ],
+        "CLEARRAVE - ぱれっと":[
+            # https://www.youtube.com/channel/UCyU9cOKPWJTrOyLooTfDlJw
+            #
+            # ----- CLEARRAVE -----
+            #
+        ],
+        "CLEARRAVE - キャラメリア":[
+            # 非公式
+            {"title":"Riddle Garden", "url":"https://www.youtube.com/watch?v=MUg6K0DVltw"},
+        ],
+        "CLEARRAVE - スミレ":[
+            # https://www.youtube.com/channel/UCd5muxYsq_btfi7fK2RSizQ
+            #
+            # ----- スミレ -----
+            #
+            {"title":"僕と恋するポンコツアクマ。 OP", "url":"https://www.youtube.com/watch?v=Q3YsIWqr_1c"},
+            {"title":"僕と恋するポンコツアクマ。 PV", "url":"https://www.youtube.com/watch?v=RHfR64y6QK4"},
+            {"title":"僕と恋するポンコツアクマ。すっごいえっち！ OP", "url":"https://www.youtube.com/watch?v=2lCCo7FJWJk"},
+            {"title":"ラヴレッシブ PV", "url":"https://www.youtube.com/watch?v=JrcujVY88EA"},
+            {"title":"夏恋ハイプレッシャー PV", "url":"https://www.youtube.com/watch?v=4cts2x3BH0U"},
+            {"title":"日向千尋は仕事が続かない PV", "url":"https://www.youtube.com/watch?v=e_S-sps7ygY"},
+        ],
+        "Soiree (スミレ)":[
+            {"title":"サルテ", "url":"https://www.youtube.com/watch?v=GZ8X_TLxmtg"},
+        ],
+        "CLEARRAVE - ぱれっとクオリア":[
+            {"title":"オトメ＊ドメイン OP", "url":"https://www.youtube.com/watch?v=piSLPUjwPdQ"},
+        ],
+        "CLEARRAVE - SEET&TEA":[
+            {"title":"枯れない世界と終わる花 PV", "url":"https://www.youtube.com/watch?v=ZRk1eMfqN6o"},
+            {"title":"ケモノ娘の育て方", "url":"https://www.youtube.com/watch?v=Mcm5LtnkQjc"},
+            {"title":"ネコ神さまと、ななつぼし -妹の姉- OP", "url":"https://www.youtube.com/watch?v=Et73b94z04o"},
+        ],
+        "CLEARRAVE - バグシステム":[
+            {"title":"死に逝く君、館に芽吹く憎悪 OP", "url":"https://www.youtube.com/watch?v=j3xSZFb1xpA"},
+            {"title":"真愛の百合は赤く染まる OP", "url":"https://www.youtube.com/watch?v=hbXFc6Fi9UQ"},
+        ],
+        "CLEARRAVE - 娘娘":[
+            # 非公式
+            {"title":"エロ漫画家さんと貧乏姉妹", "url":"https://www.youtube.com/watch?v=5as9dROC-30"},
+            {"title":"JKトラブめいん”s", "url":"https://www.youtube.com/watch?v=FbK9wURLVLM"},
+            {"title":"おさこい ～俺と二人の甘々ご奉仕H生活～ OP", "url":"https://www.youtube.com/watch?v=ZYph0Q67eeg"},
+        ],
+        "CLEARRAVE - Recette":[
+            {"title":"しゅがてん！-sugarfull tempering-", "url":"https://www.youtube.com/watch?v=xiWzxK6W0Uc"},
+        ],
+        "CLEARRAVE":[
+            {"title":"ぼくらの放課後戦争！ PV", "url":"https://www.youtube.com/watch?v=SLTSWZ-HsZA"},
+        ],
     }
 
     # 作業用
@@ -264,10 +461,6 @@ def get_my_music():
         # https://www.youtube.com/channel/UCCaZwRx_HS61ZiNUrBdmDoA
     ]
     
-    hooksoft = [
-        # https://www.youtube.com/channel/UCSzkgp26xJ5tC3hkvh93q7A
-    ]
-    
     giga = [
     ]
     
@@ -277,19 +470,10 @@ def get_my_music():
     Purple_software = [
     ]
     
-    FAVORITE = [
-    ]
-
-    splite = [
-    ]
-    
     tyuaburu_soft = [
     ]
     
     silkysplus = [
-    ]
-    
-    unisonshift = [
     ]
     
     Lose = [
@@ -307,19 +491,7 @@ def get_my_music():
     HARUKAZE = [
     ]
 
-    NanaWind = [
-    ]
-
     Campus = [
-    ]
-
-    Recette = [
-    ]
-
-    Hearts = [
-    ]
-    
-    cabbage_soft = [
     ]
 
     Key = [
@@ -344,9 +516,6 @@ def get_my_music():
     ]
 
     Escu_de = [
-    ]
-    
-    CANVAS_GARDEN = [
     ]
     
     Iris = [
