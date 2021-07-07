@@ -160,6 +160,96 @@ def get_my_music():
             {"title":"プリンセス小夜曲 OP ー Power Of Love", "url":"https://www.youtube.com/watch?v=1R4TmTK0vdM"},
             {"title":"巫女さん細腕繁盛記えくすとら OP", "url":"https://www.youtube.com/watch?v=lGXhqJnxd58"},
             {"title":"巫女さん細腕繁盛記2ndオープニング", "url":"https://www.youtube.com/watch?v=Q7IqPcs_oZM"},
+        ],
+        "SAGA PLANETS":[
+            # https://www.youtube.com/channel/UCGa7d329t5btw2GMO53xH9Q
+            #
+            # ----- SAGA PLANETS -----
+            #
+            {"title":"Coming×Humming!! OP", "url":"https://www.youtube.com/watch?v=BMu8czT7aN4"},
+            {"title":"ナツユメナギサ OP", "url":"https://www.youtube.com/watch?v=RZQhrywN7vs"},
+            {"title":"キサラギGOLD★STAR OP", "url":"https://www.youtube.com/watch?v=p0o_CxJjqv8"},
+            {"title":"はつゆきさくら OP", "url":"https://www.youtube.com/watch?v=t0EF64SW3bs"},
+            {"title":"カルマルカ＊サークル OP", "url":"https://www.youtube.com/watch?v=Ue93xxDXrK4"},
+            {"title":"カルマルカ＊サークル グランドOP", "url":"https://www.youtube.com/watch?v=7tvOqzdx4CU"},
+            {"title":"花咲ワークスプリング！ OP", "url":"https://www.youtube.com/watch?v=j-a-p5VoO7k"},
+            {"title":"フローラル・フローラブ OP", "url":"https://www.youtube.com/watch?v=V97cU9McaGE"},
+            {"title":"金色ラブリッチェ OP", "url":"https://www.youtube.com/watch?v=PM2rmGhn3OQ"},
+            {"title":"金色ラブリッチェ OP カラオケ", "url":"https://www.youtube.com/watch?v=1NJPH1oNfDs"},
+            {"title":"金色ラブリッチェ - Golden Time - OP", "url":"https://www.youtube.com/watch?v=fVvehF-siD4"},
+            {"title":"金色ラブリッチェ - Golden Time - OP カラオケ", "url":"https://www.youtube.com/watch?v=KyS2EsNjy7U"},
+            {"title":"かけぬけ★青春スパーキング！ OP", "url":"https://www.youtube.com/watch?v=pC91EvljiZE"},
+        ],
+        "feng":[
+            # https://www.youtube.com/channel/UCSBs7c2hzWDbsfqnZNZVqqw
+            #
+            # ----- feng -----
+            #
+            {"title":"夢と色でできている OP", "url":"https://www.youtube.com/watch?v=K8vDUk6qh9U"},
+            {"title":"これくらいで short ver./夢と色でできている ED", "url":"https://www.youtube.com/watch?v=BWhjJRUs8Og"},
+
+            # 非公式
+            {"title":"ずっと前から女子でした OP", "url":"https://www.youtube.com/watch?v=srsOBEMiMBw"},
+            {"title":"学校のセイイキ OP", "url":"https://www.youtube.com/watch?v=H3vCb1FGCAY"},
+            {"title":"学校のセイイキ ED", "url":"https://www.youtube.com/watch?v=fT8uZeG8UUk"},
+            {"title":"妹のセイイキ OP", "url":"https://www.youtube.com/watch?v=TxVgKp47t8w"},
+            {"title":"妹のセイイキ ED", "url":"https://www.youtube.com/watch?v=BHx3tANYyTw"},
+            {"title":"彼女のセイイキ OP", "url":"https://www.youtube.com/watch?v=iArD4Lu2Q70"},
+            {"title":"夜明けのベルが鳴る", "url":"https://www.youtube.com/watch?v=4_9OIQAe8Xw"},
+            {"title":"ちいさな彼女の小夜曲 OP", "url":"https://www.youtube.com/watch?v=OrTrS3fDNOI"},
+            {"title":"ちいさな彼女の小夜曲 ED", "url":"https://www.youtube.com/watch?v=Ng_fZau-olQ"},
+            {"title":"星空へ架かる橋AA 主題歌", "url":"https://www.youtube.com/watch?v=_qZWf7CuDag"},
+            {"title":"星空へ架かる橋AA ED", "url":"https://www.youtube.com/watch?v=9p2og9XiVr8"},
+            {"title":"星空へ架かる橋 OP", "url":"https://www.youtube.com/watch?v=1S6MWSS7XcU"},
+            {"title":"あかね色に染まる坂 OP", "url":"https://www.youtube.com/watch?v=txIi3w6m-HM"},
+            {"title":"青空の見える丘", "url":"https://www.youtube.com/watch?v=451pQv8ZbqM"},
+            {"title":"魔法少女Twin☆kle OP", "url":"https://www.youtube.com/watch?v=rCdoNBqJ1Vg"},
+            {"title":"魔法少女Twin☆kle ED1", "url":"https://www.youtube.com/watch?v=vOb90pcUg14"},
+            {"title":"魔法少女Twin☆kle ED2", "url":"https://www.youtube.com/watch?v=KBPyB8Mj4PA"},
+            {"title":"White Princess the second - OP", "url":"https://www.youtube.com/watch?v=DekadnYsQTU"},
+            {"title":"knot～絆の魔法～ OP", "url":"https://www.youtube.com/watch?v=M3Lnjc__xaU"},
+            {"title":"knot～絆の魔法～ ED", "url":"https://www.youtube.com/watch?v=38IfmepP5k0"},
+        ],
+        "Lump of Sugar":[
+            # https://www.youtube.com/user/lumpofsugaroffcial/videos
+            #
+            # ----- Lump of Sugar -----
+            #
+            {"title":"PrismRhythm -プリズムリズム- OP", "url":"https://www.youtube.com/watch?v=j-1EPGWGv7c"},
+            {"title":"ダイヤミック・デイズ OP", "url":"https://www.youtube.com/watch?v=g8csPR0Tp_c"},
+            {"title":"学☆王- THE ROYAL SEVEN STARS -", "url":"https://www.youtube.com/watch?v=GlMRYGVrvTs"},
+            {"title":"花色ヘプタグラム OP", "url":"https://www.youtube.com/watch?v=HA_GqFKcZrk"},
+            {"title":"Magical Charming! OP", "url":"https://www.youtube.com/watch?v=C9TeN_vO1QQ"},
+            {"title":"世界と世界の真ん中で OP", "url":"https://www.youtube.com/watch?v=U0TuTPJ5Gso"},
+            {"title":"運命線上のφ", "url":"https://www.youtube.com/watch?v=m68-7bqQsrQ"},
+            {"title":"コドモノアソビ", "url":"https://www.youtube.com/watch?v=1hoLZPCOUGU"},
+            {"title":"タユタマ２ -you're the only one- OP", "url":"https://www.youtube.com/watch?v=UVz8rSX8LE0"},
+            {"title":"タユタマ２-After Stories-", "url":"https://www.youtube.com/watch?v=UdFr_ewco9k"},
+            {"title":"タユタマ -It’s happy days- OP", "url":"https://www.youtube.com/watch?v=kLcL4w78EPY"},
+            {"title":"タユタマ -kiss on my deity-　ダブルOP", "url":"https://www.youtube.com/watch?v=8opwf-oqaEw"},
+            {"title":"縁りて此の葉は紅に", "url":"https://www.youtube.com/watch?v=xiNNeoWajvk"},
+            {"title":"若葉色のカルテット", "url":"https://www.youtube.com/watch?v=NYwVPYM6Pr4"},
+            {"title":"あにぱにビーム", "url":"https://www.youtube.com/watch?v=OIT5fzaZZfU"}, # 曲ではないけど
+            {"title":"あにまる☆ぱにっく OP", "url":"https://www.youtube.com/watch?v=S4hsRzzXcQM"},
+            {"title":"ねこツク、さくら。 OP", "url":"https://www.youtube.com/watch?v=jNg5qSNO5-A"},
+            {"title":"まどひ白きの神隠し", "url":"https://www.youtube.com/watch?v=qsIR1DXfqsQ"},
+        ],
+        "ゆずソフト":[
+            # https://www.youtube.com/user/yuzusoft2007
+            #
+            # ----- ゆずソフト -----
+            #
+            {"title":"Ｅ×Ｅ OP", "url":"https://www.youtube.com/watch?v=b8pfqxibR1w"},
+            {"title":"夏空カナタ OP", "url":"https://www.youtube.com/watch?v=rJyOeG9d3m0"},
+            {"title":"ゆずソフト天神乱漫 OP", "url":"https://www.youtube.com/watch?v=Pqisib2bAb8"},
+            {"title":"のーぶる☆わーくす OP", "url":"https://www.youtube.com/watch?v=IaDuvpXL6w0"},
+            {"title":"ぶらばん！ OP", "url":"https://www.youtube.com/watch?v=_Y7_mpi930Q"},
+            {"title":"DRACU-RIOT! OP", "url":"https://www.youtube.com/watch?v=aAsPEEOTbgQ"},
+            {"title":"天色＊アイルノーツ OP", "url":"https://www.youtube.com/watch?v=kHrNOxcT1lc"},
+            {"title":"千恋＊万花 OP", "url":"https://www.youtube.com/watch?v=IazpFBFRvl8"},
+            {"title":"サノバウィッチ OP", "url":"https://www.youtube.com/watch?v=W7ARsYs-Gq0"},
+            {"title":"RIDDLE JOKER OP", "url":"https://www.youtube.com/watch?v=0EJ7HvJYe1M"},
+            {"title":"喫茶ステラと死神の蝶 OP", "url":"https://www.youtube.com/watch?v=M-yz3abHY3o"},
         ]
     }
 
@@ -168,18 +258,6 @@ def get_my_music():
 
     akabei3 = [
         # https://www.youtube.com/channel/UC-nhyMMGNXQQsXrdtDx3mSg
-    ]
-    
-    SAGA_PLANETS = [
-        # https://www.youtube.com/channel/UCGa7d329t5btw2GMO53xH9Q
-    ]
-    
-    feng = [
-        # https://www.youtube.com/channel/UCSBs7c2hzWDbsfqnZNZVqqw
-    ]
-    
-    yuzusoft = [
-        # https://www.youtube.com/channel/UCOzWD4b_-q77XTaSl89OukA
     ]
 
     Frontwing = [
@@ -245,9 +323,6 @@ def get_my_music():
     ]
 
     Key = [
-    ]
-
-    Lump_of_Sugar = [
     ]
 
     Whirlpool = [
