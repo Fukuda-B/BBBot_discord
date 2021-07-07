@@ -2,6 +2,9 @@
 # 全年齢, E12, E15, 18禁のゲームがあるので、公式サイトを閲覧するときは注意
 # 数が多いため、内部で異なるブランドの場合も同じブランドとする場合がある
 # 非公式の場合は、コメントを書くこと
+#
+# 同会社でも別ブランドがある場合や、さらにそのサブブランドという位置付けのものもあるので難しい。姉妹ブランドやグループブランドなども。
+# 2021/07頃 更新
 
 def get_my_music():
     # 通常
@@ -9,7 +12,7 @@ def get_my_music():
         "ALcot":[
             # https://www.youtube.com/channel/UCeGV6IHoiLkI4wu0kAVUV6Q
             #
-            # ----- ALcot 期間限定 -----
+            # ----- ALcot | http://www.alcot.biz/main.html -----
             #
             {"title":'ENGAGE LINKS OP カラオケ', "url":"https://youtu.be/ebJbi-UBnoE"},
             {"title":'ロケットラブパニック！ (幼なじみは大統領 OP) カラオケ', "url":"https://youtu.be/UCSM97CEfao"},
@@ -26,7 +29,7 @@ def get_my_music():
             # https://www.youtube.com/channel/UCt9Qug-aPqqUNJWT3-NPRhQ
             # https://www.youtube.com/watch?v=cQFaixKNqOs&list=PLDnvvZ5_rC5_tMJDViwfQQLmMEz5Mhr8H
             #
-            # ----- mirai -----
+            # ----- mirai | http://www.mirai-soft.net/index.php -----
             #
             {"title":'宿星のガールフレンドALLSTAR OP', "url":"https://youtu.be/cQFaixKNqOs"},
             {"title":'宿星のガールフレンド3 OP', "url":"https://youtu.be/TxdBZvX9nLU"},
@@ -37,7 +40,7 @@ def get_my_music():
         "CIRCUS":[
             # https://www.youtube.com/channel/UCiBzCxAZClXt7WYRRW9vQtg
             #
-            # ----- CIRCUS -----
+            # ----- CIRCUS | https://circus-co.jp/ -----
             #
             {"title":"D.C.4 Fortunate Departures OP", "url":"https://youtu.be/ZwKpvrCe-LQ"},
             {"title":"D.C.4 ～ダ・カーポ4～ OP", "url":"https://youtu.be/7sQSihFvHJM"},
@@ -65,7 +68,7 @@ def get_my_music():
         "ま～まれぇど":[
             # https://www.youtube.com/channel/UCjwzPLz_rTW5xyF92tLH8qw
             #
-            # ----- ま～まれぇど -----
+            # ----- ま～まれぇど | http://www.web-marmalade.com/index2.html -----
             #
             {"title":"らぶ2Quad OP 修正版", "url":"https://youtu.be/Gcl-EjRLSmc"},
             {"title":"恋色マリアージュ 主題歌", "url":"https://youtu.be/ho22zP6o0Ts"},
@@ -80,7 +83,7 @@ def get_my_music():
         "まどそふと":[
             # https://www.youtube.com/user/madosoftofficial
             #
-            # ----- まどそふと 期間限定 -----
+            # ----- まどそふと | https://madosoft.net/ -----
             #
             {"title":"ナマイキデレーションOP Full だって夏でしょ？しょ！", "url":"https://youtu.be/zK6kSaLu9mA"},
             {"title":"ヤキモチストリームOP Full ヤキモチ☆ストリーム", "url":"https://youtu.be/DPNHrsY-3PQ"},
@@ -92,7 +95,7 @@ def get_my_music():
         "Qruppo":[
             # https://www.youtube.com/channel/UCNfQtdBZjp-2tHdKyY6p2Qg
             #
-            # ----- Qruppo -----
+            # ----- Qruppo | https://qruppo.com/ -----
             #
             {"title":"抜きゲーみたいな島に住んでる貧乳はどうすりゃいいですか？ 1stOP", "url":"https://www.youtube.com/watch?v=-5lP5j52eSY"},
             {"title":"抜きゲーみたいな島に住んでる貧乳はどうすりゃいいですか？ 2ndOP", "url":"https://www.youtube.com/watch?v=1MWD5CF36pU"},
@@ -101,7 +104,7 @@ def get_my_music():
         "AUGUST":[
             # https://www.youtube.com/channel/UCVj6bacaTQ6r6Dsv0frD_sA
             #
-            # ----- AUGUST -----
+            # ----- AUGUST | https://august-soft.com/ -----
             #
             {"title":"月は東に日は西に ～Operation Sanctuary～", "url":"https://www.youtube.com/watch?v=LxtVa3On4Qo"},
             {"title":"夜明け前より瑠璃色な OP", "url":"https://www.youtube.com/watch?v=4-SiDaI2Lbs"},
@@ -141,7 +144,7 @@ def get_my_music():
         "すたじお緑茶":[
             # https://www.youtube.com/channel/UCVSe3xoGn8ARWPQLIqtFV0A
             #
-            # ----- すたじお緑茶 -----
+            # ----- すたじお緑茶 | http://www.studio-ryokucha.com/ -----
             #
             {"title":"夏彩恋唄オープニングムービー", "url":"https://www.youtube.com/watch?v=UOuNydU6b3A"},
             {"title":"恋色空模様デモムービー.mpg", "url":"https://www.youtube.com/watch?v=6cXgtT_R3xs"},
@@ -164,7 +167,7 @@ def get_my_music():
         "SAGA PLANETS":[
             # https://www.youtube.com/channel/UCGa7d329t5btw2GMO53xH9Q
             #
-            # ----- SAGA PLANETS -----
+            # ----- SAGA PLANETS | http://sagaplanets.product.co.jp/top.html -----
             #
             {"title":"Coming×Humming!! OP", "url":"https://www.youtube.com/watch?v=BMu8czT7aN4"},
             {"title":"ナツユメナギサ OP", "url":"https://www.youtube.com/watch?v=RZQhrywN7vs"},
@@ -183,7 +186,7 @@ def get_my_music():
         "feng":[
             # https://www.youtube.com/channel/UCSBs7c2hzWDbsfqnZNZVqqw
             #
-            # ----- feng -----
+            # ----- feng | http://www.feng.jp/home.html -----
             #
             {"title":"夢と色でできている OP", "url":"https://www.youtube.com/watch?v=K8vDUk6qh9U"},
             {"title":"これくらいで short ver./夢と色でできている ED", "url":"https://www.youtube.com/watch?v=BWhjJRUs8Og"},
@@ -213,7 +216,7 @@ def get_my_music():
         "Lump of Sugar":[
             # https://www.youtube.com/user/lumpofsugaroffcial
             #
-            # ----- Lump of Sugar -----
+            # ----- Lump of Sugar | https://www.lumpofsugar.co.jp/ -----
             #
             {"title":"PrismRhythm -プリズムリズム- OP", "url":"https://www.youtube.com/watch?v=j-1EPGWGv7c"},
             {"title":"ダイヤミック・デイズ OP", "url":"https://www.youtube.com/watch?v=g8csPR0Tp_c"},
@@ -237,7 +240,7 @@ def get_my_music():
         "ゆずソフト":[
             # https://www.youtube.com/user/yuzusoft2007
             #
-            # ----- ゆずソフト -----
+            # ----- ゆずソフト | http://www.yuzu-soft.com/ -----
             #
             {"title":"Ｅ×Ｅ OP", "url":"https://www.youtube.com/watch?v=b8pfqxibR1w"},
             {"title":"夏空カナタ OP", "url":"https://www.youtube.com/watch?v=rJyOeG9d3m0"},
@@ -254,7 +257,7 @@ def get_my_music():
         "Laplacian":[
             # https://www.youtube.com/channel/UCJfztRTXdvhBDjfA8Zv1CEQ
             #
-            # ----- Laplacian -----
+            # ----- Laplacian | https://laplacian.jp/ -----
             #
             {"title":"キミトユメミシ", "url":"https://www.youtube.com/watch?v=uzVMLDRYRJY"},
             {"title":"ニュートンと林檎の樹", "url":"https://www.youtube.com/watch?v=5My3PEvHhI4"},
@@ -263,7 +266,7 @@ def get_my_music():
         "HOOK SOFT":[
             # https://www.youtube.com/channel/UCSzkgp26xJ5tC3hkvh93q7A
             #
-            # ----- HOOK SOFT -----
+            # ----- HOOK SOFT | https://www.hook-net.jp/htm/index_02.htm -----
             #
             {"title":"さくらビットマップ OP", "url":"https://www.youtube.com/watch?v=ZXlt9MK5p-4"},
             {"title":"さくらビットマップ MV2", "url":"https://www.youtube.com/watch?v=6ZAjLENl7eE"},
@@ -297,7 +300,7 @@ def get_my_music():
         "FAVORITE":[
             # https://www.youtube.com/channel/UC4hZsj494Gkf72PCJJ8DUzA
             #
-            # ----- FAVORITE -----
+            # ----- FAVORITE | http://www.favo-soft.jp/soft/product.html -----
             #
             {"title":"アストラエアの白き永遠", "url":"https://www.youtube.com/watch?v=5l8w6dBvmVA"},
             {"title":"紅い瞳に映るセカイ OP", "url":"https://www.youtube.com/watch?v=p92mJG9B1js"},
@@ -314,7 +317,7 @@ def get_my_music():
         "sprite":[
             # https://www.youtube.com/user/fairysmovie
             #
-            # ----- sprite -----
+            # ----- sprite | https://sprite.tokyo/ -----
             #
             {"title":"いますぐお兄ちゃんに妹だっていいたい！グランドOP", "url":"https://www.youtube.com/watch?v=VshGzEEX2GI"},
             {"title":"蒼の彼方のフォーリズム 2ndOP", "url":"https://www.youtube.com/watch?v=tJ-6-ygxehM&t=1s"},
@@ -337,14 +340,14 @@ def get_my_music():
         "CANVAS+GARDEN":[
             # https://www.youtube.com/channel/UCdbSf42LH2m_gp9VrINa8Xw
             #
-            # ----- CANVAS+GARDEN -----
+            # ----- CANVAS+GARDEN | http://www.canxden.net/ -----
             #
             {"title":"恋ニ、甘味ヲソエテ OP", "url":"https://www.youtube.com/watch?v=P0UnHr62bkE"},
             {"title":"恋ニ、甘味ヲソエテ２ OP", "url":"https://www.youtube.com/watch?v=LCaxZZWaVeg"},
         ],
             # https://www.youtube.com/user/AmuseCraft001
             #
-            # ----- AMUSE CRAFT -----
+            # ----- AMUSE CRAFT | https://amusecraft.com/ -----
             #
         "AMUSE CRAFT - Harts":[
             {"title":"恋咲く都に愛の約束を ～Annaffiare～ OP", "url":"https://www.youtube.com/watch?v=8hqYySQznw8"},
@@ -372,7 +375,7 @@ def get_my_music():
         "Nana Wind":[
             # https://www.youtube.com/user/nanawindchannel
             #
-            # ----- Nana Wind -----
+            # ----- Nana Wind | http://nanawind.jp/ -----
             #
             {"title":"ALIA's CARNIVAL! OP", "url":"https://www.youtube.com/watch?v=tlZZi4XX0aY"},
             {"title":"ALIA's CARNIVAL! フラワリングスカイ OP", "url":"https://www.youtube.com/watch?v=w3dAx_ao8U0"},
@@ -382,7 +385,7 @@ def get_my_music():
         "みらーじゅそふと":[
             # https://www.youtube.com/channel/UC_pZucDbqMVwoKm-bb9cVtQ
             #
-            # ----- みらーじゅそふと -----
+            # ----- みらーじゅそふと | https://web.archive.org/web/20180724101222/http://www.miragesoft.jp/top.html -----
             #
             {"title":"君とつながる恋フラグ OP", "url":"https://www.youtube.com/watch?v=u5DI7T-PGxg"},
 
@@ -392,7 +395,7 @@ def get_my_music():
         "きゃべつそふと":[
             # https://www.youtube.com/channel/UC4xzLeGojK-zTYQ8xjQFoSQ
             #
-            # ----- きゃべつそふと -----
+            # ----- きゃべつそふと | http://cabbage-soft.com/ -----
             #
             {"title":"アメイジング・グレイス OP", "url":"https://www.youtube.com/watch?v=nl_fBSYY8e8"},
             {"title":"あまいろショコラータ OP", "url":"https://www.youtube.com/watch?v=jVXvAeulJzM"},
@@ -402,7 +405,7 @@ def get_my_music():
         "CLEARRAVE - ぱれっと":[
             # https://www.youtube.com/channel/UCyU9cOKPWJTrOyLooTfDlJw
             #
-            # ----- CLEARRAVE -----
+            # ----- CLEARRAVE | https://www.clearrave.co.jp/ -----
             #
         ],
         "CLEARRAVE - キャラメリア":[
@@ -448,6 +451,74 @@ def get_my_music():
         "CLEARRAVE":[
             {"title":"ぼくらの放課後戦争！ PV", "url":"https://www.youtube.com/watch?v=SLTSWZ-HsZA"},
         ],
+        "Whirlpool":[
+            # https://www.youtube.com/channel/UCagNXYVIHN1TV2PU-hUAS9w
+            #
+            # ----- Whirlpool | https://whirlpool.co.jp/ -----
+            #
+            {"title":"初情スプリンクル OP", "url":"https://www.youtube.com/watch?v=fqU5P5ZFazs"},
+            {"title":"初情スプリンクル ED", "url":"https://www.youtube.com/watch?v=n8mYtjCpZuo"},
+            {"title":"猫忍えくすはーと OP", "url":"https://www.youtube.com/watch?v=okYPlzalnVs"},
+            {"title":"G.I.B. ガールズ・イン・ブラック OP", "url":"https://www.youtube.com/watch?v=1Ei-1n8iol4"},
+            {"title":"G.I.B. ガールズ・イン・ブラック OP shortVer", "url":"https://www.youtube.com/watch?v=b66zP_ns9Nc"},
+            {"title":"G.I.B. ガールズ・イン・ブラック ED shortVer", "url":"https://www.youtube.com/watch?v=zdByKNOQvZw"},
+            {"title":"鯨神のティアスティラ OP", "url":"https://www.youtube.com/watch?v=TP072bynaaw"},
+            {"title":"鯨神のティアスティラ OP shortVer", "url":"https://www.youtube.com/watch?v=s_isRsga3ms"},
+            {"title":"鯨神のティアスティラ ED1", "url":"https://www.youtube.com/watch?v=y4B8t6QtKwQ"},
+            {"title":"ワールド・エレクション OP", "url":"https://www.youtube.com/watch?v=VWz7l2VbkfA"},
+            {"title":"ワールド・エレクション OP shortVer", "url":"https://www.youtube.com/watch?v=oYaHWbm4Z0Y"},
+            {"title":"ワールド・エレクション ED1 shortVer", "url":"https://www.youtube.com/watch?v=zggBsrI35Ug"},
+            {"title":"猫忍えくすはーと２ OP", "url":"https://www.youtube.com/watch?v=6YrV7EauNBQ"},
+            {"title":"pieces/渡り鳥のソムニウム OP", "url":"https://www.youtube.com/watch?v=yVR9gQfkLUA"},
+            {"title":"pieces/渡り鳥のソムニウム ED1", "url":"https://www.youtube.com/watch?v=9ck9FsTdcSg"},
+            {"title":"猫忍えくすはーと３ OP", "url":"https://www.youtube.com/watch?v=MuKUh0lxHsc"},
+            {"title":"pieces/揺り籠のカナリア OP shortVer", "url":"https://www.youtube.com/watch?v=ADBlCIhCsfs"},
+            {"title":"pieces/揺り籠のカナリア OP", "url":"https://www.youtube.com/watch?v=Oa3Vvd1MVjQ"},
+            {"title":"pieces/揺り籠のカナリア ED1", "url":"https://www.youtube.com/watch?v=UuCYbgWToOk"},
+            {"title":"竜姫ぐーたらいふ OP", "url":"https://www.youtube.com/watch?v=c4vWWKW3-j8"},
+            {"title":"竜姫ぐーたらいふ２", "url":"https://www.youtube.com/watch?v=1TT4ZwCi0Sw"},
+        ],
+        "purple software":[
+            # https://www.youtube.com/user/purplesoftware01
+            #
+            # ----- purple software | https://www.purplesoftware.jp/main.php -----
+            #
+            {"title":"00 mastar 3", "url":"https://www.youtube.com/watch?v=TtmhlEi3Q_4"},
+            {"title":"未来ノスタルジア OP", "url":"https://www.youtube.com/watch?v=kq1mUYROo7Q"},
+            {"title":"しあわせ家族部 OP", "url":"https://www.youtube.com/watch?v=fahlHt22HNc"},
+            {"title":"ハピメア OP", "url":"https://www.youtube.com/watch?v=6FoKNRjs5rM"},
+            {"title":"ハピメア-Fragmentation Dream- OP", "url":"https://www.youtube.com/watch?v=W4erYT2gMm8"},
+            {"title":"クロノクロック OP", "url":"https://www.youtube.com/watch?v=s5ptMrB5EIs"},
+            {"title":"アマツツミ OP", "url":"https://www.youtube.com/watch?v=bUc0os0quVo"},
+            {"title":"アオイトリ OP", "url":"https://www.youtube.com/watch?v=PcR8FcYEFw4"},
+            {"title":"リアライブ OP", "url":"https://www.youtube.com/watch?v=lXxO-8IZ0Os"},
+            {"title":"青春フラジャイル OP", "url":"https://www.youtube.com/watch?v=0y9sdeJjbaY"},
+        ],
+        "ういんどみる / ういんどみるOasis":[
+            # https://www.youtube.com/user/WindmillSoftware
+            #
+            # ----- ういんどみる / ういんどみるOasis | https://windmill.suki.jp/main.html
+            #
+            {"title":"祝祭のカンパネラ！ OP", "url":"https://www.youtube.com/watch?v=TXFxlgBXtto"},
+            {"title":"色に出でにけり わが恋は OP", "url":"https://www.youtube.com/watch?v=zFTL_3ErE1A"},
+            {"title":"Hyper→Highspeed→Genius OP", "url":"https://www.youtube.com/watch?v=qZJ6zTepB7g"},
+            {"title":"ウィッチズガーデン OP", "url":"https://www.youtube.com/watch?v=lwHTExD_C-A"},
+            {"title":"HHG 女神の終焉 OP", "url":"https://www.youtube.com/watch?v=JDjb0Hcglfw"},
+            {"title":"HHG 女神の終焉 OP", "url":"https://www.youtube.com/watch?v=Bmumgo9IvPI"},
+            {"title":"はぴねす！えもーしょん OP", "url":"https://www.youtube.com/watch?v=OwfJJDuFg7I"},
+            {"title":"はぴねす！えもーしょん MV", "url":"https://www.youtube.com/watch?v=Eyf71-PpO_Y"},
+            {"title":"春風センセーション！ OP", "url":"https://www.youtube.com/watch?v=oKQ1F6rAfRE"},
+            {"title":"アンラッキーリバース OP", "url":"https://www.youtube.com/watch?v=F0A2mezWqcQ"},
+            {"title":"ウィザーズコンプレックス OP", "url":"https://www.youtube.com/watch?v=lECLBUaKteM"},
+            {"title":"神がかりクロスハート！ OP", "url":"https://www.youtube.com/watch?v=i_ym57hOfuc"},
+            {"title":"初恋サンカイメ OP", "url":"https://www.youtube.com/watch?v=H_TLWfyONMI"},
+            {"title":"はぴねす！ OP", "url":"https://www.youtube.com/watch?v=-hEHmmiImoE"},
+            {"title":"はぴねす！りらっくす", "url":"https://www.youtube.com/watch?v=IzUzr0vwrCE"},
+            {"title":"約束の夏、まほろばの夢 OP", "url":"https://www.youtube.com/watch?v=cjwHoozVuS8"},
+            {"title":"はぴねす！2 Sakura Celebration OP", "url":"https://www.youtube.com/watch?v=RpF8OASsK0E"},
+            {"title":"はぴねす！2 りらっくす", "url":"https://www.youtube.com/watch?v=D9h-rAP7B0k"},
+            {"title":"一途な（処女→）彼女と恋したい OP", "url":"https://www.youtube.com/watch?v=CP34ab-jRKc"},
+        ]
     }
 
     # 作業用
@@ -497,9 +568,6 @@ def get_my_music():
     Key = [
     ]
 
-    Whirlpool = [
-    ]
-    
     QUINCE_SOFT = [
     ]
 
