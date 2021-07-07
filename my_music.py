@@ -4,6 +4,7 @@
 # 非公式の場合は、コメントを書くこと
 #
 # 同会社でも別ブランドがある場合や、さらにそのサブブランドという位置付けのものもあるので難しい。姉妹ブランドやグループブランドなども。
+# ブランドの詳細は https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%80%E3%83%AB%E3%83%88%E3%82%B2%E3%83%BC%E3%83%A0%E3%83%A1%E3%83%BC%E3%82%AB%E3%83%BC%E4%B8%80%E8%A6%A7
 # 2021/07頃 更新
 
 def get_my_music():
@@ -625,6 +626,36 @@ def get_my_music():
             {"title":"はぴ☆さま！ OP", "url":"https://www.youtube.com/watch?v=zhJ7GaQO4OE"},
             {"title":"ツクモノツキ OP", "url":"https://www.youtube.com/watch?v=o5GtrRDQ2oY"},
             {"title":"恋する少女と想いのキセキ OP", "url":"https://www.youtube.com/watch?v=XIwSrvHUe9E"},
+        ],
+        "ホエール":[
+            #
+            #
+            # ----- ホエール | https://web.archive.org/web/20120424071623/http://www.whale.bz/index2.html -----
+            #
+            # 非公式
+            {"title":"俺の彼女はヒトでなし OP 超越↑↑恋してナイしょ☆メア！！", "url":"https://www.youtube.com/watch?v=oUqeizcW_gA"}
+        ],
+        "PENCIL - ぱじゃまソフト":[
+            # https://www.youtube.com/user/pajamassoftofficial
+            # https://soundcloud.com/pajamassoft
+            #
+            # ----- ぱじゃまソフト | http://www.pajamas.ne.jp/ -----
+            #
+            {"title":"プリズム☆ま～じカル OP1", "url":"https://www.youtube.com/watch?v=JNIyFyZmIUw"},
+            {"title":"プリズム☆ま～じカル OP2", "url":"https://www.youtube.com/watch?v=Tn1Fnh1HCZ8"},
+            {"title":"プリズム☆ま～じカル クライマックス OP", "url":"https://www.youtube.com/watch?v=FAjkFDuvv4g"},
+            {"title":"PRISM ARK OP", "url":"https://www.youtube.com/watch?v=QTotkmcgQdM"},
+            {"title":"PRISM ARK 第二部 OP", "url":"https://www.youtube.com/watch?v=tGJmxJx12Js"},
+            {"title":"PRISM ARK らぶらぶマキシマム！ OP", "url":"https://www.youtube.com/watch?v=t6JXnAA3j2M"},
+            {"title":"PRISM ARK らぶらぶマキシマム！ OP2", "url":"https://www.youtube.com/watch?v=VbybSLPFD3I"},
+            {"title":"夏の終わりのニルヴァーナ OP", "url":"https://www.youtube.com/watch?v=N5KVGGRNjfU"},
+            {"title":"らぶらぶらいふ ～お嬢様7人とラブラブハーレム生活～", "url":"https://www.youtube.com/watch?v=p8L6iLUqe-Q"},
+            {"title":"らぶらぶらいふ ～お嬢様7人とラブラブハーレム生活～", "url":"https://www.youtube.com/watch?v=7-Rn0MOSGaQ"},
+            {"title":"プリズム・プリンセス OP", "url":"https://www.youtube.com/watch?v=NDZ6LW-D__I"},
+            {"title":"らぶらぶプリンセス OP", "url":"https://www.youtube.com/watch?v=iJKvgvto5Uk"},
+            {"title":"らぶらぶプリンセス OP ver1.2", "url":"https://www.youtube.com/watch?v=inVoCaJ2QmA"},
+            {"title":"らぶらぶシスターズ OP", "url":"https://www.youtube.com/watch?v=P9cL7hXsSSw"},
+            {"title":"こすつま～新妻とエッチなコスプレレッスン～ OP", "url":"https://www.youtube.com/watch?v=HFEJpEvw1DU"},
         ]
     }
 
@@ -643,6 +674,8 @@ def get_my_music():
     # tone work's -> 銀色、遥か
     # lantis -> ましろ色シンフォニー
     # Navel -> 月乙
+    # 絶対☆大好き https://www.youtube.com/watch?v=YA5EioW0oLQ
+    # leaf フルアニ, ToHeart2
 
     akabei3 = [
         # https://www.youtube.com/channel/UC-nhyMMGNXQQsXrdtDx3mSg

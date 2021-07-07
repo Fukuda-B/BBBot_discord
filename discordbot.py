@@ -51,7 +51,7 @@ import ffmpeg
 # import requests #req
 
 
-VERSION='v2.5.13'
+VERSION='v2.5.14'
 
 TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, UP_SERVER,\
@@ -535,6 +535,7 @@ class VoiceChat(commands.Cog):
         self._last_member = None
         self.now = None # now playing
         self.volume = 1.0
+        self.inf_play = False # infinity play music
 
     @commands.command(description='Discord_VoiceChat Connect')
     async def v_connect(self, ctx):
@@ -573,7 +574,7 @@ class VoiceChat(commands.Cog):
 
     @commands.command(description='play music')
     async def v_music(self, ctx, tx:str):
-        """play music. (b = random)"""
+        """play music. (b = random, b_loop = random&loop)"""
         ytdl_opts = {
             'format' : 'bestaudio/best',
             'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
@@ -584,11 +585,13 @@ class VoiceChat(commands.Cog):
             'default_search': 'auto',
             'source_address': '0.0.0.0'
         }
+        await VoiceChat.v_connect(self, ctx) # 接続確認
+        self.inf_play = False # infiniry play: off
         if tx.lower() == 'stop' and self.now != None:
             self.now.stop()
             self.now = None
 
-        elif tx.lower() == 'b':
+        elif tx.lower() == 'b': # random play!
             if self.now != None:
                 self.now.stop()
                 self.now = None
@@ -601,6 +604,23 @@ class VoiceChat(commands.Cog):
             filename = await Youtube.ydl_proc(self, ctx, mm['url'], ytdl_opts)
             await ctx.send(f'`{brand_n}` - `{mm["title"]}`')
             await VoiceChat.voice_send(self, ctx, filename)
+
+        elif tx.lower() == 'b_loop': # infinity random play!
+            if self.now != None:
+                self.now.stop()
+                self.now = None
+
+            self.inf_play = True # infiniry play: on
+            music, sagyou_music = my_music.get_my_music()
+            while self.inf_play:
+                brand_n = list(music)[random.randint(0,int(len(music))-1)]
+                brand = music[brand_n]
+                mm = brand[random.randint(0,int(len(brand))-1)]
+
+                filename = await Youtube.ydl_proc(self, ctx, mm['url'], ytdl_opts)
+                if not filename: continue
+                await ctx.send(f'`{brand_n}` - `{mm["title"]}`')
+                await VoiceChat.voice_send(self, ctx, filename)
 
         else:
             try: # try connect url
