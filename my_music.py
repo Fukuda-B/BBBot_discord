@@ -64,6 +64,9 @@ def get_my_music():
             {"title":"水夏弐律 メインテーマ", "url":"https://youtu.be/oIqFD3ujDCg"},
             {"title":"T.P.さくら OP", "url":"https://youtu.be/KpaXuYWuU7A"},
             {"title":"uni. OP", "url":"https://youtu.be/dZ5CtOk7Plc"},
+
+            # 非公式
+            {"title":"「ダ・カーポ ～第2ボタンの誓い～ 」covered by 加藤惠", "url":"https://www.youtube.com/watch?v=pTPbD-5r-oQ"},
         ],
         "ま～まれぇど":[
             # https://www.youtube.com/channel/UCjwzPLz_rTW5xyF92tLH8qw
@@ -236,6 +239,11 @@ def get_my_music():
             {"title":"あにまる☆ぱにっく OP", "url":"https://www.youtube.com/watch?v=S4hsRzzXcQM"},
             {"title":"ねこツク、さくら。 OP", "url":"https://www.youtube.com/watch?v=jNg5qSNO5-A"},
             {"title":"まどひ白きの神隠し", "url":"https://www.youtube.com/watch?v=qsIR1DXfqsQ"},
+
+            # 非公式
+            {"title":"いつか、届く、あの空に。 OP", "url":"https://www.youtube.com/watch?v=gBkd0BimRNo"},
+            {"title":"Nursery Rhyme -ナーサリィ☆ライム- OP", "url":"https://www.youtube.com/watch?v=2iZVvkxiGMY"},
+            {"title":"Nursery Rhyme -ナーサリィ☆ライム- OP covered by 波島出海(cv.赤崎千夏)", "url":"https://www.youtube.com/watch?v=H1S0MOuNStU"},
         ],
         "ゆずソフト":[
             # https://www.youtube.com/user/yuzusoft2007
@@ -336,6 +344,7 @@ def get_my_music():
 
             # 非公式
             {"title":"Believe in the Sky", "url":"https://www.youtube.com/watch?v=ykhIMEEEvCM"},
+            {"title":"いますぐお兄ちゃんに妹だっていいたい！", "url":"https://www.youtube.com/watch?v=ZQqbhwH87OM"},
         ],
         "CANVAS+GARDEN":[
             # https://www.youtube.com/channel/UCdbSf42LH2m_gp9VrINa8Xw
@@ -518,11 +527,122 @@ def get_my_music():
             {"title":"はぴねす！2 Sakura Celebration OP", "url":"https://www.youtube.com/watch?v=RpF8OASsK0E"},
             {"title":"はぴねす！2 りらっくす", "url":"https://www.youtube.com/watch?v=D9h-rAP7B0k"},
             {"title":"一途な（処女→）彼女と恋したい OP", "url":"https://www.youtube.com/watch?v=CP34ab-jRKc"},
+        ],
+        "Iris":[
+            # https://www.youtube.com/channel/UCcDfw0rrVoox0TgSGhsGlbw
+            #
+            # ----- Iris | https://iris-soft.jp/top.html -----
+            #
+            {"title":"ちっちゃくないもんっ！～スクールバスでおむかえちゅっちゅ♥～ OP", "url":"https://www.youtube.com/watch?v=WzF2kBwVGcI"},
+            {"title":"ないしょのないしょ！", "url":"https://www.youtube.com/watch?v=Nulwy9B0vi8"},
+            {"title":"「ちっちゃくないもんっ！～スクールバスでおむかえちゅっちゅ～」珱成学園巻島分校 校歌", "url":"https://www.youtube.com/watch?v=SRZB_nP0_Lc"},
+
+            # 非公式
+            {"title":"闇色のスノードロップス OP", "url":"https://www.youtube.com/watch?v=XwwORZ3Oj9w"},
+            {"title":"ないしょのないしょ！ OP", "url":"https://www.youtube.com/watch?v=vigs4Hw9-8g"},
+            {"title":"ないしょのないしょ！ ED1", "url":"https://www.youtube.com/watch?v=IUmC1uF4xUs"},
+            {"title":"ないしょのないしょ！ ED2", "url":"https://www.youtube.com/watch?v=-wMYM5xdxes"},
+            {"title":"しゅきしゅきだいしゅき！！ OP", "url":"https://www.youtube.com/watch?v=rQKC3e8HMcQ"},
+            {"title":"ちっちゃくないもんっ！", "url":"https://www.youtube.com/watch?v=yf_tQ5atZHY"},
+        ],
+        "はむはむソフト":[
+            # https://www.youtube.com/user/HAMSIMOCHI
+            #
+            # ----- はむはむソフト | https://hamham-soft.net/ -----
+            #
+            {"title":"Lowすぺっく!? OP", "url":"https://www.youtube.com/watch?v=rddjogBoOio"},
+            {"title":"妹を汚した記憶 OP修正版", "url":"https://www.youtube.com/watch?v=8h4PyJ7x4o0"},
+            {"title":"雪の夜、俺は妹を裸にする。 OP", "url":"https://www.youtube.com/watch?v=rSuRQNvxJ-M"},
+            {"title":"雪の夜、俺は妹を裸にする。 OP", "url":"https://www.youtube.com/watch?v=_HwPsAyuV2M"},
+
+            # 非公式
+            {"title":"LOあんぐる!! OP", "url":"https://www.youtube.com/watch?v=pxFJHp6evBE"},
+            {"title":"ド田舎ちゃんねる５ OP", "url":"https://www.youtube.com/watch?v=sG5b3g_C6EI"},
+            {"title":"ろーらいず!!! OP", "url":"https://www.youtube.com/watch?v=9ghAKdkfCsM"},
+            {"title":"妹に! スク水着せたら脱がさないっ!", "url":"https://www.youtube.com/watch?v=H5oMXmI3WZE"},
+            {"title":"ないしょ思春期 ～ヒミツに恋する妹たち～ OP", "url":"https://www.youtube.com/watch?v=FvbxV5TXwvY"},
+            {"title":"フラグへし折り男", "url":"https://www.youtube.com/watch?v=Ay7Vka42v-E"},
+        ],
+        "SILKY'S PLUS":[
+            # https://www.youtube.com/channel/UCFW_3pnhcnOEVApmKy15V8w
+            #
+            # ----- SILKY'S PLUS | http://www.silkysplus.jp/html/index.html -----
+            #
+            {"title":"景の海のアペイリア", "url":"https://www.youtube.com/watch?v=sVuzSwaSTJI"},
+            {"title":"バタフライシーカー OP", "url":"https://www.youtube.com/watch?v=z3MxcsvyFaQ"},
+            {"title":"バタフライシーカー エンディングテーマ", "url":"https://www.youtube.com/watch?v=L8aJ93kzLdA"},
+            {"title":"景の海のアペイリア～カサブランカの騎士～ 主題歌", "url":"https://www.youtube.com/watch?v=0TNjJ2Y5ePc"},
+            {"title":"言の葉舞い散る夏の風鈴（こえ）", "url":"https://www.youtube.com/watch?v=M8DvyNdsiUw"},
+            {"title":"缶詰少女ノ終末世界 OP", "url":"https://www.youtube.com/watch?v=ieg8H_LTLZ8"},
+            {"title":"きまぐれテンプテーション OP", "url":"https://www.youtube.com/watch?v=UNDUFp-GIbk"},
+            {"title":"ふゆから、くるる。", "url":"https://www.youtube.com/watch?v=1XRTPK9xBM8"},
+        ],
+        "すみっこソフト":[
+            # https://www.youtube.com/user/sumikkosoftware
+            #
+            # ----- すみっこソフト | http://www.sumikko-soft.com/main.html -----
+            #
+            {"title":"はるまで、くるる。 OP", "url":"https://www.youtube.com/watch?v=zBO9gaUU1Sw"},
+            {"title":"なつくもゆるる OP", "url":"https://www.youtube.com/watch?v=xdGFuD2TkW4"},
+            {"title":"あきゆめくくる OP", "url":"https://www.youtube.com/watch?v=CLGsh_v_kDw"},
+        ],
+        "HARU KAZE":[
+            # https://www.youtube.com/channel/UC5m46xmy9vB--f5rEUQfsxA
+            #
+            # ----- HARU KAZE | http://harukaze-soft.com/# -----
+            #
+            {"title":"らぶおぶ恋愛皇帝 of LOVE! OP", "url":"https://www.youtube.com/watch?v=0gfl39dK0mg"},
+            {"title":"ノラと皇女と野良猫ハート OP", "url":"https://www.youtube.com/watch?v=y9IOxID6zBE"},
+            {"title":"ノラと皇女と野良猫ハート2 -Nora, Princess, and Crying Cat.-", "url":"https://www.youtube.com/watch?v=IP-OG3vm9h8"},
+
+            # 非公式
+            {"title":"ノラとと (アニメ版) OP", "url":"https://www.youtube.com/watch?v=CQ7ik1JFFIQ"},
+        ],
+        "Lillian":[
+            #
+            #
+            # ----- Lillian | http://www.lillian.jp/kurukuru/index.html -----
+            #
+            {"title":"プリンセスうぃっちぃず 第1部 OP", "url":"https://www.youtube.com/watch?v=76LWfTC4xoE"},
+            {"title":"プリンセスうぃっちぃず 第2部 OP", "url":"https://www.youtube.com/watch?v=cd6YR2TU1OA"},
+            {"title":"パティシエなにゃんこ OP", "url":"https://www.youtube.com/watch?v=OkYRpKczXNA"},
+            {"title":"ティンクル☆くるせいだーすPSS", "url":"https://www.youtube.com/watch?v=rLSotiqD_eo"},
+            {"title":"ティンクル☆くるせいだーす-Passion Star Stream- OP", "url":"https://www.youtube.com/watch?v=fIIPyy0yoqQ"},
+        ],
+        "sugar pot":[
+            # https://www.youtube.com/user/SugarPotinfo
+            #
+            # ----- sugar pot | http://www.sugarpot-hp.com/sugar_pot.html -----
+            #
+            {"title":"ツクモノツキ OP", "url":"https://www.youtube.com/watch?v=jtCujhFdw9Y"},
+            {"title":"ツクモノツキ OP CM版", "url":"https://www.youtube.com/watch?v=0rThhI2XFBk"},
+            {"title":"恋する少女（ドール）と想いのキセキ～Poupee de souhaits～ OP", "url":"https://www.youtube.com/watch?v=UV-v8bC1YNo"},
+            {"title":"恋する少女（ドール）と想いのキセキ～Poupee de souhaits～ OP CM版", "url":"https://www.youtube.com/watch?v=NVg3owDTwrc"},
+
+            # 非公式
+            {"title":"お嫁さん候補があらわれた！コマンドは？", "url":"https://www.youtube.com/watch?v=6BxlWZ6NwOI"},
+            {"title":"Wizard Girl Ambitious OP", "url":"https://www.youtube.com/watch?v=FjRogxrYfvM"},
+            {"title":"はぴ☆さま！ OP", "url":"https://www.youtube.com/watch?v=zhJ7GaQO4OE"},
+            {"title":"ツクモノツキ OP", "url":"https://www.youtube.com/watch?v=o5GtrRDQ2oY"},
+            {"title":"恋する少女と想いのキセキ OP", "url":"https://www.youtube.com/watch?v=XIwSrvHUe9E"},
         ]
     }
 
     # 作業用
     sagyou_music = {}
+
+
+    # Esucu:de
+    # あっぷりけ
+    # アリスソフト
+    # silkysplus
+    # May-Be SOFT -> ぱいタッチ！ OP
+    # Front Wing -> イノセントガール OP
+    # aries soft -> タラレバ ED
+    # Cabbit -> キミへ贈る、ソラの花 OP
+    # tone work's -> 銀色、遥か
+    # lantis -> ましろ色シンフォニー
+    # Navel -> 月乙
 
     akabei3 = [
         # https://www.youtube.com/channel/UC-nhyMMGNXQQsXrdtDx3mSg
