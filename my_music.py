@@ -1,5 +1,4 @@
-# ADV (PC, 他) 公式ブランドYoutubeチャンネルより
-# 全年齢, E12, E15, 18禁のゲームがあるので、公式サイトを閲覧するときは注意
+# 好みのADV (PC, 他) 曲
 # 数が多いため、内部で異なるブランドの場合も同じブランドとする場合がある
 # 非公式の場合は、コメントを書くこと
 #
@@ -16,15 +15,59 @@ def get_my_music():
             # ----- ALcot | http://www.alcot.biz/main.html -----
             #
             {"title":'ENGAGE LINKS OP カラオケ', "url":"https://youtu.be/ebJbi-UBnoE"},
+            {"title":"ENGAGE LINKS OP", "url":"https://www.youtube.com/watch?v=sgyq_vUwdyI"},
             {"title":'ロケットラブパニック！ (幼なじみは大統領 OP) カラオケ', "url":"https://youtu.be/UCSM97CEfao"},
             {"title":'アンコール (幼なじみは大統領 ED) カラオケ', "url":"https://youtu.be/OKavnKstc6s"},
+            {"title":"幼なじみは大統領ファンディスク OP", "url":"https://www.youtube.com/watch?v=EPS25SorQmw&t=35s"},
             {"title":'百花繚乱ファンタズム (鬼ごっこ！ OP) カラオケ', "url":"https://youtu.be/7WnG1jOcvWk"},
             {"title":'SHINE RING (中の人などいない！ OP) カラオケ', "url":"https://youtu.be/j-P2xbGezsI"},
             {"title":'Rebirth ∞ Impact (中の人などいない OP2) カラオケ', "url":"https://youtu.be/JkNlQSFq8EU"},
+            {"title":"Clover Day's OP", "url":"https://www.youtube.com/watch?v=AehK4cII87A"},
             {"title":"Clover Day's OP カラオケ", "url":"https://youtu.be/W7qXV7Ep6zk"},
+            {"title":"Clover Heart's OP", "url":"https://www.youtube.com/watch?v=vfgn2IlidVs"},
             {"title":"Clover Heart’s -New days recording- (Clover Day's OP2) カラオケ", "url":"https://youtu.be/qnv2cgksk3I"},
             {"title":"しあわせがたり (Clover Day's ED)", "url":"https://youtu.be/8CXnuX3645w"},
             {"title":'Focus love カラオケ', "url":"https://youtu.be/zQUgduWb0b0"},
+            {"title":"鬼ごっこ！ Portable OP", "url":"https://www.youtube.com/watch?v=uxNFWMHlyiM"},
+            {"title":"なつぽち OP Days", "url":"https://www.youtube.com/watch?v=OoQs8cxXftg"},
+            {"title":"FairChild OP", "url":"https://www.youtube.com/watch?v=2sgAysWUpuw"},
+            {"title":"中の人などいない！ OP", "url":"https://www.youtube.com/watch?v=4Cbm0LTP_RM"},
+            {"title":"中の人などいない！ 2nd OP", "url":"https://www.youtube.com/watch?v=PjOkOgUXuFQ"},
+            {"title":"LOVEREC. OP", "url":"https://www.youtube.com/watch?v=0BdJvje7ppM"},
+            {"title":"LOVEREC. OP Focus love カラオケ", "url":"https://www.youtube.com/watch?v=zQUgduWb0b0"},
+            {"title":"よめがみ My Sweet Goddess！ OP", "url":"https://www.youtube.com/watch?v=2T7GTaUhwP8"},
+
+            # 非公式
+            {"title":"TOYつめちゃいましたっ OP", "url":"https://www.youtube.com/watch?v=DwJV3o1j7_Q"},
+            {"title":"幼なじみは大統領 OP", "url":"https://www.youtube.com/watch?v=1JTY0h0gP50"},
+            {"title":"Triptych OP", "url":"https://www.youtube.com/watch?v=oUKxvJYM_G8"},
+            {"title":"鬼ごっこ！ FD OP", "url":"https://www.youtube.com/watch?v=yd2n5qcN8tE"},
+            {"title":"将軍様はお年頃 OP", "url":"https://www.youtube.com/watch?v=o7LohMr16mQ"},
+        ],
+        "ALcot Honey Comb":[
+            # https://www.youtube.com/user/ALcotStaff
+            #
+            # ----- ALcot Honey Comb | http://www.h-comb.biz/main.html#top -----
+            #
+            {"title":"リアル妹がいる大泉くんのばあい OP", "url":"https://www.youtube.com/watch?v=ekvSPQxHaqk"},
+            {"title":"Vestige ―刃に残るは君の面影― OP", "url":"https://www.youtube.com/watch?v=VdcnDl4GkpM"},
+            {"title":"キッキングホース★ラプソディ OP Summer days rhapsody", "url":"https://www.youtube.com/watch?v=y2udwBcRe1E"},
+            {"title":"あえて無視するキミとの未来 ～Relay broadcast～ OP", "url":"https://www.youtube.com/watch?v=-SAm9BbVCck"},
+            {"title":"Dang! Dang! 団地妻 -わたしだけの旦那さま☆- OP", "url":"https://www.youtube.com/watch?v=AxsUwHipc9U"},
+            {"title":"サツコイ ～悠久なる恋の歌～ OP", "url":"https://www.youtube.com/watch?v=y6IurcdKOAQ"},
+            {"title":"キミのとなりで恋してる！ OP", "url":"https://www.youtube.com/watch?v=_LmVMX65T6M"},
+            {"title":"キミのとなりで恋してる！ OP カラオケ", "url":"https://www.youtube.com/watch?v=EIjPZ6V5ewA"},
+            {"title":"君のとなりで恋してる！ The Respective Happiness OP カラオケ", "url":"https://www.youtube.com/watch?v=UOJkW7UxtB4"},
+            {"title":"キミのとなりで恋してる！ 〜 The Respective Happiness～ OP", "url":"https://www.youtube.com/watch?v=Jn4RcVdfNhE"},
+            {"title":"そして初恋が妹になる OP", "url":"https://www.youtube.com/watch?v=J-eCdR2oUFM"},
+            {"title":"茜色の境界線 OP", "url":"https://www.youtube.com/watch?v=t0-H17sCB-I"},
+
+            # 非公式
+            {"title":"死神の接吻は別離の味 OP", "url":"https://www.youtube.com/watch?v=fUYI43giZW8"},
+            {"title":"クレナイノツキ OP", "url":"https://www.youtube.com/watch?v=5owk7V9StqA"},
+            {"title":"アネイロ OP", "url":"https://www.youtube.com/watch?v=KyOWQse2zdU"},
+            {"title":"春季限定ポコ・ア・ポコ！ OP Aliare", "url":"https://www.youtube.com/watch?v=oVVghuFmDts"},
+            {"title":"赤さんと吸血鬼。OP", "url":"https://www.youtube.com/watch?v=NZGOKH0ONY4"},
         ],
         "mirai":[
             # https://www.youtube.com/channel/UCt9Qug-aPqqUNJWT3-NPRhQ
@@ -764,6 +807,167 @@ def get_my_music():
             {"title":"プラマイウォーズ OP", "url":"https://www.youtube.com/watch?v=bwiJyoUYYsM"},
             {"title":"スキとスキとでサンカク恋愛 OP", "url":"https://www.youtube.com/watch?v=f-T82zPRKgY"},
             {"title":"かりぐらし恋愛 OP ふわり恋模様", "url":"https://www.youtube.com/watch?v=iw1ACVGzcNA"},
+        ],
+        "VISUAL ARTS - Key":[
+            # (VISUAL ARTS) https://www.youtube.com/user/visualarts/ 
+            # (株式会社プロトタイプ) https://www.youtube.com/channel/UClfABk261wgF3NaH6crAB7Q
+            #
+            # ----- Key | 
+            #
+            {"title":"Kanon OP", "url":"https://www.youtube.com/watch?v=SpEZE1QJ9cY"},
+            {"title":"AIR OP", "url":"https://www.youtube.com/watch?v=vrOcqetSVEs"},
+            {"title":"CLANNAD OP", "url":"https://www.youtube.com/watch?v=tCV7yyImQFk"},
+            {"title":"CLANNAD OP", "url":"https://www.youtube.com/watch?v=Nk9pCvu5veY"},
+            {"title":"智代アフター～It's a Wonderful Life～CS Edition OP", "url":"https://www.youtube.com/watch?v=fGdeZDB1_bc"},
+            {"title":"Clannad ~After Story~ OP", "url":"https://www.youtube.com/watch?v=-FlZ0A31uEc"},
+            {"title":"リトルバスターズ！Converted Edition OP", "url":"https://www.youtube.com/watch?v=1ABQRBoZZ0E"},
+            {"title":"Rewrite OP", "url":"https://www.youtube.com/watch?v=Ne-4_Bz0wAg"},
+            {"title":"Rewrite Harvest festa! OP", "url":"https://www.youtube.com/watch?v=vS6mwyHNacA"},
+            {"title":"Summer Pockets OP", "url":"https://www.youtube.com/watch?v=EWdTEw7Shog"},
+            {"title":"Summer Pockets REFLECTION BLUE OP", "url":"https://www.youtube.com/watch?v=JalI6kGXs8k"},
+
+            # 非公式
+            {"title":"Planetarian ～ちいさなほしのうた～", "url":"https://www.youtube.com/watch?v=bW1sV0ovf54"},
+            {"title":"智代アフター OP", "url":"https://www.youtube.com/watch?v=JikmsNiJZ2Q"},
+            {"title":"リトルバスターズ OP", "url":"https://www.youtube.com/watch?v=zPvYtmcB13c"},
+            {"title":"リトルバスターズ！EX OP", "url":"https://www.youtube.com/watch?v=NRwlWixB5Do"},
+            {"title":"クドわふたー OP one's future", "url":"https://www.youtube.com/watch?v=tKEXxRczymg"},
+            {"title":"Rewrite OP", "url":"https://www.youtube.com/watch?v=bK2oiLmOfY4"},
+            {"title":"Rewrite Harvest festa! OP", "url":"https://www.youtube.com/watch?v=alu9M-XUfWw"},
+            {"title":"Angel Beats OP", "url":"https://www.youtube.com/watch?v=PJidGp6Dxkw"},
+            {"title":"シャーロット OP Bravely You", "url":"https://www.youtube.com/watch?v=Gf2LI6Twrb0"},
+            {"title":"Harmonia OP", "url":"https://www.youtube.com/watch?v=XaH7DBHDrT8"},
+            {"title":"Summer Pockets OP", "url":"https://www.youtube.com/watch?v=5BovTfa5mvY"},
+            {"title":"Summer Pockets REFLECTION BLUE OP", "url":"https://www.youtube.com/watch?v=F26kVa42ATU"},
+            {"title":"神様になった日 OP", "url":"https://www.youtube.com/watch?v=Al_E-by3skY"},
+        ],
+        "あかべぇそふとつぅ":[
+            # https://www.youtube.com/channel/UCkrEkPf0Kn7hUg49vqDku9Q
+            #
+            # ----- あかべぇそふとつぅ | http://www.akabeesoft2.com/top.html -----
+            #
+            {"title":"置き場がない！ OP", "url":"https://www.youtube.com/watch?v=fThlPYBW0GM"},
+            {"title":"光輪の町、ラベンダーの少女 OP", "url":"https://www.youtube.com/watch?v=y9ess_0541w"},
+            {"title":"やや置き場がない！ OP", "url":"https://www.youtube.com/watch?v=9m8D6N5S-R4"},
+            {"title":"ぼくの一人戦争 OP", "url":"https://www.youtube.com/watch?v=9obhSA1M_8Y"},
+            {"title":"俺サマのラグナRock", "url":"https://www.youtube.com/watch?v=7AycqAW53wg"},
+            {"title":"(あかべぇそふとつぅTRY) シキガミ OP", "url":"https://www.youtube.com/watch?v=HjZ9_k_z9i0"},
+            {"title":"(あかべぇそふとつぅTRY) 俺サマのラグナRock", "url":"https://www.youtube.com/watch?v=7AycqAW53wg"},
+
+            # 非公式
+            {"title":"魂響", "url":"https://www.youtube.com/watch?v=muhufs5Rq_M"},
+            {"title":"車輪の国、向日葵の少女 OP", "url":"https://www.youtube.com/watch?v=l1XEDY4jg9M"},
+            {"title":"その横顔を見つめてしまう〜A Profile 完全版〜 OP", "url":"https://www.youtube.com/watch?v=yvZAf3oQwb8"},
+            {"title":"こんな娘がいたら僕はもう・・・ OP", "url":"https://www.youtube.com/watch?v=fcjKRWG0yco"},
+            {"title":"車輪の国、悠久の少年少女 OP", "url":"https://www.youtube.com/watch?v=xX1E5n_QF6s"},
+            {"title":"魂響～円環の絆～ OP", "url":"https://www.youtube.com/watch?v=KGCDSLRI4MY"},
+            {"title":"G線上の魔王 OP", "url":"https://www.youtube.com/watch?v=IQJRIs5jQ-U"},
+            {"title":"こんぼく麻雀～こんな麻雀があったら僕はロン！～ OP", "url":"https://www.youtube.com/watch?v=HfeqhsFCiek"},
+            {"title":"W.L.O.世界恋愛機構 OP", "url":"https://www.youtube.com/watch?v=bpQOoif2_8o"},
+            {"title":"W.L.O.世界恋愛機構L.L.S.-LOVE LOVE SHOW- OP", "url":"https://www.youtube.com/watch?v=3WDuOC5iEBw"},
+        ],
+        "あかべぇそふとすりぃ":[
+            #
+            #
+            # ----- あかべぇそふとすりぃ | http://www.akabeesoft3.com/top.html -----
+            #
+            {"title":"働くオトナの恋愛事情２ OP", "url":"https://www.youtube.com/watch?v=FY6f_KykilI"},
+            {"title":"まほ×ろば-Witches spiritual home- OP", "url":"https://www.youtube.com/watch?v=E79gfejjU94"},
+            {"title":"働くオタクの恋愛事情 OP", "url":"https://www.youtube.com/watch?v=tV9NsVz6aeo"},
+            {"title":"竜騎士 Bloody†Saga OP", "url":"https://www.youtube.com/watch?v=hXg7x1GyHhM"},
+            {"title":"愚者ノ教鞭 OP", "url":"https://www.youtube.com/watch?v=ij29JVUNduw"},
+            {"title":"生命のスペア OP", "url":"https://www.youtube.com/watch?v=1fRg5mIXAOw"},
+            {"title":"オモカゲ ～えっちなハプニング！？　なんでもどんとこい！～ OP", "url":"https://www.youtube.com/watch?v=TxFMBnWiipA"},
+            {"title":"働くオトナの恋愛事情 OP", "url":"https://www.youtube.com/watch?v=2IlWlB_0U5s"},
+            {"title":"空色イノセント OP", "url":"https://www.youtube.com/watch?v=qE4JHdS0Smw"},
+            {"title":"聖騎士Melty☆Lovers OP", "url":"https://www.youtube.com/watch?v=W6OeQ9SDCoA"},
+            {"title":"できない私が、くり返す。 OP", "url":"https://www.youtube.com/watch?v=sJ8YQMUnASM"},
+            {"title":"創世奇譚アエリアル OP", "url":"https://www.youtube.com/watch?v=3Bm75tAZs5Q"},
+        ],
+        "hibiki works":[
+            #
+            #
+            # ----- hibiki works | http://www.hibiki-site.com -----
+            #
+            {"title":"なちゅらるばけーしょん", "url":"https://www.youtube.com/watch?v=NFxQfbjKy_A"},
+            {"title":"新妻LOVELY×CATION OP", "url":"https://www.youtube.com/watch?v=HY3x-hK3c4M"},
+            {"title":"PURELY×CATION OP", "url":"https://www.youtube.com/watch?v=vT9dJXFJJaU"},
+            {"title":"LOVELY×CATION2 OP", "url":"https://www.youtube.com/watch?v=XjD4_dmY4Gg"},
+            {"title":"(あっぷりけ-妹-) オトミミ∞インフィニティー", "url":"https://www.youtube.com/watch?v=v7JQ14vH2JE"},
+        ],
+        "あっぷりけ":[
+            #
+            #
+            # ----- あっぷりけ | http://www.applique-soft.com/ -----
+            #
+            {"title":"月影のシミュラクル-解放の羽- OP", "url":"https://www.youtube.com/watch?v=figOZDJWQg0"},
+            {"title":"Re：birth colony -Lost azurite-", "url":"https://www.youtube.com/watch?v=Z9zCsuUEfPQ"},
+            {"title":"花の野に咲くうたかたの", "url":"https://www.youtube.com/watch?v=onO6d5HCYQM"},
+            {"title":"時を紡ぐ約束", "url":"https://www.youtube.com/watch?v=tPJgDf_7QzM"},
+            {"title":"クロスコンチェルト OP 新しい絆Ver", "url":"https://www.youtube.com/watch?v=LBseltRw2uM"},
+            {"title":"", "url":""},
+
+            # 非公式
+            {"title":"見上げた空におちていく OP", "url":"https://www.youtube.com/watch?v=RGGQAmlw9kE"},
+            {"title":"コンチェルトノート OP", "url":"https://www.youtube.com/watch?v=iEHK3W4Sjxk"},
+            {"title":"黄昏のシンセミア OP", "url":"https://www.youtube.com/watch?v=D4_fIJeEFHM"},
+            {"title":"花の野に咲くうたかたの OP", "url":"https://www.youtube.com/watch?v=YVuTlq6f3nE"},
+            {"title":"時を紡ぐ約束 OP", "url":"https://www.youtube.com/watch?v=vswqfdCcQ0Y"},
+            {"title":"月影のシミュラクル-解放の羽- OP", "url":"https://www.youtube.com/watch?v=dvobRrghezQ"},
+            {"title":"", "url":""},
+            {"title":"", "url":""},
+        ],
+        "暁WORKS":[
+            #
+            #
+            # ----- 暁WORKS | http://www.akatsukiworks.com/ -----
+            #
+            {"title":"緋のない所に烟は立たない-緋修離と一蓮托生の女たち- OP", "url":"https://www.youtube.com/watch?v=BFofeE6cdI8"},
+            {"title":"スイセイギンカ OP", "url":"https://www.youtube.com/watch?v=jDO_fz66tN0"},
+            {"title":"(暁WORKS-黒-) HOTEL. OP", "url":"https://www.youtube.com/watch?v=RMejAPPL2M4"},
+            {"title":"(暁WORKS-黒-) 揺り籠より天使まで", "url":"https://www.youtube.com/watch?v=zRMS9Sfn_Ec"},
+            {"title":"(暁WORKS-黒-)　イヅナ斬審剣", "url":"https://www.youtube.com/watch?v=IVsDscIfE1g"},
+            {"title":"(暁WORKS-黒-)　イヅナ斬審剣", "url":"https://www.youtube.com/watch?v=xm2P1-_-a9I"},
+            {"title":"(暁WORKS-響-) LOVELY×CATION", "url":"https://www.youtube.com/watch?v=yFjIYkdm0vM"},
+            {"title":"るいは智を呼ぶファンディスク", "url":"https://www.youtube.com/watch?v=cy0NdiAUrow"},
+        ],
+        "COSMIC CUTE":[
+            #
+            #
+            # ----- COSMIC CUTE | http://www.cosmiccute.com/ -----
+            #
+            {"title":"空のつくりかた", "url":"https://www.youtube.com/watch?v=uyPvF8j9oew"},
+            {"title":"love,VAMPIRE FLOWERS OP", "url":"https://www.youtube.com/watch?v=ZyARdBy8TxU"},
+            {"title":"PRETTY×CATION2 OP", "url":"https://www.youtube.com/watch?v=lCvITePIvvQ"},
+            {"title":"グリムガーデンの少女 OP", "url":"https://www.youtube.com/watch?v=XyTp1Iifb0A"},
+        ],
+        "Nostalgic Chord":[
+            #
+            #
+            # ----- Nostalgic Chord | http://www.nostalgicchord.com/ -----
+            #
+            {"title":"放課後の不適格者 OP", "url":"https://www.youtube.com/watch?v=x_GMpuzfu_Y"},
+        ],
+        "スペルマニアックス":[
+            #
+            #
+            # ----- スペルマニアックス | http://www.akatsukiworks.com -----
+            #
+            {"title":"せきさば！ OP", "url":"https://www.youtube.com/watch?v=NpQyBoEe1GY"},
+        ],
+        "しゃんぐりらすまーと":[
+            #
+            #
+            # ----- しゃんぐりらすまーと | http://www.syangrila.com/ -----
+            #
+            {"title":"恋ではなく―― OP", "url":"https://www.youtube.com/watch?v=GkZjzdKp9V8"},
+        ],
+        "WHEEL":[
+            #
+            #
+            # -----WHEEL | http://www.akabeesoft2.com/ -----
+            #
+            {"title":"ぶら ぶら", "url":"https://www.youtube.com/watch?v=Qnyr4FKUaiE"},
         ]
     }
 
@@ -772,9 +976,13 @@ def get_my_music():
 
 
     # Esucu:de
-    # あっぷりけ
     # アリスソフト
     # silkysplus
+    # みなとそふと
+    # TYPE-MOON
+    # ensemble
+    # 自宅すたじお
+    # Harmorise -> ひとつ屋根の、ツバサの下で
     # May-Be SOFT -> ぱいタッチ！ OP
     # Front Wing -> イノセントガール OP
     # Front Wing -> グリザイアの果実
@@ -785,7 +993,20 @@ def get_my_music():
     # Navel -> 月乙
     # 絶対☆大好き https://www.youtube.com/watch?v=YA5EioW0oLQ
     # leaf フルアニ, ToHeart2
-    # 枕 -> サクラノ詩
+    # ケロＱ / 枕 -> サクラノ詩
+    # WillPlus/PULLTOP.. 系列
+    # chien
+    # SMEE
+    # unicorn
+    # Navel
+    # whitepowder -> lamunation!
+    # rask -> Re:Lief
+    # MOONSTONE
+    # チュアブルソフト
+    # studio-ego
+    # GLacé / Galette
+    # プラリネ
+    # らぶまてぃく -> 恋と恋するユートピア
 
     akabei3 = [
         # https://www.youtube.com/channel/UC-nhyMMGNXQQsXrdtDx3mSg
