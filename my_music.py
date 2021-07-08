@@ -414,9 +414,43 @@ def get_my_music():
         ],
         "CLEARRAVE - ぱれっと":[
             # https://www.youtube.com/channel/UCyU9cOKPWJTrOyLooTfDlJw
+            # https://www.youtube.com/channel/UCZh0Zle4EOte4enVI57-csg
+            # https://www.youtube.com/user/sakusakuch
             #
             # ----- CLEARRAVE | https://www.clearrave.co.jp/ -----
             #
+            {"title":"9-nine-ここのつここのかここのいろ", "url":"https://www.youtube.com/watch?v=pp4O_6JB_iU"},
+            {"title":"9-nine-そらいろそらうたそらのおと OP", "url":"https://www.youtube.com/watch?v=vKgeqjecF2w"},
+            {"title":"9-nine-はるいろはるこいはるのかぜ", "url":"https://www.youtube.com/watch?v=7xlHGsmbQQg"},
+            {"title":"9-nine-ゆきいろゆきはなゆきのあと OP", "url":"https://www.youtube.com/watch?v=LH0yFFPBTuc"},
+            {"title":"9-nine- はるいろはるこいはるのかぜ キャラクターソング 香坂春風", "url":"https://www.youtube.com/watch?v=6K5F9MBcUc8"},
+            {"title":"9-nine-シリーズキャラクターソングコレクション 九條都", "url":"https://www.youtube.com/watch?v=dGBIL56a4tA"},
+            {"title":"9-nine-シリーズキャラクターソングコレクション 新海天", "url":"https://www.youtube.com/watch?v=Bpuq-XmKVHM"},
+            {"title":"9-nine- ゆきいろゆきはなゆきのあと キャラクターソング 結城希亜", "url":"https://www.youtube.com/watch?v=0GmSG_5g5i8"},
+            {"title":"9-nine- OP", "url":"https://www.youtube.com/watch?v=_wXztMb7BI8"},
+            {"title":"恋がさくころ桜どき", "url":"https://www.youtube.com/watch?v=BLr45bi5pVw"},
+
+            # 非公式
+            {"title":"みんな捧げちゃう!", "url":"https://www.youtube.com/watch?v=eGZFWbsYI9k"},
+            {"title":"晴れときどきお天気雨 OP", "url":"https://www.youtube.com/watch?v=GaNfCZidINY"},
+            {"title":"すてぃーるMyはぁと OP", "url":"https://www.youtube.com/watch?v=kmM9EJwWcik"},
+            {"title":"すてぃーるMyはぁと ED", "url":"https://www.youtube.com/watch?v=M8hPnFd9Qr0"},
+            {"title":"ましろ色シンフォニー OP Authentic symphony", "url":"https://www.youtube.com/watch?v=IgIja-usUjs"},
+            {"title":"ましろ色シンフォニー OP シンフォニック・ラブ", "url":"https://www.youtube.com/watch?v=IfJV5Sy68so"},
+            {"title":"ましろ色シンフォニー *mutsu-no-hana OP", "url":"https://www.youtube.com/watch?v=eD8d4EvNpC4"},
+            {"title":"ましろ色シンフォニー ED 水彩キャンディー", "url":"https://www.youtube.com/watch?v=uAKXYUcpKtg"},
+            {"title":"ましろ色シンフォニー挿入歌 さよなら君の声", "url":"https://www.youtube.com/watch?v=OwOy-c87MTE"},
+            {"title":"さくらんぼシュトラッセ OP", "url":"https://www.youtube.com/watch?v=rN6fb0VLFrs"},
+            {"title":"さくらんぼシュトラッセ ED", "url":"https://www.youtube.com/watch?v=L1E_cpRea_A"},
+            {"title":"さくらシュトラッセ OP", "url":"https://www.youtube.com/watch?v=8m5CEcDiI1E"},
+            {"title":"さくらシュトラッセ ED", "url":"https://www.youtube.com/watch?v=TCLjWhvmpqA"},
+            {"title":"えむぴぃ", "url":"https://www.youtube.com/watch?v=DkGym8Y2l5g"},
+            {"title":"もしも明日が晴れならば OP", "url":"https://www.youtube.com/watch?v=ZUOxgkU9DfA"},
+            {"title":"もしも明日が晴れならば ED", "url":"https://www.youtube.com/watch?v=HtikOpdJNkc"},
+            {"title":"MERI+DIA", "url":"https://www.youtube.com/watch?v=nhbiODSUi_Q"},
+            {"title":"愛cute! キミに恋してる OP", "url":"https://www.youtube.com/watch?v=_4yimWpi59c"},
+            {"title":"愛cute! キミに恋してる ED", "url":"https://www.youtube.com/watch?v=d1QbWs8tvOs"},
+            {"title":"はちみつ荘 de ほっぺにチュウ OP", "url":"https://www.youtube.com/watch?v=-R3QdGTwfA0"},
         ],
         "CLEARRAVE - キャラメリア":[
             # 非公式
@@ -711,9 +745,6 @@ def get_my_music():
     
     palette_qualia = [
     ]
-    
-    HARUKAZE = [
-    ]
 
     Campus = [
     ]
@@ -737,9 +768,6 @@ def get_my_music():
     ]
 
     Escu_de = [
-    ]
-    
-    Iris = [
     ]
 
     return music, sagyou_music
