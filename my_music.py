@@ -217,10 +217,11 @@ def get_my_music():
             {"title":"knot～絆の魔法～ OP", "url":"https://www.youtube.com/watch?v=M3Lnjc__xaU"},
             {"title":"knot～絆の魔法～ ED", "url":"https://www.youtube.com/watch?v=38IfmepP5k0"},
         ],
-        "Lump of Sugar":[
+        "Lump of Sugar / Quince Soft":[
             # https://www.youtube.com/user/lumpofsugaroffcial
+            # https://www.youtube.com/channel/UCO9dIQQxVZ9vqtqdWgR6Nnw
             #
-            # ----- Lump of Sugar | https://www.lumpofsugar.co.jp/ -----
+            # ----- Lump of Sugar / Quince Soft | https://www.lumpofsugar.co.jp/ -----
             #
             {"title":"PrismRhythm -プリズムリズム- OP", "url":"https://www.youtube.com/watch?v=j-1EPGWGv7c"},
             {"title":"ダイヤミック・デイズ OP", "url":"https://www.youtube.com/watch?v=g8csPR0Tp_c"},
@@ -240,9 +241,14 @@ def get_my_music():
             {"title":"あにまる☆ぱにっく OP", "url":"https://www.youtube.com/watch?v=S4hsRzzXcQM"},
             {"title":"ねこツク、さくら。 OP", "url":"https://www.youtube.com/watch?v=jNg5qSNO5-A"},
             {"title":"まどひ白きの神隠し", "url":"https://www.youtube.com/watch?v=qsIR1DXfqsQ"},
+            {"title":"もののあはれは彩の頃。", "url":"https://www.youtube.com/watch?v=5dLuEJVxrw0"},
 
             # 非公式
             {"title":"いつか、届く、あの空に。 OP", "url":"https://www.youtube.com/watch?v=gBkd0BimRNo"},
+            {"title":"いつか、届く、あの空に。-2nd OP", "url":"https://www.youtube.com/watch?v=gplZCWadhU4"},
+            {"title":"学☆王 -THE ROYAL SEVEN STARS- +METEOR PSP OP", "url":"https://www.youtube.com/watch?v=Ck1jA7NDPyA"},
+            {"title":"学☆王 -THE ROYAL SEVEN STARS- +METEOR 2ndOP", "url":"https://www.youtube.com/watch?v=bsbyjP7CG0o"},
+            {"title":"Hello, good-bye OP", "url":"https://www.youtube.com/watch?v=TWB643L7qso"},
             {"title":"Nursery Rhyme -ナーサリィ☆ライム- OP", "url":"https://www.youtube.com/watch?v=2iZVvkxiGMY"},
             {"title":"Nursery Rhyme -ナーサリィ☆ライム- OP covered by 波島出海(cv.赤崎千夏)", "url":"https://www.youtube.com/watch?v=H1S0MOuNStU"},
         ],
@@ -711,6 +717,53 @@ def get_my_music():
             {"title":"出会って5分は俺のもの！　時間停止と不可避な運命 OP", "url":"https://www.youtube.com/watch?v=xJ-y9MkQHag"},
             {"title":"俺の姿が、透明に！？ 不可視の薬と数奇な運命 OP", "url":"https://www.youtube.com/watch?v=gUlpsCPDHLk"},
             {"title":"ココロのカタチとイロとオト OP", "url":"https://www.youtube.com/watch?v=v21E-vCPg7o"},
+        ],
+        "Tinkle Position":[
+            #
+            #
+            # ----- Tinkle Position | http://tinkle-position.com/ -----
+            #
+            # 非公式
+            {"title":"お兄ちゃん、キッスの準備はまだですか？", "url":"https://www.youtube.com/watch?v=8JkCUOiA_nU"},
+            {"title":"お兄ちゃん、キッスの準備はまだですか？ エッチの準備もまだですか？", "url":"https://www.youtube.com/watch?v=kR19WJh5NK8"},
+            {"title":"お兄ちゃん、朝までずっとギュッてして！ OP", "url":"https://www.youtube.com/watch?v=UPtDHoqxK2o"},
+            {"title":"お兄ちゃん、朝までずっとギュッてして！　夜までもっとエッチして OP", "url":"https://www.youtube.com/watch?v=Ze5L7NudtQA"},
+        ],
+        "ウグイスカグラ":[
+            # https://www.youtube.com/channel/UCXEL1VJ0LBXfYUE7LZ34DQA
+            #
+            # ----- ウグイスカグラ | http://kagura.rdy.jp/ -----
+            #
+            {"title":"空に刻んだパラレログラム OP", "url":"https://www.youtube.com/watch?v=x12UsxAEagI"},
+            {"title":"水葬銀貨のイストリア OP", "url":"https://www.youtube.com/watch?v=1vWn-D-cJbY"},
+            {"title":"冥契のルペルカリア OP", "url":"https://www.youtube.com/watch?v=VM8ZqmwPZ74"},
+        ],
+        "ASa Project":[
+            # (HOOK SOFT) https://www.youtube.com/user/hooksoftofficial/videos
+            # (株式会社エンターグラム) https://www.youtube.com/channel/UC5L29DMpV7CgtsU6mxV6cGw
+            # https://www.youtube.com/user/ASaProjectJPN/videos
+            #
+            # ----- ASa Project | https://www.asa-pro.com/products.html -----
+            #
+            {"title":"恋愛０キロメートル 挿入歌 Girl's Song", "url":"https://www.youtube.com/watch?v=S-2nNNEBNkQ"},
+            {"title":"恋愛０キロメートル 主題歌", "url":"https://www.youtube.com/watch?v=EfZhW2shroE"},
+            {"title":"ひとつとばし恋愛 主題歌", "url":"https://www.youtube.com/watch?v=keiQt7zPYr4"},
+            {"title":"プラマイウォーズ 主題歌", "url":"https://www.youtube.com/watch?v=NpghM7oQgCQ"},
+            {"title":"スキとスキとでサンカク恋愛 OP", "url":"https://www.youtube.com/watch?v=GfTh1KK7eHE&t=4s"},
+            {"title":"かりぐらし恋愛 OP", "url":"https://www.youtube.com/watch?v=CqcrT1rL-_c"},
+            {"title":"恋愛、借りちゃいました OP", "url":"https://www.youtube.com/watch?v=lLJHa5mTPSI"},
+            {"title":"恋愛×ロワイアル  OP", "url":"https://www.youtube.com/watch?v=rYUlY05gRII"},
+
+            # 非公式
+            {"title":"めいくるッ! Welcome to Happy Maid Life!! OP", "url":"https://www.youtube.com/watch?v=_3UfgkAsfZw"},
+            {"title":"Hime のち Honey OP", "url":"https://www.youtube.com/watch?v=X_soh2rKw48"},
+            {"title":"アッチむいて恋 OP マル秘☆恋愛法則", "url":"https://www.youtube.com/watch?v=ToMPLFfDnS0"},
+            {"title":"恋愛0キロメートル OP", "url":"https://www.youtube.com/watch?v=FOJdLkAgeRU"},
+            {"title":"恋愛0キロメートル 挿入歌 僕と君", "url":"https://www.youtube.com/watch?v=Jmorc-mHiac"},
+            {"title":"ひとつ飛ばし恋愛 OP", "url":"https://www.youtube.com/watch?v=XmZ6d5Rt56Y"},
+            {"title":"プラマイウォーズ OP", "url":"https://www.youtube.com/watch?v=bwiJyoUYYsM"},
+            {"title":"スキとスキとでサンカク恋愛 OP", "url":"https://www.youtube.com/watch?v=f-T82zPRKgY"},
+            {"title":"かりぐらし恋愛 OP ふわり恋模様", "url":"https://www.youtube.com/watch?v=iw1ACVGzcNA"},
         ]
     }
 
