@@ -690,6 +690,27 @@ def get_my_music():
             {"title":"らぶらぶプリンセス OP ver1.2", "url":"https://www.youtube.com/watch?v=inVoCaJ2QmA"},
             {"title":"らぶらぶシスターズ OP", "url":"https://www.youtube.com/watch?v=P9cL7hXsSSw"},
             {"title":"こすつま～新妻とエッチなコスプレレッスン～ OP", "url":"https://www.youtube.com/watch?v=HFEJpEvw1DU"},
+        ],
+        "GLOVETY":[
+            # https://www.youtube.com/channel/UCw_k1epLEJ6CBL0PbO1wYbw
+            #
+            # ----- GLOVETY | https://glovety.product.co.jp/ -----
+            #
+            {"title":"アインシュタインより愛を込めて OP", "url":"https://www.youtube.com/watch?v=k47AE29qyNQ"},
+            {"title":"アインシュタインより愛を込めて 2nd OP", "url":"https://www.youtube.com/watch?v=Jq3z0_Ho3J4"},
+        ],
+        "Hulotte":[
+            # https://www.youtube.com/user/HulotteJP
+            #
+            # ----- Hulotte | http://hulotte.jp/pc/ -----
+            #
+            {"title":"With Ribbon", "url":"https://www.youtube.com/watch?v=fcHFVa8AFD4"},
+            {"title":"妹のおかげでモテすぎてヤバい。", "url":"https://www.youtube.com/watch?v=Gyf5lD0fhc8"},
+            {"title":"嫁探しが捗りすぎてヤバい。 OP", "url":"https://www.youtube.com/watch?v=D5jhZCwRl6c"},
+            {"title":"神頼みしすぎて俺の未来がヤバい。 OP", "url":"https://www.youtube.com/watch?v=U5YAXe3AlWo"},
+            {"title":"出会って5分は俺のもの！　時間停止と不可避な運命 OP", "url":"https://www.youtube.com/watch?v=xJ-y9MkQHag"},
+            {"title":"俺の姿が、透明に！？ 不可視の薬と数奇な運命 OP", "url":"https://www.youtube.com/watch?v=gUlpsCPDHLk"},
+            {"title":"ココロのカタチとイロとオト OP", "url":"https://www.youtube.com/watch?v=v21E-vCPg7o"},
         ]
     }
 
@@ -703,6 +724,7 @@ def get_my_music():
     # silkysplus
     # May-Be SOFT -> ぱいタッチ！ OP
     # Front Wing -> イノセントガール OP
+    # Front Wing -> グリザイアの果実
     # aries soft -> タラレバ ED
     # Cabbit -> キミへ贈る、ソラの花 OP
     # tone work's -> 銀色、遥か
@@ -710,6 +732,7 @@ def get_my_music():
     # Navel -> 月乙
     # 絶対☆大好き https://www.youtube.com/watch?v=YA5EioW0oLQ
     # leaf フルアニ, ToHeart2
+    # 枕 -> サクラノ詩
 
     akabei3 = [
         # https://www.youtube.com/channel/UC-nhyMMGNXQQsXrdtDx3mSg
