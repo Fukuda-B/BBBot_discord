@@ -379,6 +379,10 @@ class Image(commands.Cog):
     async def presen(self, ctx):
         """gaming presentation GIF"""
         await Image.get_pic(self, ctx, 'https://cdn.discordapp.com/attachments/733937061199085610/768300192818135040/GPW.gif', 'gaming_presentation.gif')
+    @commands.command(description='maji yabakune')
+    async def majiyaba(self, ctx):
+        """maji yabakune"""
+        await Image.get_pic(self, ctx, 'https://pbs.twimg.com/media/C34X4w0UcAEyKW-.jpg', 'majiyaba.jpg')
 
     @commands.command(description='send photo')
     async def b_img(self, ctx, url: str, file_name: str):
