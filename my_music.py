@@ -968,6 +968,63 @@ def get_my_music():
             # -----WHEEL | http://www.akabeesoft2.com/ -----
             #
             {"title":"ぶら ぶら", "url":"https://www.youtube.com/watch?v=Qnyr4FKUaiE"},
+        ],
+        "Frontwing":[
+            # https://www.youtube.com/c/frontwingtube
+            # https://www.youtube.com/channel/UCxgiQl3TgKVOoyckeTLa83g
+            # (ファミ通TUBE) https://www.youtube.com/channel/UCtPyU9cJgvvgH03PQKgaucA
+            # https://www.youtube.com/channel/UCN6iYFwpTn1s2bgJgvIjdYQ
+            #
+            # ----- Frontwing | http://frontwing.jp/ -----
+            #
+            {"title":"グリザイアの楽園 OP", "url":"https://www.youtube.com/watch?v=xu9N0rtV4lc"},
+            {"title":"グリザイアの楽園 OP アニメ版", "url":"https://www.youtube.com/watch?v=rANadsEHGO8"},
+            {"title":"ISLAND OP", "url":"https://www.youtube.com/watch?v=n4QWGinK5S0"},
+            {"title":"ISLAND ED", "url":"https://www.youtube.com/watch?v=6VfdaFq-INE"},
+            {"title":"Purino Party PV", "url":"https://www.youtube.com/watch?v=xRoaL_pRcd8"},
+            {"title":"グリザイア：ファントムトリガー vol.7 OP", "url":"https://www.youtube.com/watch?v=gGqakHLrS90"},
+            {"title":"ももいろクローゼット OP", "url":"https://www.youtube.com/watch?v=sHNWjafLMP8"},
+            {"title":"ろけらぶ 同棲×後輩 OP", "url":"https://www.youtube.com/watch?v=ji8xiNNX-TI"},
+            {"title":"ろけらぶ 電車×同級生 OP", "url":"https://www.youtube.com/watch?v=N_8n70EQ22s"},
+            {"title":"ろけらぶ 神社×先輩", "url":"https://www.youtube.com/watch?v=Dt6H_YKfD5g"},
+            {"title":"イノセントガール OP", "url":"https://www.youtube.com/watch?v=KJa5DFb1Wss"},
+            {"title":"ピュアガール OP", "url":"https://www.youtube.com/watch?v=2Y11dJUK93M"},
+            {"title":"魔界天使ジブリール4 OP", "url":"https://www.youtube.com/watch?v=_qbhFpwn_-A"},
+            {"title":"ゆきこいめると OP", "url":"https://www.youtube.com/watch?v=nsCfaV4S4Rs"},
+            {"title":"魔界天使ジブリール3 OP", "url":"https://www.youtube.com/watch?v=knjTg9-jn8E"},
+            {"title":"戦国天使ジブリール OP", "url":"https://www.youtube.com/watch?v=ZyDj1M5gAXA"},
+            {"title":"魔界天使ジブリ－ル episode2", "url":"https://www.youtube.com/watch?v=paBqrf4qXvs"},
+
+            # 非公式
+            {"title":"カナリア～この想いを歌に乗せて～", "url":"https://www.youtube.com/watch?v=qDse0L0L4ac"},
+            {"title":"フーリガン OP", "url":"https://www.youtube.com/watch?v=4YTeTeP1kX0"},
+            {"title":"426 OP", "url":"https://www.youtube.com/watch?v=jdhVZp8aBRc"},
+            {"title":"魔女のお茶会 OP", "url":"https://www.youtube.com/watch?v=yATCoC5t6vE"},
+            {"title":"スイートレガシー　～ボクと彼女のあま～い関係～ OP", "url":"https://www.youtube.com/watch?v=iY3T4jMKzoo"},
+            {"title":"私立アキハバラ学園 OP", "url":"https://www.youtube.com/watch?v=IvVvA3U95qA"},
+            {"title":"魔界天使ジブリール OP", "url":"https://www.youtube.com/watch?v=73InYayZcfI"},
+            {"title":"魔界天使ジブリール2 OP", "url":"https://www.youtube.com/watch?v=KVW0onOgk14"},
+            {"title":"魔界天使ジブリール3 OP", "url":"https://www.youtube.com/watch?v=OIUWW_PtALw"},
+            {"title":"魔界天使ジブリール4 OP", "url":"https://www.youtube.com/watch?v=AD8f0yPgSw8"},
+            {"title":"そらうた OP", "url":"https://www.youtube.com/watch?v=Q5lj-6NhEkQ"},
+            {"title":"ボーイミーツガール OP", "url":"https://www.youtube.com/watch?v=-Virpb8lBJo"},
+            {"title":"めがちゅ！", "url":"https://www.youtube.com/watch?v=fVE9DZFWHLw"},
+            {"title":"きみはぐ OP", "url":"https://www.youtube.com/watch?v=IDTyv5GiFlY"},
+            {"title":"タイムリープ OP", "url":"https://www.youtube.com/watch?v=86Kd6EDRNjY"},
+            {"title":"ほしうた OP", "url":"https://www.youtube.com/watch?v=kKGYr94Sv1E"},
+            {"title":"タイムリープぱらだいす", "url":"https://www.youtube.com/watch?v=DRXCkQ-esqQ"},
+            {"title":"ほしうた -starlight serenade- OP", "url":"https://www.youtube.com/watch?v=ThTzQQWzJxI"},
+            {"title":"グリザイアの果実 OP", "url":"https://www.youtube.com/watch?v=dtkAO413jdY"},
+            {"title":"グリザイアの果実 OP アニメ版", "url":"https://www.youtube.com/watch?v=mBniTN7_zhI"},
+            {"title":"戦国天使ジブリール OP", "url":"https://www.youtube.com/watch?v=W32asUDTdZo"},
+            {"title":"グリザイアの迷宮 OP PS Vita", "url":"https://www.youtube.com/watch?v=uXf0hA0tsc8"},
+            {"title":"ピュアガール OP", "url":"https://www.youtube.com/watch?v=sPmIMFaiSYQ"},
+            {"title":"グリザイアの楽園 OP", "url":"https://www.youtube.com/watch?v=wKbdkvjt7D0"},
+            {"title":"イノセントガール OP Art as", "url":"https://www.youtube.com/watch?v=EeDBw7yXhUs"},
+            {"title":"アイドル魔法少女ちるちる☆みちる OP", "url":"https://www.youtube.com/watch?v=XlZDUc8ALA8"},
+            {"title":"ゆきこいめると OP", "url":"https://www.youtube.com/watch?v=ap2fbLLdpTw"},
+            {"title":"果つることなき未来ヨリ OP", "url":"https://www.youtube.com/watch?v=YNoMIuV5ROU"},
+            {"title":"コロナ・ブロッサム OP", "url":"https://www.youtube.com/watch?v=qOj4eSMTaUk"},
         ]
     }
 
@@ -977,15 +1034,12 @@ def get_my_music():
 
     # Esucu:de
     # アリスソフト
-    # silkysplus
     # みなとそふと
     # TYPE-MOON
     # ensemble
     # 自宅すたじお
     # Harmorise -> ひとつ屋根の、ツバサの下で
     # May-Be SOFT -> ぱいタッチ！ OP
-    # Front Wing -> イノセントガール OP
-    # Front Wing -> グリザイアの果実
     # aries soft -> タラレバ ED
     # Cabbit -> キミへ贈る、ソラの花 OP
     # tone work's -> 銀色、遥か
