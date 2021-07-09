@@ -229,6 +229,9 @@ def get_my_music():
             {"title":"金色ラブリッチェ - Golden Time - OP", "url":"https://www.youtube.com/watch?v=fVvehF-siD4"},
             {"title":"金色ラブリッチェ - Golden Time - OP カラオケ", "url":"https://www.youtube.com/watch?v=KyS2EsNjy7U"},
             {"title":"かけぬけ★青春スパーキング！ OP", "url":"https://www.youtube.com/watch?v=pC91EvljiZE"},
+
+            # 非公式
+            {"title":"花咲ワークスプリング OP", "url":"https://www.youtube.com/watch?v=yg-If2xClM4"},
         ],
         "feng":[
             # https://www.youtube.com/channel/UCSBs7c2hzWDbsfqnZNZVqqw
@@ -893,7 +896,6 @@ def get_my_music():
             {"title":"新妻LOVELY×CATION OP", "url":"https://www.youtube.com/watch?v=HY3x-hK3c4M"},
             {"title":"PURELY×CATION OP", "url":"https://www.youtube.com/watch?v=vT9dJXFJJaU"},
             {"title":"LOVELY×CATION2 OP", "url":"https://www.youtube.com/watch?v=XjD4_dmY4Gg"},
-            {"title":"(あっぷりけ-妹-) オトミミ∞インフィニティー", "url":"https://www.youtube.com/watch?v=v7JQ14vH2JE"},
         ],
         "あっぷりけ":[
             #
@@ -905,7 +907,7 @@ def get_my_music():
             {"title":"花の野に咲くうたかたの", "url":"https://www.youtube.com/watch?v=onO6d5HCYQM"},
             {"title":"時を紡ぐ約束", "url":"https://www.youtube.com/watch?v=tPJgDf_7QzM"},
             {"title":"クロスコンチェルト OP 新しい絆Ver", "url":"https://www.youtube.com/watch?v=LBseltRw2uM"},
-            {"title":"", "url":""},
+            {"title":"(あっぷりけ-妹-) オトミミ∞インフィニティー", "url":"https://www.youtube.com/watch?v=v7JQ14vH2JE"},
 
             # 非公式
             {"title":"見上げた空におちていく OP", "url":"https://www.youtube.com/watch?v=RGGQAmlw9kE"},
@@ -914,8 +916,6 @@ def get_my_music():
             {"title":"花の野に咲くうたかたの OP", "url":"https://www.youtube.com/watch?v=YVuTlq6f3nE"},
             {"title":"時を紡ぐ約束 OP", "url":"https://www.youtube.com/watch?v=vswqfdCcQ0Y"},
             {"title":"月影のシミュラクル-解放の羽- OP", "url":"https://www.youtube.com/watch?v=dvobRrghezQ"},
-            {"title":"", "url":""},
-            {"title":"", "url":""},
         ],
         "暁WORKS":[
             #

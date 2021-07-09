@@ -86,11 +86,18 @@ BBBot v2.5.14beta (prefix is "?")
 | v_boice_en | Voice TTS (English) |
 | v_connect | Voice Connect |
 | v_disconnect | Voice Disconnect |
-| v_music | yt player. play:`?v_music url` stop:`?v_music stop` random:`?v_music b` random&loop:`?v_music b_loop`|
 | v_volume | volume ( 0.0 - 1.0 ) |
 | v_list | voice channel member list |
 | v_mute | mute member's voice (b = all) |
 | v_unmute | unmute member's voice (b = all) |
+| v_music b | recommended (random) |
+| v_music b_loop | recommended (random & random) |
+| v_music "url" | youtube player |
+| v_music skip | skip to next song |
+| v_music queue | show queue |
+| v_music queue_del | delete queue |
+| v_music play | playback |
+| v_music stop | stop playback |
 
 **ydl**
 | command | outline |

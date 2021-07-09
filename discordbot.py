@@ -51,7 +51,7 @@ import ffmpeg
 # import requests #req
 
 
-VERSION='v2.5.14'
+VERSION='v2.5.15'
 
 TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, UP_SERVER,\
@@ -416,7 +416,7 @@ class Youtube(commands.Cog):
         'format' : 'bestaudio/best',
         'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
         'restrictfilenames': True,
-        'noplaylist': True,
+        # 'noplaylist': True, # allow playlist
         'nocheckcertificate': True,
         'no_warnings': True,
         'default_search': 'auto',
@@ -434,7 +434,8 @@ class Youtube(commands.Cog):
             await self.ydl_m4a(ctx, url)
         else: # youtube (or niconico)
             filename = await self.ydl_proc(ctx, url, self.ytdl_opts)
-            await self.ydl_send(ctx, filename)
+            for i in range(len(filename)):
+                await self.ydl_send(ctx, filename[i])
 
     @commands.command(description='youtube-dl audio mp3')
     async def ydl_mp3(self, ctx, url: str):
@@ -445,10 +446,9 @@ class Youtube(commands.Cog):
                 'preferredcodec': 'mp3',
             }]
         }
-        #await self.ydl_proc(self, ctx, url, (self.ytdl_opts | setOpt)) # Python 3.9+
         filename = await self.ydl_proc(ctx, url, dict(self.ytdl_opts, **setOpt))
-        await self.ydl_send(ctx, filename)
-        # await ctx.send(json.dumps(self.ytdl_opts | setOpt)) #Debug
+        for i in range(len(filename)):
+            await self.ydl_send(ctx, filename[i])
 
     @commands.command(description='youtube-dl audio m4a')
     async def ydl_m4a(self, ctx, url: str):
@@ -459,9 +459,9 @@ class Youtube(commands.Cog):
                 'preferredcodec': 'm4a',
             }]
         }
-        #await self.ydl_proc(ctx, url, (self.ytdl_opts | setOpt)) # Python 3.9+
         filename = await self.ydl_proc(ctx, url, dict(self.ytdl_opts, **setOpt))
-        await self.ydl_send(ctx, filename)
+        for i in range(len(filename)):
+            await self.ydl_send(ctx, filename[i])
         # await ctx.send(json.dumps(self.ytdl_opts | setOpt)) #Debug
 
     @commands.command(description='youtube-dl audio aac')
@@ -473,9 +473,9 @@ class Youtube(commands.Cog):
                 'preferredcodec': 'aac',
             }]
         }
-        #await self.ydl_proc(ctx, url, (self.ytdl_opts | setOpt)) # Python 3.9+
         filename = await self.ydl_proc(ctx, url, dict(self.ytdl_opts, **setOpt))
-        await self.ydl_send(ctx, filename)
+        for i in range(len(filename)):
+            await self.ydl_send(ctx, filename[i])
         # await ctx.send(json.dumps(self.ytdl_opts | setOpt)) #Debug
 
     async def ydl_proc(self, ctx, url:str, ytdl_opts):
@@ -484,24 +484,44 @@ class Youtube(commands.Cog):
         else: # youtube
             async with ctx.typing():
                 try:
+                    # 事前に情報取得
                     with youtube_dl.YoutubeDL(ytdl_opts) as ydl:
-                        info = ydl.extract_info(url, download=True)
-                        filename = ydl.prepare_filename(info)
-                        if 'postprocessors' in ytdl_opts:
-                            filename = pathlib.PurePath(filename).stem + '.' + ytdl_opts['postprocessors'][0]['preferredcodec']
-                        return filename
-                except KeyError:
-                    pass
+                        pre_info = ydl.extract_info(url, download=False)
+                    if 'entries' in pre_info:
+                        # playlist (multiple video)
+                        video = pre_info['entries']
+                        filenames = []
+                        for i, item in enumerate(video):
+                            with youtube_dl.YoutubeDL(ytdl_opts) as ydl:
+                                info = ydl.extract_info(pre_info['entries'][i]['webpage_url'], download=True)
+                                filename = ydl.prepare_filename(info)
+                                if 'postprocessors' in ytdl_opts:
+                                    filename = pathlib.PurePath(filename).stem + '.' + ytdl_opts['postprocessors'][0]['preferredcodec']
+                                filenames.append(filename)
+                        return filenames
+                    else:
+                        # single video
+                        with youtube_dl.YoutubeDL(ytdl_opts) as ydl:
+                            info = ydl.extract_info(url, download=True)
+                            filename = ydl.prepare_filename(info)
+                            if 'postprocessors' in ytdl_opts:
+                                filename = pathlib.PurePath(filename).stem + '.' + ytdl_opts['postprocessors'][0]['preferredcodec']
+                            return [filename]
+                except:
+                    return False
 
     # niconico download
     async def ndl_proc(self, ctx, url:str):
-        nico_path = pathlib.Path(str(url)).name
-        nico = NicoNico(nico_path)
-        nico_data = await nico.get_info()
-        title = nico_data["video"]["title"] + '.mp4'
-        await nico.download(title) # download & save
-        nico.close()
-        return await Youtube.ffmpeg(self, title, 'm4a')
+        try:
+            nico_path = pathlib.Path(str(url)).name
+            nico = NicoNico(nico_path)
+            nico_data = await nico.get_info()
+            title = nico_data["video"]["title"] + '.mp4'
+            await nico.download(title) # download & save
+            nico.close()
+            return await Youtube.ffmpeg(self, title, 'm4a')
+        except:
+            return False
 
     # convert (need install ffmpeg) fmt = m4a, mp3, ...
     async def ffmpeg(self, filename:str, fmt):
@@ -514,7 +534,6 @@ class Youtube(commands.Cog):
             return filename+'.'+fmt
 
     async def ydl_send(self, ctx, filename):
-        print(filename)
         try:
             with open(filename, 'rb') as fp:
                 await ctx.send(file=discord.File(fp, filename))
@@ -536,6 +555,8 @@ class VoiceChat(commands.Cog):
         self.now = None # now playing
         self.volume = 1.0
         self.inf_play = False # infinity play music
+        self.queue = [] # music queue ['now play', 'next', '...']
+        self.state = False # continue to play
 
     @commands.command(description='Discord_VoiceChat Connect')
     async def v_connect(self, ctx):
@@ -572,21 +593,24 @@ class VoiceChat(commands.Cog):
         tx = ' '.join(tx)
         await VoiceChat.v_boice_en(self, ctx, tx)
 
-    @commands.command(description='play music')
+    @commands.command(description='play music (b/b_loop/stop/skip/queue/play)')
     async def v_music(self, ctx, tx:str):
-        """play music. (b = random, b_loop = random&loop)"""
+        """play music. (b/b_loop/stop/skip/queue/play)"""
         ytdl_opts = {
             'format' : 'bestaudio/best',
             'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
             'restrictfilenames': True,
-            'noplaylist': True,
+            # 'noplaylist': True,
             'nocheckcertificate': True,
             'no_warnings': True,
             'default_search': 'auto',
             'source_address': '0.0.0.0'
         }
         await VoiceChat.v_connect(self, ctx) # 接続確認
-        self.inf_play = False # infiniry play: off
+        if tx.lower() != 'skip':
+            self.inf_play = False # infiniry play: off
+        self.state = False # auto play: off
+
         if tx.lower() == 'stop' and self.now != None:
             self.now.stop()
             self.now = None
@@ -601,7 +625,8 @@ class VoiceChat(commands.Cog):
             brand = music[brand_n]
             mm = brand[random.randint(0,int(len(brand))-1)]
 
-            filename = await Youtube.ydl_proc(self, ctx, mm['url'], ytdl_opts)
+            ytdl_opts['noplaylist'] = True
+            [filename] = await Youtube.ydl_proc(self, ctx, mm['url'], ytdl_opts)
             await ctx.send(f'`{brand_n}` - `{mm["title"]}`')
             await VoiceChat.voice_send(self, ctx, filename)
 
@@ -617,23 +642,63 @@ class VoiceChat(commands.Cog):
                 brand = music[brand_n]
                 mm = brand[random.randint(0,int(len(brand))-1)]
 
-                filename = await Youtube.ydl_proc(self, ctx, mm['url'], ytdl_opts)
-                if not filename: continue
-                await ctx.send(f'`{brand_n}` - `{mm["title"]}`')
-                await VoiceChat.voice_send(self, ctx, filename)
+                ytdl_opts['noplaylist'] = True
+                [filename] = await Youtube.ydl_proc(self, ctx, mm['url'], ytdl_opts)
+                if not filename:
+                    await ctx.send('Error: Youtube.ydl_proc')
+                    continue
+                if self.now == None:
+                    await ctx.send(f'`{brand_n}` - `{mm["title"]}`')
+                    await VoiceChat.voice_send(self, ctx, filename)
+
+        elif tx.lower() == 'skip':
+            if self.now != None:
+                self.now.stop()
+                self.now = None
+            if self.inf_play:
+                self.inf_play = False
+                await VoiceChat.v_music(self, ctx, 'b_loop')
+            elif len(self.queue) > 0:
+                self.queue.pop(0)
+                if len(self.queue) > 0:
+                    await VoiceChat.v_music(self, ctx, 'play')
+
+        elif tx.lower() == 'play':
+            self.state = True
+            if self.now == None and len(self.queue):
+                await VoiceChat.voice_send(self, ctx, self.queue.pop(0))
+                if len(self.queue) > 0 and self.state:
+                    await VoiceChat.v_music(self, ctx, 'play')
+
+        elif tx.lower() == 'queue':
+            if len(self.queue) > 0:
+                sd = '> | '+str(self.queue[0])+'\n'
+                for i in range(1, len(self.queue)):
+                    sd += str(i)+' | '+str(self.queue[i])+'\n'
+                await ctx.send("```py\n"+sd+"```")
+            else:
+                await ctx.send("queue = Null")
+
+        elif tx.lower() == 'queue_del':
+            self.queue = []
 
         else:
             try: # try connect url
                 f = urllib.request.urlopen(tx)
                 f.close()
             except: return False
-
             if self.now != None:
                 self.now.stop()
                 self.now = None
 
             filename = await Youtube.ydl_proc(self, ctx, tx, ytdl_opts)
-            await VoiceChat.voice_send(self, ctx, filename)
+            self.queue += filename
+            if len(filename) > 1:
+                await ctx.send(str(len(filename))+" songs added")
+            if self.now == None and len(self.queue):
+                await VoiceChat.voice_send(self, ctx, self.queue.pop(0))
+                if len(self.queue) > 0:
+                    await VoiceChat.v_music(self, ctx, 'play')
 
     @commands.command(description='play music + kawaii_voice_gtts.music_pack1')
     async def v_music_pack1(self, ctx, tx:str):
@@ -647,7 +712,7 @@ class VoiceChat(commands.Cog):
             'format' : 'bestaudio/best',
             'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
             'restrictfilenames': True,
-            'noplaylist': True,
+            'noplaylist': True, # not allow playlist
             'nocheckcertificate': True,
             'no_warnings': True,
             'default_search': 'auto',
