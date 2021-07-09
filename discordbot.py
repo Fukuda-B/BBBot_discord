@@ -595,7 +595,7 @@ class VoiceChat(commands.Cog):
 
     @commands.command(description='play music (b/b_loop/stop/skip/queue/play)')
     async def v_music(self, ctx, tx:str):
-        """play music. (b/b_loop/stop/skip/queue/play)"""
+        """play music. (b/b_loop/stop/skip/queue/queue_del/play)"""
         ytdl_opts = {
             'format' : 'bestaudio/best',
             'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
@@ -626,9 +626,11 @@ class VoiceChat(commands.Cog):
             mm = brand[random.randint(0,int(len(brand))-1)]
 
             ytdl_opts['noplaylist'] = True
-            [filename] = await Youtube.ydl_proc(self, ctx, mm['url'], ytdl_opts)
-            await ctx.send(f'`{brand_n}` - `{mm["title"]}`')
-            await VoiceChat.voice_send(self, ctx, filename)
+            filename_ = await Youtube.ydl_proc(self, ctx, mm['url'], ytdl_opts)
+            if not filename_:
+                filename = filename_[0]
+                await ctx.send(f'`{brand_n}` - `{mm["title"]}`')
+                await VoiceChat.voice_send(self, ctx, filename)
 
         elif tx.lower() == 'b_loop': # infinity random play!
             if self.now != None:
@@ -643,11 +645,12 @@ class VoiceChat(commands.Cog):
                 mm = brand[random.randint(0,int(len(brand))-1)]
 
                 ytdl_opts['noplaylist'] = True
-                [filename] = await Youtube.ydl_proc(self, ctx, mm['url'], ytdl_opts)
-                if not filename:
+                filename_ = await Youtube.ydl_proc(self, ctx, mm['url'], ytdl_opts)
+                if not filename_:
                     await ctx.send('Error: Youtube.ydl_proc')
                     continue
                 if self.now == None:
+                    filename = filename_[0]
                     await ctx.send(f'`{brand_n}` - `{mm["title"]}`')
                     await VoiceChat.voice_send(self, ctx, filename)
 
