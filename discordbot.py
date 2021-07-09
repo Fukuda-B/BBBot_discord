@@ -627,7 +627,7 @@ class VoiceChat(commands.Cog):
 
             ytdl_opts['noplaylist'] = True
             filename_ = await Youtube.ydl_proc(self, ctx, mm['url'], ytdl_opts)
-            if not filename_:
+            if filename_:
                 filename = filename_[0]
                 await ctx.send(f'`{brand_n}` - `{mm["title"]}`')
                 await VoiceChat.voice_send(self, ctx, filename)
