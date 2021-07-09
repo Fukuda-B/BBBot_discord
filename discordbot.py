@@ -780,6 +780,8 @@ class VoiceChat(commands.Cog):
         out = ''
         cnt = 1
         for ch in channel.guild.voice_channels:
+            if len(ch.members)>0:
+                out += '-\n'
             for member in ch.members:
                 out += str(cnt) +' | '+ str(member) + '\n'
                 cnt += 1
@@ -791,35 +793,39 @@ class VoiceChat(commands.Cog):
         """voice mute. (b = all)"""
         channel = ctx.author.voice.channel
         if str(no).lower() == 'b': # 全員
-            cnt = 0
             for ch in channel.guild.voice_channels:
-                await ch.members[cnt].edit(mute = True)
-                cnt += 1
+                for member in ch.members:
+                    await member.edit(mute = True)
         else: # 通常のミュート
             try:
                 no = int(no)
                 if no <= 0: return
             except: return
+            cnt = 0
             for ch in channel.guild.voice_channels:
-                if len(ch.members)-1 < no: return
-                await ch.members[no-1].edit(mute = True)
+                for member in ch.members:
+                    cnt += 1
+                    if str(cnt) == str(no):
+                        await member.edit(mute = True)
 
     @commands.command(description='voice unmute')
     async def v_unmute(self, ctx, no):
         """voice unmute. (b = all)"""
         channel = ctx.author.voice.channel
         if str(no).lower() == 'b': # 全員
-            cnt = 0
             for ch in channel.guild.voice_channels:
-                await ch.members[cnt].edit(mute = False)
-                cnt += 1
+                for member in ch.members:
+                    await member.edit(mute = False)
         else: # 通常のアンミュート
             try:
                 if int(no) <= 0: return
             except: return
+            cnt = 0
             for ch in channel.guild.voice_channels:
-                if len(ch.members)-1 < no: return
-                await ch.members[no-1].edit(mute = False)
+                for member in ch.members:
+                    cnt += 1
+                    if str(cnt) == str(no):
+                        await member.edit(mute = False)
 
     @commands.command(description='Discord_VoiceChat ALL D')
     async def v_bd(self, ctx):
