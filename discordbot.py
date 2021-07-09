@@ -646,21 +646,21 @@ class VoiceChat(commands.Cog):
 
                 ytdl_opts['noplaylist'] = True
                 filename_ = await Youtube.ydl_proc(self, ctx, mm['url'], ytdl_opts)
-                if not filename_:
+                if not filename_ and self.now == None: # youtube_dl error
                     await ctx.send('Error: Youtube.ydl_proc')
                     continue
-                if self.now == None:
+                elif self.now == None: # 正常
                     filename = filename_[0]
                     await ctx.send(f'`{brand_n}` - `{mm["title"]}`')
                     await VoiceChat.voice_send(self, ctx, filename)
+                else: break
 
         elif tx.lower() == 'skip':
             if self.now != None:
                 self.now.stop()
                 self.now = None
             if self.inf_play:
-                self.inf_play = False
-                await VoiceChat.v_music(self, ctx, 'b_loop')
+                pass # b_loopの時は、self.nowを停止してNoneにすると自動的に次の曲になるので.
             elif len(self.queue) > 0:
                 self.queue.pop(0)
                 if len(self.queue) > 0:

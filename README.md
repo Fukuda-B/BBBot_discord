@@ -14,7 +14,7 @@ If you want to use "Translate" class, set up main.gs in Google Apps Script and a
 ---  
   
 # Command list
-BBBot v2.5.14beta (prefix is "?")
+BBBot v2.5.15beta (prefix is "?")
 ```c
 ?B hello            // -> Hello B!
 ?add 1000 11        // -> 1011
