@@ -780,7 +780,7 @@ class VoiceChat(commands.Cog):
         out = ''
         cnt = 1
         for ch in channel.guild.voice_channels:
-            if len(ch.members)>0:
+            if len(ch.members)>0 and len(out)>0: # メンバーがいて、2番目以降
                 out += '-\n'
             for member in ch.members:
                 out += str(cnt) +' | '+ str(member) + '\n'
