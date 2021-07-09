@@ -91,7 +91,7 @@ BBBot v2.5.15beta (prefix is "?")
 | v_mute | mute member's voice (b = all) |
 | v_unmute | unmute member's voice (b = all) |
 | v_music b | recommended (random) |
-| v_music b_loop | recommended (random & random) |
+| v_music b_loop | recommended (random & loop) |
 | v_music "url" | youtube player |
 | v_music skip | skip to next song |
 | v_music queue | show queue |
