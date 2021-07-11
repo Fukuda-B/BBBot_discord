@@ -1025,6 +1025,97 @@ def get_my_music():
             {"title":"ゆきこいめると OP", "url":"https://www.youtube.com/watch?v=ap2fbLLdpTw"},
             {"title":"果つることなき未来ヨリ OP", "url":"https://www.youtube.com/watch?v=YNoMIuV5ROU"},
             {"title":"コロナ・ブロッサム OP", "url":"https://www.youtube.com/watch?v=qOj4eSMTaUk"},
+        ],
+        "Esucu:de":[
+            # (墜ちた魔王と堕ちる戦姫) https://www.youtube.com/channel/UC3IBntLQT2q1JgLlY1M_vMg
+            # (メイドinウィッチライフ) https://www.youtube.com/channel/UCQ6G4W8taU0HGVmJs0igx8Q
+            # (トリニティxカラミティ) https://www.youtube.com/channel/UCKpiWnWUhoVBgmJxaMX_aAw
+            # (放課後 エデュケーション!) https://www.youtube.com/channel/UCZ4Gcqj_-kcOsZM5KUi__yA
+            #
+            # ----- Escu:de | https://www.escude.co.jp/ -----
+            #
+            {"title":"闇染Revenger－墜ちた魔王と堕ちる戦姫－ OP", "url":"https://www.youtube.com/watch?v=VO4DMSEIs6M"},
+            {"title":"メイドinウィッチライフ－館で始まるHな魅了性活－ OP", "url":"https://www.youtube.com/watch?v=FWqADE5SajI"},
+            {"title":"姫と穢欲のサクリファイス OP", "url":"https://www.youtube.com/channel/UCtaIrQdelThsw6uC43w0YJA"},
+            {"title":"トリニティ×カラミティ～淫らな躾と終わる世界～ OP", "url":"https://www.youtube.com/watch?v=nXezi-HtDIk"},
+            {"title":"放課後⇒エデュケーション！～先生とはじめる魅惑のレッスン～ OP", "url":"https://www.youtube.com/watch?v=NML4fLAQuJU"},
+
+            # 非公式
+            {"title":"Eye's ～あなたの瞳にうつるもの～ OP", "url":"https://www.youtube.com/watch?v=0t2lnhcTjQs"},
+            {"title":"Hyper Broken～魂のチカラ～ OP", "url":"https://www.youtube.com/watch?v=SZj_bW_ZuDo"},
+            {"title":"魔女っ娘マリエルン ED", "url":"https://www.youtube.com/watch?v=dhmpKoMm5xA"},
+            {"title":"みらくるテンプテーション!! OP", "url":"https://www.youtube.com/watch?v=FxXPVWhVfng"},
+            {"title":"流聖天使プリマヴェールV", "url":"https://www.youtube.com/watch?v=MwLNY6PKjjU"},
+            {"title":"とびっきりRUIN ED", "url":"https://www.youtube.com/watch?v=u8X9Wk9Umrk"},
+            {"title":"メタモルファンタジー", "url":"https://www.youtube.com/watch?v=UJ7LWGfOWmc"},
+            {"title":"ラブリー・ラブドール", "url":"https://www.youtube.com/watch?v=-GcZ1693qcw"},
+            {"title":"ジュエルスオーシャン OPMV", "url":"https://www.youtube.com/watch?v=YsJZgVCoens"},
+            {"title":"メタモルファンタジーSP OP", "url":"https://www.youtube.com/watch?v=4RpJn50bqgA"},
+            {"title":"英雄X魔王 OP", "url":"https://www.youtube.com/watch?v=VpkHJPoa_X4"},
+            {"title":"魔王x英雄 ED", "url":"https://www.youtube.com/watch?v=9f0eTfianWk"},
+            {"title":"麻雀 魔王x英雄 OP", "url":"https://www.youtube.com/watch?v=LDKFWQGGjTQ"},
+            {"title":"ふぃぎゅ＠メイト OP", "url":"https://www.youtube.com/watch?v=NmGWEqf71g4"},
+            {"title":"ふぃぎゅ＠メイト ED", "url":"https://www.youtube.com/watch?v=5PNofWoXEhw"},
+            {"title":"ふぃぎゅ＠謝肉祭", "url":"https://www.youtube.com/watch?v=Kn2fm_3tPjo"},
+            {"title":"彗聖天使プリマヴェール Zwei OP", "url":"https://www.youtube.com/watch?v=c4ATTMaBTf0"},
+            {"title":"彗聖天使プリマヴェールZwei ED", "url":"https://www.youtube.com/watch?v=X1wHfUY8UC4"},
+            {"title":"ワンダリング・リペア！ OP", "url":"https://www.youtube.com/watch?v=l06AnXwIRfg"},
+            {"title":"ヴェルディア幻奏曲 OP", "url":"https://www.youtube.com/watch?v=NMmTPtSARaY"},
+            {"title":"乙女恋心プリスター OP アニメ版", "url":"https://www.youtube.com/watch?v=mLUcVDk89XE"},
+            {"title":"乙女恋心プリスター FANDISC OP", "url":"https://www.youtube.com/watch?v=IkJO3Nv3xI0"},
+            {"title":"あかときっ！－夢こそまされ恋の魔砲－ OP", "url":"https://www.youtube.com/watch?v=N6SNhMNX-Xc"},
+            {"title":"あかときっ！！ －花と舞わせよ恋の衣装－ OP", "url":"https://www.youtube.com/watch?v=dMSUfzru6dU"},
+            {"title":"紅蓮華 OP", "url":"https://www.youtube.com/watch?v=AFr64am1I4U"},
+            {"title":"ヒメゴト・マスカレイド～お嬢様たちの戯れ～ OP", "url":"https://www.youtube.com/watch?v=PJS_a6Ms49Y"},
+            {"title":"ヒメゴト・マスカレイド～お嬢様たちの戯れ～ ED", "url":"https://www.youtube.com/watch?v=ftaeO0pXbOo"},
+            {"title":"せんすいぶ！ OP", "url":"https://www.youtube.com/watch?v=SNEHodtdY2k"},
+            {"title":"花嫁と魔王～王室のハーレムは下克上～ OP", "url":"https://www.youtube.com/watch?v=uoB332bhtlI"},
+            {"title":"パニカル・コンフュージョン OP", "url":"https://www.youtube.com/watch?v=WNk6tpHXpw4"},
+            {"title":"フォーリンラブ×４tune", "url":"https://www.youtube.com/watch?v=12E3WnWmvWs"},
+            {"title":"遊聖天使プリマヴェールDrei", "url":"https://www.youtube.com/watch?v=XlpYzIICjT8"},
+            {"title":"あかときっ２！－紡ぐマホウと零れるヒカリ－", "url":"https://www.youtube.com/watch?v=DQFd58u0_v8"},
+        ],
+        "Cabbit":[
+            #
+            #
+            # ----- Cabbit | http://www.cabbit.jp/html/cb-index.html -----
+            #
+            # 非公式
+            {"title":"翠の海　- midori no umi - OP", "url":"https://www.youtube.com/watch?v=509DOR5-_TI"},
+            {"title":"キミへ贈る、ソラの花 OP", "url":"https://www.youtube.com/watch?v=zwwnMQCO6eQ"},
+            {"title":"箱庭ロジック OP", "url":"https://www.youtube.com/watch?v=LqfbiGQl8bI"},
+            {"title":"鍵を隠したカゴのトリ OP", "url":"https://www.youtube.com/watch?v=9qXCARvY99w"},
+        ],
+        "SMEE":[
+            # (HOOK SOFT) https://www.youtube.com/channel/UCSzkgp26xJ5tC3hkvh93q7A
+            # (株式会社エンターグラム) https://www.youtube.com/channel/UC5L29DMpV7CgtsU6mxV6cGw
+            #
+            # ----- SMEE | http://www.hook-net.jp/smee/ -----
+            #
+            {"title":"ラブラブル OP", "url":"https://www.youtube.com/watch?v=IYfxsavETRc"},
+            {"title":"同棲ラブラブル OP", "url":"https://www.youtube.com/watch?v=TstuEaGQkSM"},
+            {"title":"フレラバ OP", "url":"https://www.youtube.com/watch?v=gOxfW38m3aI"},
+            {"title":"ピュア×コネクト OP", "url":"https://www.youtube.com/watch?v=oiMk32k40CY"},
+            {"title":"カノジョ＊ステップ OP", "url":"https://www.youtube.com/watch?v=YzW8OCXiS6U"},
+            {"title":"Making*Lovers OP", "url":"https://www.youtube.com/watch?v=4705SQQFR5U"},
+            {"title":"Sugar*Style OP", "url":"https://www.youtube.com/watch?v=Tx-8WmSV2Ko"},
+            {"title":"Sugar*Style", "url":"https://www.youtube.com/watch?v=4UKrkoRy5Hs"},
+
+            # 非公式
+            {"title":"リリミエスタ OP", "url":"https://www.youtube.com/watch?v=tnc2eGTV92Q"},
+            {"title":"リリミエスタ ED", "url":"https://www.youtube.com/watch?v=Ryr_9okejjo"},
+            {"title":"晴れハレはーれむ OP", "url":"https://www.youtube.com/watch?v=v9O2nlHTFGs"},
+            {"title":"晴れハレはーれむ OP", "url":"https://www.youtube.com/watch?v=-m59EkdDWbo"},
+            {"title":"らぶでれ～しょん OP", "url":"https://www.youtube.com/watch?v=WP2m0ZBxoiU"},
+            {"title":"ラブラブル～lover able～ Linked☆Lovers", "url":"https://www.youtube.com/watch?v=eValvKouQs0"},
+            {"title":"ラブラブル～lover able～ OP", "url":"https://www.youtube.com/watch?v=sswF71mfUWw"},
+            {"title":"同棲ラブラブル OP", "url":"https://www.youtube.com/watch?v=FSxqaeBzeDc"},
+            {"title":"フレラバ～Friend to Lover～ OP", "url":"https://www.youtube.com/watch?v=V4z3h0ubI5M"},
+            {"title":"ピュア×コネクト OP", "url":"https://www.youtube.com/watch?v=XR2j1RlWj5c"},
+            {"title":"カノジョ＊ステップ ED", "url":"https://www.youtube.com/watch?v=Iqoi0zHm6pc"},
+            {"title":"カノジョ＊ステップ OP", "url":"https://www.youtube.com/watch?v=BFW1FLB_bbU"},
+            {"title":"Making＊Lovers OP", "url":"https://www.youtube.com/watch?v=TujZIntTivw"},
+            {"title":"Making＊Lovers ED", "url":"https://www.youtube.com/watch?v=YdM7VVnx2ek"},
         ]
     }
 
@@ -1032,7 +1123,6 @@ def get_my_music():
     sagyou_music = {}
 
 
-    # Esucu:de
     # アリスソフト
     # みなとそふと
     # TYPE-MOON
@@ -1050,7 +1140,6 @@ def get_my_music():
     # ケロＱ / 枕 -> サクラノ詩
     # WillPlus/PULLTOP.. 系列
     # chien
-    # SMEE
     # unicorn
     # Navel
     # whitepowder -> lamunation!
