@@ -51,7 +51,7 @@ import ffmpeg
 # import requests #req
 
 
-VERSION='v2.5.15'
+VERSION='v2.5.16'
 
 TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, UP_SERVER,\
@@ -130,22 +130,25 @@ class EqCheck:
                                 if int(res_json[i]['code']) == 551: # Earthquake Code
                                     # await mChannel.send(json.dumps(res_json[i]))
                                     # print(len(res_log))
-                                    if len(res_log) <= 0: # 初回の処理
-                                        res_log  = res_json[i]
-                                    elif res_log != res_json[i] \
-                                    and str(res_json[i]['earthquake']['maxScale']) != 'null'\
-                                    and int(res_json[i]['earthquake']['maxScale']) >= P2PEW_NMIN \
-                                    and res_json[i]['earthquake']['domesticTsunami'] != "Checking" :
-                                        res_log  = res_json[i]
-                                        await mChannel.send(await EqCheck.castRes(self, res_json, i))
-                                        await lChannel.send(await EqCheck.castRes(self,res_json, i))
-                                        # await lChannel.send(res_json)
-                                    elif res_log != res_json[i] \
-                                    and str(res_json[i]['earthquake']['maxScale']) != 'null'\
-                                    and int(res_json[i]['earthquake']['maxScale']) >= P2PEW_NMIN_LOG:
-                                        await lChannel.send(await EqCheck.castRes(self,res_json, i))
-                                        res_log  = res_json[i]
-                                    break
+                                    try:
+                                        if len(res_log) <= 0: # 初回の処理
+                                            res_log  = res_json[i]
+                                        elif res_log != res_json[i] \
+                                        and type(res_json[i]['earthquake']['maxScale']) != type(None)\
+                                        and int(res_json[i]['earthquake']['maxScale']) >= P2PEW_NMIN \
+                                        and res_json[i]['earthquake']['domesticTsunami'] != "Checking" :
+                                            res_log  = res_json[i]
+                                            await mChannel.send(await EqCheck.castRes(self, res_json, i))
+                                            await lChannel.send(await EqCheck.castRes(self,res_json, i))
+                                            # await lChannel.send(res_json)
+                                        elif res_log != res_json[i] \
+                                        and type(res_json[i]['earthquake']['maxScale']) != type(None)\
+                                        and int(res_json[i]['earthquake']['maxScale']) >= P2PEW_NMIN_LOG:
+                                            await lChannel.send(await EqCheck.castRes(self,res_json, i))
+                                            res_log  = res_json[i]
+                                        break
+                                    except:
+                                        continue
 
             except urllib.error.URLError as err:
                 print(err.reason)
@@ -566,6 +569,9 @@ class VoiceChat(commands.Cog):
     async def v_connect(self, ctx):
         """Voice Connect"""
         channel = ctx.author.voice.channel
+        if (not ctx.author.voice) or (not ctx.author.voice.channel): # ボイスチャンネルに入っていない
+            await ctx.send('You need to be in the voice channel first.')
+            return
         if ctx.voice_client is not None:
             return await ctx.voice_client.move_to(channel)
         await channel.connect()
@@ -654,9 +660,12 @@ class VoiceChat(commands.Cog):
                     await ctx.send('Error: Youtube.ydl_proc')
                     continue
                 elif self.now == None: # 正常
-                    filename = filename_[0]
-                    await ctx.send(f'`{brand_n}` - `{mm["title"]}`')
-                    await VoiceChat.voice_send(self, ctx, filename)
+                    try:
+                        filename = filename_[0]
+                        await ctx.send(f'`{brand_n}` - `{mm["title"]}`')
+                        await VoiceChat.voice_send(self, ctx, filename)
+                    except:
+                        ctx.send('Error: Youtube.voice_send')
                 else: break
 
         elif tx.lower() == 'skip':
@@ -755,7 +764,7 @@ class VoiceChat(commands.Cog):
         await VoiceChat.voice_send(self, ctx, filename)
 
     async def voice_send(self, ctx, filename):
-        if os.path.exists(filename):
+        if os.path.exists(filename): # ファイル存在確認
             if self.volume == 1.0: audio_source = discord.FFmpegPCMAudio(filename)
             else: audio_source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(filename), volume=self.volume)
 
