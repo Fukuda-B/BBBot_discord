@@ -1116,19 +1116,31 @@ def get_my_music():
             {"title":"カノジョ＊ステップ OP", "url":"https://www.youtube.com/watch?v=BFW1FLB_bbU"},
             {"title":"Making＊Lovers OP", "url":"https://www.youtube.com/watch?v=TujZIntTivw"},
             {"title":"Making＊Lovers ED", "url":"https://www.youtube.com/watch?v=YdM7VVnx2ek"},
+        ],
+        "Harmorise":[
+            #
+            #
+            # ----- Harmorise | http://harmorise.jp/tsubasa/ -----
+            #
+            {"title":"ひとつ屋根の、ツバサの下で OP", "url":"https://www.youtube.com/watch?v=BlPWAyhb2j8"},
+        ],
+        "May-Be SOFT":[
+            #
+            #
+            # ----- May-Be SOFT | http://www.maybesoft.jp/index.html -----
+            #
+
         ]
     }
 
     # 作業用
     sagyou_music = {}
 
-
     # アリスソフト
     # みなとそふと
     # TYPE-MOON
     # ensemble
     # 自宅すたじお
-    # Harmorise -> ひとつ屋根の、ツバサの下で
     # May-Be SOFT -> ぱいタッチ！ OP
     # aries soft -> タラレバ ED
     # Cabbit -> キミへ贈る、ソラの花 OP

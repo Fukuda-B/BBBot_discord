@@ -80,10 +80,10 @@ class kawaii_voice:
 
     def high_boost(self, opt):
         '''
-            opt 0: 3000Hz order=1 -> overlay
-            opt 1: 3000Hz order=1 -> over write
+            opt 0: 4000Hz order=1 -> overlay
+            opt 1: 4000Hz order=1 -> over write
         '''
-        high = self.audio.high_pass_filter(3000)
+        high = self.audio.high_pass_filter(4000)
         if opt == 0: self.audio = self.audio.overlay(high)
         elif opt == 1: self.audio = high
         return self
@@ -95,12 +95,14 @@ class kawaii_voice:
 # -----
     def voice_pack1(self):
         ''' high pitch '''
-        return
+        self = kawaii_voice.pitch(self, 0.4)
+        return self
 
     def music_pack1(self):
         ''' nightcore '''
         self = kawaii_voice.pitch(self, 0.10)
         self = kawaii_voice.bass_boost(self, 0)
+        self = kawaii_voice.high_boost(self, 0)
         self = kawaii_voice.normalize(self)
         return self
 

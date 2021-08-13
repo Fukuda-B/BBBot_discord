@@ -51,7 +51,7 @@ import ffmpeg
 # import requests #req
 
 
-VERSION='v2.5.16'
+VERSION='v2.5.17'
 
 TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, UP_SERVER,\
@@ -85,8 +85,8 @@ slash = SlashCommand(bot, sync_commands=True, sync_on_cog_reload=True)
 async def on_ready():
     # ログイン通知
     print(bot.user.name + ' is logged in.')
-    # await bot.change_presence(status=discord.Status.idle, activity=discord.Game(name="BBBot "+VERSION+'beta', emoji="🍝"))
-    await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="BBBot "+VERSION+'beta', emoji="🍝"))
+    await bot.change_presence(status=discord.Status.idle, activity=discord.Game(name="BBBot "+VERSION, emoji="🍝"))
+    # await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="BBBot "+VERSION, emoji="🍝"))
     lChannel = bot.get_channel(LOG_C)
     await lChannel.send('BBBot is Ready! ' + VERSION)
 
@@ -738,13 +738,22 @@ class VoiceChat(commands.Cog):
                 'preferredcodec': 'mp3',
             }]
         }
-        self.now.stop()
-        self.now = None
-        filename = await Youtube.ydl_proc(self, ctx, tx, ytdl_opts)
-        imouto = kawaii_voice_gtts.kawaii_voice(filename)
-        imouto = imouto.music_pack1()
-        imouto.audio.export(filename, 'mp3')
-        await VoiceChat.voice_send(self, ctx, filename)
+        if tx.lower() == 'stop' and self.now != None:
+            self.now.stop()
+            self.now = None
+        filename_ = await Youtube.ydl_proc(self, ctx, tx, ytdl_opts)
+        if not filename_ and self.now == None:
+            await ctx.send('Error; Youtube.ydl_proc')
+            return False
+        elif self.now == None: # 正常
+            try:
+                filename = filename_[0]
+                imouto = kawaii_voice_gtts.kawaii_voice(filename)
+                imouto = imouto.music_pack1()
+                imouto.audio.export(filename, 'mp3')
+                await VoiceChat.voice_send(self, ctx, filename)
+            except:
+                await ctx.send('Error: kawaii_voice_gttx.kawaii_voice, imouto.music_pack1, Youtube.voice_send')
 
     async def make_tts(self, ctx, text, lg, k_option): # text=text, lg=language, k_option=kawaii_voice_gtts(0=false, 1=true)
         voice_client = ctx.message.guild.voice_client
@@ -770,6 +779,7 @@ class VoiceChat(commands.Cog):
 
             self.now = ctx.voice_client
             self.now.play(audio_source) # 再生
+
             while ctx.guild.voice_client.is_playing():
                 await asyncio.sleep(1)
             os.remove(filename)
@@ -1004,28 +1014,28 @@ class Slash(commands.Cog):
         await ctx.send(f"{bot.latency*1000}ms")
 
     @cog_ext.cog_slash(name="hattori")
-    async def hattori(self, ctx):
+    async def hattori(self, ctx:SlashContext):
         await B.hattori(self, ctx)
 
     @cog_ext.cog_slash(name="v_connect")
-    async def v_connect(self, ctx):
+    async def v_connect(self, ctx:SlashContext):
         await VoiceChat.v_connect(self, ctx)
 
     @cog_ext.cog_slash(name="v_disconnect")
-    async def v_disconnect(self, ctx):
+    async def v_disconnect(self, ctx:SlashContext):
         await VoiceChat.v_disconnect(self, ctx)
 
     @cog_ext.cog_slash(name="v_voice_en")
-    async def v_voice_en(self, ctx, *tx):
+    async def v_voice_en(self, ctx:SlashContext, *tx):
         tx = ' '.join(tx)
         await VoiceChat.v_boice_en(self, ctx, tx)
 
     @cog_ext.cog_slash(name="v_bd")
-    async def v_bd(self, ctx):
+    async def v_bd(self, ctx:SlashContext):
         await VoiceChat.v_bd(self, ctx)
 
     @cog_ext.cog_slash(name="v_volume")
-    async def v_volume(self, ctx, volume:str):
+    async def v_volume(self, ctx:SlashContext, volume:str):
         await VoiceChat.v_volume(self, ctx, volume)
 
 # Botの起動とDiscordサーバーへの接続
