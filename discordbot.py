@@ -51,7 +51,7 @@ import ffmpeg
 # import requests #req
 
 
-VERSION='v2.5.17'
+VERSION='v2.5.18'
 
 TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, UP_SERVER,\
@@ -778,10 +778,13 @@ class VoiceChat(commands.Cog):
             else: audio_source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(filename), volume=self.volume)
 
             self.now = ctx.voice_client
-            self.now.play(audio_source) # 再生
+            try:
+                self.now.play(audio_source) # 再生
+                while ctx.guild.voice_client.is_playing():
+                    await asyncio.sleep(1)
+            except:
+                await VoiceChat.v_connect(self, ctx)
 
-            while ctx.guild.voice_client.is_playing():
-                await asyncio.sleep(1)
             os.remove(filename)
             self.now = None
 
