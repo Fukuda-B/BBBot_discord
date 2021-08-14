@@ -51,7 +51,7 @@ import ffmpeg
 # import requests #req
 
 
-VERSION='v2.5.18'
+VERSION='v2.5.19'
 
 TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, UP_SERVER,\
@@ -665,7 +665,7 @@ class VoiceChat(commands.Cog):
                         await ctx.send(f'`{brand_n}` - `{mm["title"]}`')
                         await VoiceChat.voice_send(self, ctx, filename)
                     except:
-                        ctx.send('Error: Youtube.voice_send')
+                        await ctx.send('Error: Youtube.voice_send')
                 else: break
 
         elif tx.lower() == 'skip':
