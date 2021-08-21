@@ -650,7 +650,7 @@ class VoiceChat(commands.Cog):
                 f = urllib.request.urlopen(tx)
                 f.close()
             except: return False
-            if self.now != None:
+            if self.now != None and self.state != True:
                 self.now.stop()
                 self.now = None
 
