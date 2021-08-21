@@ -10,6 +10,8 @@
 
 from __future__ import unicode_literals
 
+from discord import channel
+
 # ---- my module ----
 import my_key # get my api keys
 import my_music
@@ -51,7 +53,7 @@ import ffmpeg
 # import requests #req
 
 
-VERSION='v2.5.19'
+VERSION='v2.6.1 alpha'
 
 TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, UP_SERVER,\
@@ -61,11 +63,11 @@ HTR_LIST = htr.get_hattori()
 HTRE_LIST = htr_end.end_hattori()
 HTRD_LIST = htr_dead.dead_hattori()
 
-P2PEQ_URI='https://api.p2pquake.net/v1/human-readable'
-# P2PEQ_URI='http://localhost:1011/p2p_ex/'
-P2PEQ_INT=5 # GET interval (s)
-P2PEW_NMIN=40 # Notification minimum earthquake scale
-P2PEW_NMIN_LOG=20 # Notification minimum earthquake scale (log)
+P2PEQ_URI = 'https://api.p2pquake.net/v1/human-readable'
+# P2PEQ_URI = 'http://localhost:1011/p2p_ex/'
+P2PEQ_INT = 5 # GET interval (s)
+P2PEW_NMIN = 40 # Notification minimum earthquake scale
+P2PEW_NMIN_LOG = 20 # Notification minimum earthquake scale (logger)
 
 UP_SERVER_INT = 5 # up interval (min)
 
@@ -85,15 +87,16 @@ slash = SlashCommand(bot, sync_commands=True, sync_on_cog_reload=True)
 async def on_ready():
     # ログイン通知
     print(bot.user.name + ' is logged in.')
-    await bot.change_presence(status=discord.Status.idle, activity=discord.Game(name="BBBot "+VERSION, emoji="🍝"))
-    # await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="BBBot "+VERSION, emoji="🍝"))
+    # await bot.change_presence(status=discord.Status.idle, activity=discord.Game(name="BBBot "+VERSION, emoji="🍝"))
+    await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="BBBot "+VERSION, emoji="🍝"))
+    # await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name="BBBot "+VERSION))
     lChannel = bot.get_channel(LOG_C)
     await lChannel.send('BBBot is Ready! ' + VERSION)
 
     # 非同期並行処理
     await asyncio.gather(
         EqCheck(bot).p2peq_check(),
-        UpServer(bot).up_server()
+        UpServer(bot).up_server(),
     )
 
 # メッセージ受信時に動作する処理
@@ -215,7 +218,6 @@ class UpServer:
 
             await asyncio.sleep(60*UP_SERVER_INT)
 
-
 #---------------------------------------------------------- 計算系
 class Calc(commands.Cog):
     def __init__(self, bot):
@@ -228,59 +230,59 @@ class Calc(commands.Cog):
         """Calc number Eval"""
         inc = ''.join(inc)
         inc = re.sub(r"[\u3000 \t]", "", inc)
-        await ctx.send(eval(inc))
+        await Basic.send(self, ctx, eval(inc))
     @commands.command(description='足し算')
     async def add(self, ctx, left: str, right: str):
         """Add number + number"""
         left = float(left); right = float(right)
-        await ctx.send(left + right)
+        await Basic.send(self, ctx, left + right)
     @commands.command(description='引き算')
     async def sub(self, ctx, left: str, right: str):
         """Sub number - number"""
         left = float(left); right = float(right)
-        await ctx.send(left - right)
+        await Basic.send(self, ctx, left - right)
     @commands.command(description='掛け算')
     async def mul(self, ctx, left: str, right: str):
         """Mul number * number"""
         left = float(left); right = float(right)
-        await ctx.send(left * right)
+        await Basic.send(self, ctx, left * right)
     @commands.command(description='割り算')
     async def div(self, ctx, left: str, right: str):
         """Div number / number"""
         left = float(left); right = float(right)
-        await ctx.send(left / right)
+        await Basic.send(self, ctx, left / right)
     @commands.command(description='自己情報量I()')
     async def self_info(self, ctx, p: str):
         """Self-information I(p)"""
         p = float(eval(p))
         if p == 0.0:
-            await ctx.send(0.0)
+            await Basic.send(self, ctx, 0.0)
         else:
-            await ctx.send(-p*math.log2(p))
+            await Basic.send(self, ctx, -p*math.log2(p))
     @commands.command(description='エントロピー関数計算H()')
     async def ent(self, ctx, p: str):
         """EntropyFunc H(p)"""
         p = float(eval(p))
         if p == 0.0:
-            await ctx.send(0.0)
+            await Basic.send(self, ctx, 0.0)
         else:
-            await ctx.send(-p*math.log2(p)-(1-p)*math.log2(1-p))
+            await Basic.send(self, ctx, -p*math.log2(p)-(1-p)*math.log2(1-p))
     @commands.command(description='乱数(int) 1~x')
     async def rand(self, ctx, p: str):
         """Random(int) 1~x"""
         p = int(eval(p))
         if p>1:
-            await ctx.send(random.randint(1, p))
+            await Basic.send(self, ctx, random.randint(1, p))
         else:
-            await ctx.send(random.randint(p, 1))
+            await Basic.send(self, ctx, random.randint(p, 1))
     @commands.command(description='乱数(float)) 1.0~x')
     async def randd(self, ctx, p: str):
         """Random(float) 1.0~x"""
         p = float(eval(p))
         if p>1.0:
-            await ctx.send(random.uniform(1.0, p))
+            await Basic.send(self, ctx, random.uniform(1.0, p))
         else:
-            await ctx.send(random.uniform(p, 1.0))
+            await Basic.send(self, ctx, random.uniform(p, 1.0))
 
 #---------------------------------------------------------- B系
 class B(commands.Cog):
@@ -292,19 +294,19 @@ class B(commands.Cog):
     async def BLOOP(self, ctx, times: int):
         """BLOOP number<=11"""
         if times > 12 :
-            await ctx.send('too B!')
+            await Basic.send(self, ctx, 'too B!')
             return
         for _ in range(times):
-            await ctx.send('B')
+            await Basic.send(self, ctx, 'B')
     @commands.group(description='greet, hello, help, block')
     # async def B(self, ctx, swit: str, swit2: str):
     async def B(self, ctx):
         """B + (greet / sysinfo / hello / block / typing)"""
         if ctx.invoked_subcommand is None:
-            await ctx.send('B!')
+            await Basic.send(self, ctx, 'B!')
     @B.command()
     async def greet(self, ctx):
-        await ctx.send('こんにちは！ BBBot('+VERSION+')だよ。\nよろしくね')
+        await Basic.send(self, ctx, 'こんにちは！ BBBot('+VERSION+')だよ。\nよろしくね')
     @B.command()
     async def sysinfo(self, ctx):
         ipInfo = 'IP :'+socket.gethostname()+': '+socket.gethostbyname(socket.gethostname())
@@ -313,40 +315,40 @@ class B(commands.Cog):
         #cpuInfo = 'CPU: ['+str(psutil.cpu_count(logical=False))+'C '+str(psutil.cpu_count())+'T]'
         memInfo = 'MEM: '+str('{:.2f}'.format(psutil.virtual_memory().used/(1024*1024)))+'MB / '\
             +str('{:.2f}'.format(psutil.virtual_memory().total/(1024*1024)))+'MB'
-        await ctx.send(ipInfo+"\n"+platInfo+"\n"+cpuInfo+"\n"+memInfo)
+        await Basic.send(self, ctx, ipInfo+"\n"+platInfo+"\n"+cpuInfo+"\n"+memInfo)
     @B.command()
     async def hello(self, ctx):
-        await ctx.send('Hello B!')
+        await Basic.send(self, ctx, 'Hello B!')
     @B.command()
     async def block(self, ctx):
-        await ctx.send('□□□□□□□□\n□■■■■□□□\n□■□□□■□□\n□■□□□■□□\n□■■■■□□□\n□■□□□■□□\n□■□□□□■□\n□■□□□□■□\n□■■■■■□□\n□□□□□□□□')
+        await Basic.send(self, ctx, '□□□□□□□□\n□■■■■□□□\n□■□□□■□□\n□■□□□■□□\n□■■■■□□□\n□■□□□■□□\n□■□□□□■□\n□■□□□□■□\n□■■■■■□□\n□□□□□□□□')
     @B.command()
     async def ping(self, ctx):
-        await ctx.send(f"{bot.latency*1000}ms")
+        await Basic.send(self, ctx, f"{bot.latency*1000}ms")
     @B.command()
     async def typing(self, ctx):
         async with ctx.typing():
             await asyncio.sleep(10)
             ctx.typing()
-            await ctx.send('B')
+            await Basic.send(self, ctx, 'B')
     @B.command()
     async def hattori(self, ctx, *tx:str):
         """ htr """
         txx = ' '.join(tx)
         # mChannel = bot.get_channel(MAIN_C)
         if 'end' in txx.lower():
-            await ctx.send(HTRE_LIST[random.randrange(len(HTRE_LIST))])
+            await Basic.send(self, ctx, HTRE_LIST[random.randrange(len(HTRE_LIST))])
         elif 'd' in txx.lower():
-            await ctx.send(HTRD_LIST[random.randrange(len(HTRD_LIST))])
+            await Basic.send(self, ctx, HTRD_LIST[random.randrange(len(HTRD_LIST))])
         else:
-            await ctx.send(HTR_LIST[random.randrange(len(HTR_LIST))])
+            await Basic.send(self, ctx, HTR_LIST[random.randrange(len(HTR_LIST))])
             
     # @B.command()
     # async def morning_call(self, ctx):
     #     """強制モーニングコールが行われる"""
     #     vChannel = bot.get_channel(VOICE_C)
     #     user = bot.fetch_user(HA) # get user from id
-    #     await ctx.send(user)
+    #     await Basic.send(self, ctx, user)
     #     await user.move_to(vChannel)
     #     await vChannel.connect()
     #     VoiceChat.v_music(self, ctx, M_CALL)
@@ -396,9 +398,9 @@ class Image(commands.Cog):
         async with aiohttp.ClientSession() as session:
             async with session.get(url) as resp:
                 if resp.status != 200:
-                    return await ctx.send('server error... b')
+                    return await Basic.send(self, ctx, 'server error... b')
                 data = io.BytesIO(await resp.read())
-                await ctx.send(file=discord.File(data, file_name))
+                await Basic.send(self, ctx, file=discord.File(data, file_name))
 
 
 #---------------------------------------------------------- AI系
@@ -414,14 +416,15 @@ class AI(commands.Cog):
         request = urllib.request.Request(A3RT_URI, data)
         res = urllib.request.urlopen(request)
         json_load = json.load(res)
-        # await ctx.send('精度:'+str(json_load['results'][0]['perplexity'])+"\n"+json_load['results'][0]['reply'])
-        await ctx.send(json_load['results'][0]['reply'])
+        # await Basic.send(self, ctx, '精度:'+str(json_load['results'][0]['perplexity'])+"\n"+json_load['results'][0]['reply'])
+        await Basic.send(self, ctx, json_load['results'][0]['reply'])
 
 #---------------------------------------------------------- youtube-dl
 class Youtube(commands.Cog):
     ytdl_opts = {
         'format' : 'bestaudio/best',
-        'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
+        # 'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
+        'outtmpl': '%(title)s.%(id)s.%(ext)s',
         'restrictfilenames': True,
         # 'noplaylist': True, # allow playlist
         'nocheckcertificate': True,
@@ -469,7 +472,7 @@ class Youtube(commands.Cog):
         filename = await self.ydl_proc(ctx, url, dict(self.ytdl_opts, **setOpt))
         for i in range(len(filename)):
             await self.ydl_send(ctx, filename[i])
-        # await ctx.send(json.dumps(self.ytdl_opts | setOpt)) #Debug
+        # await Basic.send(self, ctx, json.dumps(self.ytdl_opts | setOpt)) #Debug
 
     @commands.command(description='youtube-dl audio aac')
     async def ydl_aac(self, ctx, url: str):
@@ -483,9 +486,27 @@ class Youtube(commands.Cog):
         filename = await self.ydl_proc(ctx, url, dict(self.ytdl_opts, **setOpt))
         for i in range(len(filename)):
             await self.ydl_send(ctx, filename[i])
-        # await ctx.send(json.dumps(self.ytdl_opts | setOpt)) #Debug
+        # await Basic.send(self, ctx, json.dumps(self.ytdl_opts | setOpt)) #Debug
+
+    async def ydl_getc(self, ctx, url:str, ytdl_opts):
+        """" get playlist """
+        async with ctx.typing():
+            try:
+                with youtube_dl.YoutubeDL(ytdl_opts) as ydl:
+                    pre_info = ydl.extract_info(url, download=False)
+                if 'entries' in pre_info:
+                    video = pre_info['entries']
+                    plist = []
+                    for i, item in enumerate(video):
+                        plist.append(pre_info['entries'][i]['webpage_url'])
+                    return plist
+                else:
+                    return [url]
+            except:
+                return False
 
     async def ydl_proc(self, ctx, url:str, ytdl_opts):
+        """" download video & return filenames(list) """
         if 'nico' in urllib.parse.urlparse(url).netloc: # niconico
             return await Youtube.ndl_proc(self, ctx, url)
         else: # youtube
@@ -515,6 +536,7 @@ class Youtube(commands.Cog):
                                 filename = pathlib.PurePath(filename).stem + '.' + ytdl_opts['postprocessors'][0]['preferredcodec']
                             return [filename]
                 except:
+                    await Basic.send(self, ctx, 'Error: Youtube.ydl_proc')
                     return False
 
     # niconico download
@@ -543,11 +565,11 @@ class Youtube(commands.Cog):
     async def ydl_send(self, ctx, filename):
         try:
             with open(filename, 'rb') as fp:
-                await ctx.send(file=discord.File(fp, filename))
+                await Basic.send(self, ctx, file=discord.File(fp, filename))
         except discord.errors.HTTPException:
-            await ctx.send('Error: File size is too large? [Max 8MB]\n')
+            await Basic.send(self, ctx, 'Error: File size is too large? [Max 8MB]\n')
         except:
-            await ctx.send('Error: Unknown')
+            await Basic.send(self, ctx, 'Error: Unknown')
         finally:
             if os.path.exists(filename):
                 os.remove(filename)
@@ -562,7 +584,7 @@ class VoiceChat(commands.Cog):
         self.now = None # now playing
         self.volume = 1.0
         self.inf_play = False # infinity play music
-        self.queue = [] # music queue ['now play', 'next', '...']
+        self.queue = [] # music queue ['now play', 'next', '...'] (url)
         self.state = False # continue to play
 
     @commands.command(description='Discord_VoiceChat Connect')
@@ -570,7 +592,7 @@ class VoiceChat(commands.Cog):
         """Voice Connect"""
         channel = ctx.author.voice.channel
         if (not ctx.author.voice) or (not ctx.author.voice.channel): # ボイスチャンネルに入っていない
-            await ctx.send('You need to be in the voice channel first.')
+            await Basic.send(self, ctx, 'You need to be in the voice channel first.')
             return
         if ctx.voice_client is not None:
             return await ctx.voice_client.move_to(channel)
@@ -603,12 +625,13 @@ class VoiceChat(commands.Cog):
         tx = ' '.join(tx)
         await VoiceChat.v_boice_en(self, ctx, tx)
 
-    @commands.command(description='play music (b/b_loop/stop/skip/queue/play)')
-    async def v_music(self, ctx, tx:str):
+    @commands.group(description='play music (b/b_loop/stop/skip/queue/play)')
+    async def v_music(self, ctx):
         """play music. (b/b_loop/stop/skip/queue/queue_del/play)"""
-        ytdl_opts = {
+        self.ytdl_opts = {
             'format' : 'bestaudio/best',
-            'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
+            # 'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
+            'outtmpl': '%(title)s.%(id)s.%(ext)s',
             'restrictfilenames': True,
             # 'noplaylist': True,
             'nocheckcertificate': True,
@@ -617,88 +640,12 @@ class VoiceChat(commands.Cog):
             'source_address': '0.0.0.0'
         }
         await VoiceChat.v_connect(self, ctx) # 接続確認
-        if tx.lower() != 'skip':
-            self.inf_play = False # infiniry play: off
-        self.state = False # auto play: off
 
-        if tx.lower() == 'stop' and self.now != None:
-            self.now.stop()
-            self.now = None
-
-        elif tx.lower() == 'b': # random play!
-            if self.now != None:
-                self.now.stop()
-                self.now = None
-            music, sagyou_music = my_music.get_my_music()
-
-            brand_n = list(music)[random.randint(0,int(len(music))-1)]
-            brand = music[brand_n]
-            mm = brand[random.randint(0,int(len(brand))-1)]
-
-            ytdl_opts['noplaylist'] = True
-            filename_ = await Youtube.ydl_proc(self, ctx, mm['url'], ytdl_opts)
-            if filename_:
-                filename = filename_[0]
-                await ctx.send(f'`{brand_n}` - `{mm["title"]}`')
-                await VoiceChat.voice_send(self, ctx, filename)
-
-        elif tx.lower() == 'b_loop': # infinity random play!
-            if self.now != None:
-                self.now.stop()
-                self.now = None
-
-            self.inf_play = True # infiniry play: on
-            music, sagyou_music = my_music.get_my_music()
-            while self.inf_play:
-                brand_n = list(music)[random.randint(0,int(len(music))-1)]
-                brand = music[brand_n]
-                mm = brand[random.randint(0,int(len(brand))-1)]
-
-                ytdl_opts['noplaylist'] = True
-                filename_ = await Youtube.ydl_proc(self, ctx, mm['url'], ytdl_opts)
-                if not filename_ and self.now == None: # youtube_dl error
-                    await ctx.send('Error: Youtube.ydl_proc')
-                    continue
-                elif self.now == None: # 正常
-                    try:
-                        filename = filename_[0]
-                        await ctx.send(f'`{brand_n}` - `{mm["title"]}`')
-                        await VoiceChat.voice_send(self, ctx, filename)
-                    except:
-                        await ctx.send('Error: Youtube.voice_send')
-                else: break
-
-        elif tx.lower() == 'skip':
-            if self.now != None:
-                self.now.stop()
-                self.now = None
-            if self.inf_play:
-                pass # b_loopの時は、self.nowを停止してNoneにすると自動的に次の曲になるので.
-            elif len(self.queue) > 0:
-                self.queue.pop(0)
-                if len(self.queue) > 0:
-                    await VoiceChat.v_music(self, ctx, 'play')
-
-        elif tx.lower() == 'play':
-            self.state = True
-            if self.now == None and len(self.queue):
-                await VoiceChat.voice_send(self, ctx, self.queue.pop(0))
-                if len(self.queue) > 0 and self.state:
-                    await VoiceChat.v_music(self, ctx, 'play')
-
-        elif tx.lower() == 'queue':
-            if len(self.queue) > 0:
-                sd = '> | '+str(self.queue[0])+'\n'
-                for i in range(1, len(self.queue)):
-                    sd += str(i)+' | '+str(self.queue[i])+'\n'
-                await ctx.send("```py\n"+sd+"```")
-            else:
-                await ctx.send("queue = Null")
-
-        elif tx.lower() == 'queue_del':
-            self.queue = []
-
-        else:
+        if ctx.invoked_subcommand is None: # サブコマンドがない場合
+            self.state = False # auto play: off
+            self.inf_play = False # stop inf play
+            tx = str(ctx.message.content).split()[1] # サブコマンドではない場合、URLとして扱う
+            if not tx: return
             try: # try connect url
                 f = urllib.request.urlopen(tx)
                 f.close()
@@ -707,53 +654,169 @@ class VoiceChat(commands.Cog):
                 self.now.stop()
                 self.now = None
 
-            filename = await Youtube.ydl_proc(self, ctx, tx, ytdl_opts)
-            self.queue += filename
-            if len(filename) > 1:
-                await ctx.send(str(len(filename))+" songs added")
+            plist = await Youtube.ydl_getc(self, ctx, tx, self.ytdl_opts)
+            self.queue.extend(plist)
             if self.now == None and len(self.queue):
-                await VoiceChat.voice_send(self, ctx, self.queue.pop(0))
-                if len(self.queue) > 0:
-                    await VoiceChat.v_music(self, ctx, 'play')
+                if len(self.queue) == 1: # 1曲だけの場合
+                    next_song_url = self.queue.pop(0)
+                    [next_song_filename] = await Youtube.ydl_proc(self, ctx, next_song_url, self.ytdl_opts)
+                    await VoiceChat.voice_send(self, ctx, next_song_filename)
+                elif len(self.queue) > 0: # 複数曲の場合 (曲の表示等あり)
+                    await Basic.send(self, ctx, str(len(plist))+" songs added")
+                    await VoiceChat.play(self, ctx)
 
-    @commands.command(description='play music + kawaii_voice_gtts.music_pack1')
-    async def v_music_pack1(self, ctx, tx:str):
-        """play music + kawaii_voice_gtts.music_pack1"""
-        try: # try connect url
-            f = urllib.request.urlopen(tx)
-            f.close()
-        except: return False
+    @v_music.command(description='skip')
+    async def skip(self, ctx):
+        # self.inf_play = False # infiniry play: off
+        self.now.stop()
+        self.now = None
+        # if self.now != None:
+        #     self.now.stop()
+        #     self.now = None
+        # if self.inf_play:
+        #     self.now.stop()
+        #     self.now = None
+        #     pass # b_loopの時は、self.nowを停止してself.now = Noneにすると自動的に次の曲になるので.
+        # elif len(self.queue) > 0:
+        #     self.queue.pop(0)
+        #     if len(self.queue) > 0:
+        #         await VoiceChat.play(self, ctx)
 
-        ytdl_opts = {
-            'format' : 'bestaudio/best',
-            'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
-            'restrictfilenames': True,
-            'noplaylist': True, # not allow playlist
-            'nocheckcertificate': True,
-            'no_warnings': True,
-            'default_search': 'auto',
-            'source_address': '0.0.0.0',
-            'postprocessors': [{
-                'key': 'FFmpegExtractAudio',
-                'preferredcodec': 'mp3',
-            }]
-        }
-        if tx.lower() == 'stop' and self.now != None:
+    @v_music.command(description='stop')
+    async def stop(self, ctx):
+        self.state = False # auto play: off
+        if self.now != None:
             self.now.stop()
             self.now = None
-        filename_ = await Youtube.ydl_proc(self, ctx, tx, ytdl_opts)
-        if not filename_ and self.now == None:
-            await ctx.send('Error; Youtube.ydl_proc')
-            return False
-        elif self.now == None: # 正常
-            try:
-                filename = filename_[0]
-                imouto = kawaii_voice_gtts.kawaii_voice(filename)
-                imouto = imouto.music_pack1()
-                imouto.audio.export(filename, 'mp3')
-                await VoiceChat.voice_send(self, ctx, filename)
-            except:
-                await ctx.send('Error: kawaii_voice_gttx.kawaii_voice, imouto.music_pack1, Youtube.voice_send')
+
+    @v_music.command(description='random play!')
+    async def b(self, ctx):
+        self.state = False # auto play: off
+        self.inf_play = False # stop inf play
+        if self.now != None:
+            self.now.stop()
+            self.now = None
+        music, sagyou_music = my_music.get_my_music()
+
+        brand_n = list(music)[random.randint(0,int(len(music))-1)]
+        brand = music[brand_n]
+        mm = brand[random.randint(0,int(len(brand))-1)]
+
+        self.ytdl_opts['noplaylist'] = True
+        filename_ = await Youtube.ydl_proc(self, ctx, mm['url'], self.ytdl_opts)
+        if filename_:
+            filename = filename_[0]
+            # await Basic.send(self, ctx, f'`{brand_n}` - `{mm["title"]}`')
+            await Basic.send(self, ctx, f'```ini\n[TITLE] {brand_n} - {mm["title"]}\n[ URL ] {mm["url"]}```')
+            await VoiceChat.voice_send(self, ctx, filename)
+
+    @v_music.command(description='infinity random play!')
+    async def b_loop(self, ctx):
+        self.state = False # auto play: off
+        if self.now != None:
+            self.now.stop()
+            self.now = None
+
+        self.inf_play = True # infiniry play: on
+        music, sagyou_music = my_music.get_my_music()
+        while self.inf_play:
+            brand_n = list(music)[random.randrange(len(music))]
+            # brand_n = list(music)[random.randint(0,int(len(music)-1))]
+            brand = music[brand_n]
+            # mm = brand[random.randint(0,int(len(brand)-1))]
+            mm = brand[random.randrange(len(brand))]
+
+            self.ytdl_opts['noplaylist'] = True
+            filename_ = await Youtube.ydl_proc(self, ctx, mm['url'], self.ytdl_opts)
+            if not filename_ and self.now == None: # youtube_dl error
+                await Basic.send(self, ctx, 'Error: Youtube.ydl_proc')
+                continue
+            elif self.now == None: # 正常
+                try:
+                    filename = filename_[0]
+                    # await Basic.send(self, ctx, f'`{brand_n}` - `{mm["title"]}`')
+                    await Basic.send(self, ctx, f'```ini\n[TITLE] {brand_n} - {mm["title"]}\n[ URL ] {mm["url"]}```')
+                    await VoiceChat.voice_send(self, ctx, filename)
+                except:
+                    await Basic.send(self, ctx, 'Error: Youtube.voice_send')
+            else: break
+
+    @v_music.command(description='play')
+    async def play(self, ctx):
+        """ play queue """
+        self.state = True
+        while len(self.queue):
+            if self.now == None:
+                # try:
+                next_song_url = self.queue.pop(0)
+                [next_song_filename] = await Youtube.ydl_proc(self, ctx, next_song_url, self.ytdl_opts)
+                split_filename = os.path.basename(next_song_filename).split('.')
+                split_filename.pop(len(split_filename)-1) # ファイルの拡張子を除く
+                split_filename.pop(len(split_filename)-1) # youtube id を除く
+                await Basic.send(self, ctx, f'```ini\n[TITLE] {"".join(split_filename)}\n[ URL ] {next_song_url}```')
+                await VoiceChat.voice_send(self, ctx, next_song_filename)
+                # except:
+                #     await Basic.send(self, ctx, "Error: VoiceChat.play")
+                #     continue
+            if len(self.queue) <= 0 or not self.state:
+                break
+
+    @v_music.command(description='queue')
+    async def queue(self, ctx):
+        if len(self.queue) > 0:
+            sd = '> | '+str(self.queue[0])+'\n'
+            for i in range(1, len(self.queue)):
+                sd += str(i)+' | '+str(self.queue[i])+'\n'
+            await Basic.send(self, ctx, "```py\n"+sd+"```")
+        else:
+            await Basic.send(self, ctx, "queue = Null")
+
+    @v_music.command(description='delete queue')
+    async def del_queue(self, ctx):
+        self.queue = []
+        await Basic.send(self, ctx, "deleted queue")
+
+    # @v_music.command(description='loop the currently playing music')
+
+    # @commands.command(description='play music + kawaii_voice_gtts.music_pack1')
+    # async def v_music_pack1(self, ctx, tx:str):
+    #     """play music + kawaii_voice_gtts.music_pack1"""
+    #     try: # try connect url
+    #         f = urllib.request.urlopen(tx)
+    #         f.close()
+    #     except: return False
+
+    #     ytdl_opts = {
+    #         'format' : 'bestaudio/best',
+            # # 'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
+            # 'outtmpl': '%(title)s%(id)s.%(ext)s',
+    #         'restrictfilenames': True,
+    #         'noplaylist': True, # not allow playlist
+    #         'nocheckcertificate': True,
+    #         'no_warnings': True,
+    #         'default_search': 'auto',
+    #         'source_address': '0.0.0.0',
+    #         'postprocessors': [{
+    #             'key': 'FFmpegExtractAudio',
+    #             'preferredcodec': 'mp3',
+    #         }]
+    #     }
+    #     if tx.lower() == 'stop' and self.now != None:
+    #         self.now.stop()
+    #         self.now = None
+    #     filename_ = await Youtube.ydl_proc(self, ctx, tx, ytdl_opts)
+    #     if not filename_ and self.now == None:
+    #         await Basic.send(self, ctx, 'Error; Youtube.ydl_proc')
+    #         return False
+    #     elif self.now == None: # 正常
+    #         try:
+    #             filename = filename_[0]
+    #             imouto = kawaii_voice_gtts.kawaii_voice(filename)
+    #             imouto = imouto.music_pack1()
+    #             imouto.audio.export(filename, 'mp3')
+    #             await VoiceChat.voice_send(self, ctx, filename)
+    #         except:
+    #             await Basic.send(self, ctx, 'Error: kawaii_voice_gttx.kawaii_voice, imouto.music_pack1, Youtube.voice_send')
 
     async def make_tts(self, ctx, text, lg, k_option): # text=text, lg=language, k_option=kawaii_voice_gtts(0=false, 1=true)
         voice_client = ctx.message.guild.voice_client
@@ -773,6 +836,8 @@ class VoiceChat(commands.Cog):
         await VoiceChat.voice_send(self, ctx, filename)
 
     async def voice_send(self, ctx, filename):
+        if self.now != None:
+            self.now.stop()
         if os.path.exists(filename): # ファイル存在確認
             if self.volume == 1.0: audio_source = discord.FFmpegPCMAudio(filename)
             else: audio_source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(filename), volume=self.volume)
@@ -797,11 +862,11 @@ class VoiceChat(commands.Cog):
             self.volume = float(vol)
         except:
             self.volume = 1.0
-        await ctx.send('volume : '+str(self.volume))
+        await Basic.send(self, ctx, 'volume : '+str(self.volume))
 
     @commands.command(description='Channel member list')
     async def v_list(self, ctx):
-        """Channel member list"""
+        """channel member list"""
         channel = ctx.author.voice.channel
         out = ''
         cnt = 1
@@ -812,7 +877,7 @@ class VoiceChat(commands.Cog):
                 out += str(cnt) +' | '+ str(member) + '\n'
                 cnt += 1
             #     await member.move_to(None)
-        await ctx.send('```py\n'+out+'```')
+        await Basic.send(self, ctx, '```py\n'+out+'```')
 
     @commands.command(description='voice mute')
     async def v_mute(self, ctx, no):
@@ -875,7 +940,7 @@ class Encode(commands.Cog):
         send = ''
         for i in range(len(text)):
             send += ' ' + str(ord(text[i]))
-        await ctx.send(send)
+        await Basic.send(self, ctx, send)
 
     @commands.command(description='ASCII Decode')
     async def asc_dec(self, ctx, *text:int):
@@ -883,7 +948,7 @@ class Encode(commands.Cog):
         send = ''
         for i in range(len(text)):
             send += chr(text[i])
-        await ctx.send(send)
+        await Basic.send(self, ctx, send)
 
 #---------------------------------------------------------- GoogleTranslate
 class Translate(commands.Cog):
@@ -908,7 +973,7 @@ class Translate(commands.Cog):
             async with session.get(uri) as res:
                 if res.status == 200:
                     res_json = await res.json()
-                    await ctx.send(res_json['res'])
+                    await Basic.send(self, ctx, res_json['res'])
 
 #---------------------------------------------------------- Timer
 class Timer(commands.Cog):
@@ -920,7 +985,7 @@ class Timer(commands.Cog):
     async def timer(self, ctx, time_set:float):
         """Timer (s)"""
         mention = str(ctx.message.author.mention)
-        dest = await ctx.send("Ready!")
+        dest = await Basic.send(self, ctx, "Ready!")
         start = time.time()
         while float(time_set)-float(time.time()-start) > 0:
             left = str('{:.1f}'.format(float(time_set)-float(time.time()-start)))
@@ -941,7 +1006,7 @@ class Timer(commands.Cog):
         if len(tset)>=3 : time2_ = tset[2] * 60
         else: time2_ = 300 # 5min
 
-        dest = await ctx.send("Ready!")
+        dest = await Basic.send(self, ctx, "Ready!")
         mention = str(ctx.message.author.mention)
         setCnt = setCnt_
         while setCnt > 0:
@@ -969,7 +1034,7 @@ class BrainFuck(commands.Cog):
         """Exec BrainF*ck"""
         tx = ''.join(tx)
         bfc = brainfuck.BrainFuck(tx, 0).bf()
-        await ctx.send(bfc.out_asc)
+        await Basic.send(self, ctx, bfc.out_asc)
 
     @commands.command(description='Debug BrainF*ck')
     async def bf_debug(self, ctx, *tx:str):
@@ -977,7 +1042,7 @@ class BrainFuck(commands.Cog):
         tx = ''.join(tx)
         bfc = brainfuck.BrainFuck(tx, 4).bf()
         # if len(bfc.debug) > 2000:
-        await ctx.send(bfc.debug)
+        await Basic.send(self, ctx, bfc.debug)
 
 #---------------------------------------------------------- URL
 class URL(commands.Cog):
@@ -988,24 +1053,24 @@ class URL(commands.Cog):
     @commands.command(description='Generate Shorter URL')
     async def url_short(self, ctx, tx:str):
         """Generate shorter url"""
-        await ctx.send(Shortener().tinyurl.short(tx))
+        await Basic.send(self, ctx, Shortener().tinyurl.short(tx))
 
     @commands.command(description='Restore the shortened URL')
     async def url_expand(self, ctx, tx:str):
         """Restore the shortened URL"""
-        await ctx.send(Shortener().tinyurl.expand(tx))
+        await Basic.send(self, ctx, Shortener().tinyurl.expand(tx))
 
     @commands.command(description='URL encode')
     async def url_enc(self, ctx, *tx:str):
         """URL encode"""
         s = ' '.join(tx)
-        await ctx.send(urllib.parse.quote(s))
+        await Basic.send(self, ctx, urllib.parse.quote(s))
 
     @commands.command(description='URL decode')
     async def url_dec(self, ctx, *tx:str):
         """URL decode"""
         s = ' '.join(tx)
-        await ctx.send(urllib.parse.unquote(s))
+        await Basic.send(self, ctx, urllib.parse.unquote(s))
 
 #---------------------------------------------------------- Slash
 class Slash(commands.Cog):
@@ -1014,7 +1079,7 @@ class Slash(commands.Cog):
 
     @cog_ext.cog_slash(name="ping")
     async def ping(self, ctx:SlashContext):
-        await ctx.send(f"{bot.latency*1000}ms")
+        await Basic.send(self, ctx, f"{bot.latency*1000}ms")
 
     @cog_ext.cog_slash(name="hattori")
     async def hattori(self, ctx:SlashContext):
@@ -1040,6 +1105,29 @@ class Slash(commands.Cog):
     @cog_ext.cog_slash(name="v_volume")
     async def v_volume(self, ctx:SlashContext, volume:str):
         await VoiceChat.v_volume(self, ctx, volume)
+
+#---------------------------------------------------------- Basic
+class Basic():
+    def __init__(self, bot):
+        self.bot = bot
+
+    async def get_random(n):
+        base = string.digits + string.ascii_lowercase + string.ascii_uppercase
+        return str(''.join([random.choice(base) for _ in range(n)]))
+
+    async def send(self, ctx, tx):
+        """ 文字の送信 """
+        if len(str(tx)) <= 2000: # 2000文字以下
+            await ctx.send(tx)
+        else:
+            try:
+                fname = 'tmp_'+Basic.get_random(30)+'.txt'
+                with open(fname, mode='w') as fp:
+                    fp.write(tx)
+                with open(fname, 'rb') as fp:
+                    await channel.send(file=discord.File(fp, 'res.txt'))
+            except: # サイズ上限?
+                await ctx.send('Error: Size limit has been exceeded?')
 
 # Botの起動とDiscordサーバーへの接続
 bot.add_cog(Calc(bot))
