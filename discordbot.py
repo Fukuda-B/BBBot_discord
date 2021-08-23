@@ -53,7 +53,7 @@ import ffmpeg
 # import requests #req
 
 
-VERSION='v2.6.1 alpha'
+VERSION='v2.6.2 beta'
 
 TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, UP_SERVER,\
@@ -586,6 +586,8 @@ class VoiceChat(commands.Cog):
         self.inf_play = False # infinity play music
         self.queue = [] # music queue ['now play', 'next', '...'] (url)
         self.state = False # continue to play
+        self.nightcore = False # nightcore effect
+        self.bassboost = False # bassboost effect
 
     @commands.command(description='Discord_VoiceChat Connect')
     async def v_connect(self, ctx):
@@ -660,6 +662,7 @@ class VoiceChat(commands.Cog):
                 if len(self.queue) == 1: # 1曲だけの場合
                     next_song_url = self.queue.pop(0)
                     [next_song_filename] = await Youtube.ydl_proc(self, ctx, next_song_url, self.ytdl_opts)
+                    next_song_filename = await VoiceChat.effect(self, next_song_filename) # エフェクト
                     await VoiceChat.voice_send(self, ctx, next_song_filename)
                 elif len(self.queue) > 0: # 複数曲の場合 (曲の表示等あり)
                     await Basic.send(self, ctx, str(len(plist))+" songs added")
@@ -698,14 +701,18 @@ class VoiceChat(commands.Cog):
             self.now = None
         music, sagyou_music = my_music.get_my_music()
 
-        brand_n = list(music)[random.randint(0,int(len(music))-1)]
+        if len(music) == 1: brand_n = list(music)[0]
+        else: brand_n = list(music)[random.randint(0,int(len(music))-1)]
+
         brand = music[brand_n]
-        mm = brand[random.randint(0,int(len(brand))-1)]
+        if len(brand) == 1: mm = brand[0]
+        else: mm = brand[random.randint(0,int(len(brand))-1)]
 
         self.ytdl_opts['noplaylist'] = True
         filename_ = await Youtube.ydl_proc(self, ctx, mm['url'], self.ytdl_opts)
         if filename_:
             filename = filename_[0]
+            filename = await VoiceChat.effect(self, filename) # エフェクト
             # await Basic.send(self, ctx, f'`{brand_n}` - `{mm["title"]}`')
             await Basic.send(self, ctx, f'```ini\n[TITLE] {brand_n} - {mm["title"]}\n[ URL ] {mm["url"]}```')
             await VoiceChat.voice_send(self, ctx, filename)
@@ -732,13 +739,14 @@ class VoiceChat(commands.Cog):
                 await Basic.send(self, ctx, 'Error: Youtube.ydl_proc')
                 continue
             elif self.now == None: # 正常
-                try:
-                    filename = filename_[0]
-                    # await Basic.send(self, ctx, f'`{brand_n}` - `{mm["title"]}`')
-                    await Basic.send(self, ctx, f'```ini\n[TITLE] {brand_n} - {mm["title"]}\n[ URL ] {mm["url"]}```')
-                    await VoiceChat.voice_send(self, ctx, filename)
-                except:
-                    await Basic.send(self, ctx, 'Error: Youtube.voice_send')
+                # try:
+                filename = filename_[0]
+                filename = await VoiceChat.effect(self, filename) # エフェクト
+                # await Basic.send(self, ctx, f'`{brand_n}` - `{mm["title"]}`')
+                await Basic.send(self, ctx, f'```ini\n[TITLE] {brand_n} - {mm["title"]}\n[ URL ] {mm["url"]}```')
+                await VoiceChat.voice_send(self, ctx, filename)
+                # except:
+                #     await Basic.send(self, ctx, 'Error: Youtube.voice_send')
             else: break
 
     @v_music.command(description='play')
@@ -750,6 +758,7 @@ class VoiceChat(commands.Cog):
                 # try:
                 next_song_url = self.queue.pop(0)
                 [next_song_filename] = await Youtube.ydl_proc(self, ctx, next_song_url, self.ytdl_opts)
+                next_song_filename = await VoiceChat.effect(self, next_song_filename) # エフェクト
                 split_filename = os.path.basename(next_song_filename).split('.')
                 split_filename.pop(len(split_filename)-1) # ファイルの拡張子を除く
                 split_filename.pop(len(split_filename)-1) # youtube id を除く
@@ -775,6 +784,16 @@ class VoiceChat(commands.Cog):
     async def del_queue(self, ctx):
         self.queue = []
         await Basic.send(self, ctx, "deleted queue")
+
+    @v_music.command(description='nightcore effect toggle')
+    async def nightcore(self, ctx):
+        self.nightcore = True if not self.nightcore else False
+        await Basic.send(self, ctx, "nightcore = "+str(self.nightcore))
+
+    @v_music.command(description='bassboost effect toggle')
+    async def bassboost(self, ctx):
+        self.bassboost = True if not self.bassboost else False
+        await Basic.send(self, ctx, "bassboost = "+str(self.bassboost))
 
     # @v_music.command(description='loop the currently playing music')
 
@@ -822,7 +841,7 @@ class VoiceChat(commands.Cog):
         voice_client = ctx.message.guild.voice_client
         text = ' '.join(text)
         pool = string.ascii_letters + string.digits
-        randm = ''.join(random.choice(pool) for i in range(16))
+        randm = ''.join(random.choice(pool) for _ in range(16))
         filename = str(randm) + ".mp3"
         gTTS(str(text), lang=lg).save(filename)
 
@@ -834,6 +853,31 @@ class VoiceChat(commands.Cog):
         if not voice_client: # join voice channel
             await ctx.author.voice.channel.connect()
         await VoiceChat.voice_send(self, ctx, filename)
+
+    async def effect(self, filename):
+        if self.nightcore == False and self.bassboost == False: # オプションがない場合
+            return filename
+        org_filename = filename
+        split_filename = os.path.basename(filename).split('.')
+        split_filename_ext = split_filename.pop(len(split_filename)-1) # ファイルの拡張子を除く
+        if split_filename_ext != 'mp3':
+            try:
+                tmp_audio = ffmpeg.input(filename)
+                tmp_audio_enc = ffmpeg.output(tmp_audio, str('.'.join(split_filename))+'.mp3', format='mp3')
+                ffmpeg.run(tmp_audio_enc)
+                try: os.remove(org_filename) # ファイル形式の変換前のファイルを削除
+                except: pass
+                filename = str('.'.join(split_filename))+'.mp3'
+            except:
+                await Basic.send('Error: VoiceChat.effect')
+                return filename
+        imouto = kawaii_voice_gtts.kawaii_voice(filename)
+        if self.nightcore:
+            imouto = imouto.music_pack1()
+        if self.bassboost:
+            imouto = imouto.bass_boost(0)
+        imouto.audio.export(filename, 'mp3') # 保存
+        return filename
 
     async def voice_send(self, ctx, filename):
         if self.now != None:
@@ -1118,7 +1162,7 @@ class Basic():
     async def send(self, ctx, tx):
         """ 文字の送信 """
         if len(str(tx)) <= 2000: # 2000文字以下
-            await ctx.send(tx)
+            await ctx.send(str(tx))
         else:
             try:
                 fname = 'tmp_'+Basic.get_random(30)+'.txt'
