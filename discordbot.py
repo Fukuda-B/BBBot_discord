@@ -53,7 +53,7 @@ import ffmpeg
 # import requests #req
 
 
-VERSION='v2.6.3 beta'
+VERSION='v2.6.4 beta'
 
 TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, UP_SERVER,\
@@ -86,6 +86,9 @@ slash = SlashCommand(bot, sync_commands=True, sync_on_cog_reload=True)
 @bot.event
 async def on_ready():
     # ログイン通知
+    TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
+    LOG_C, MAIN_C, VOICE_C, HA, UP_SERVER,\
+    M_CALL = [None, None, None, None, None, None, None, None, None, None]
     print(bot.user.name + ' is logged in.')
     # await bot.change_presence(status=discord.Status.idle, activity=discord.Game(name="BBBot "+VERSION, emoji="🍝"))
     await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="BBBot "+VERSION, emoji="🍝"))
