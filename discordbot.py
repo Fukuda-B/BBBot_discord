@@ -52,7 +52,7 @@ from niconico_dl_async import NicoNico
 import ffmpeg
 # import requests #req
 
-VERSION='v2.6.4 beta'
+VERSION='v2.6.4'
 
 _TOKEN, _A3RT_URI, _A3RT_KEY, _GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, _UP_SERVER,\
@@ -233,26 +233,31 @@ class Calc(commands.Cog):
         inc = ''.join(inc)
         inc = re.sub(r"[\u3000 \t]", "", inc)
         await Basic.send(self, ctx, eval(inc, {}, {'math':math}))
+
     @commands.command(description='足し算')
     async def add(self, ctx, left: str, right: str):
         """Add number + number"""
         left = float(left); right = float(right)
         await Basic.send(self, ctx, left + right)
+
     @commands.command(description='引き算')
     async def sub(self, ctx, left: str, right: str):
         """Sub number - number"""
         left = float(left); right = float(right)
         await Basic.send(self, ctx, left - right)
+
     @commands.command(description='掛け算')
     async def mul(self, ctx, left: str, right: str):
         """Mul number * number"""
         left = float(left); right = float(right)
         await Basic.send(self, ctx, left * right)
+
     @commands.command(description='割り算')
     async def div(self, ctx, left: str, right: str):
         """Div number / number"""
         left = float(left); right = float(right)
         await Basic.send(self, ctx, left / right)
+
     @commands.command(description='自己情報量I()')
     async def self_info(self, ctx, p: str):
         """Self-information I(p)"""
@@ -261,6 +266,7 @@ class Calc(commands.Cog):
             await Basic.send(self, ctx, 0.0)
         else:
             await Basic.send(self, ctx, -p*math.log2(p))
+
     @commands.command(description='エントロピー関数計算H()')
     async def ent(self, ctx, p: str):
         """EntropyFunc H(p)"""
@@ -269,6 +275,7 @@ class Calc(commands.Cog):
             await Basic.send(self, ctx, 0.0)
         else:
             await Basic.send(self, ctx, -p*math.log2(p)-(1-p)*math.log2(1-p))
+
     @commands.command(description='乱数(int) 1~x')
     async def rand(self, ctx, p: str):
         """Random(int) 1~x"""
@@ -277,14 +284,44 @@ class Calc(commands.Cog):
             await Basic.send(self, ctx, random.randint(1, p))
         else:
             await Basic.send(self, ctx, random.randint(p, 1))
+
     @commands.command(description='乱数(float)) 1.0~x')
     async def randd(self, ctx, p: str):
         """Random(float) 1.0~x"""
         p = float(eval(p))
-        if p>1.0:
+        if p > 1.0:
             await Basic.send(self, ctx, random.uniform(1.0, p))
         else:
             await Basic.send(self, ctx, random.uniform(p, 1.0))
+
+    @commands.command(description='素因数分解(2以上の整数のみ)')
+    async def fractor(self, ctx, p: int):
+        try:
+            p = int(p)
+            ct = p
+            if p >= 2:
+                res = []
+                for i in range(2, int(p**0.5)+1):
+                    if ct % i == 0:
+                        cn = 0
+                        while ct % i == 0:
+                            ct //= i # intへのキャストの代わり ( /= だとdoubleになってちょっと遅くなるかもしれないので)
+                            cn += 1
+                        res.append([i, cn])
+                if ct != 1: res.append([ct, 1]) # iで割れずに残っている場合
+                if res == []: res.append([p, 1]) # 単純に素数の場合
+            else:
+                await Basic.send(self, ctx, 'The value must be greater than or equal to 2')
+            res_t = f'{p} = '
+            for i in range(len(res)):
+                res_t += f'{res[i][0]}^{res[i][1]}'
+                if i != len(res)-1: res_t += ' * '
+            await Basic.send(self, ctx, str(res_t))
+
+        except Exception as e:
+            print(e)
+            await Basic.send(self, ctx, 'The number must be an integer greater than or equal to 2')
+
 
 #---------------------------------------------------------- B系
 class B(commands.Cog):
@@ -300,15 +337,18 @@ class B(commands.Cog):
             return
         for _ in range(times):
             await Basic.send(self, ctx, 'B')
+
     @commands.group(description='greet, hello, help, block')
     # async def B(self, ctx, swit: str, swit2: str):
     async def B(self, ctx):
         """B + (greet / sysinfo / hello / block / typing)"""
         if ctx.invoked_subcommand is None:
             await Basic.send(self, ctx, 'B!')
+
     @B.command()
     async def greet(self, ctx):
         await Basic.send(self, ctx, 'こんにちは！ BBBot('+VERSION+')だよ。\nよろしくね')
+
     @B.command()
     async def sysinfo(self, ctx):
         ipInfo = 'IP :'+socket.gethostname()+': '+socket.gethostbyname(socket.gethostname())
@@ -318,21 +358,26 @@ class B(commands.Cog):
         memInfo = 'MEM: '+str('{:.2f}'.format(psutil.virtual_memory().used/(1024*1024)))+'MB / '\
             +str('{:.2f}'.format(psutil.virtual_memory().total/(1024*1024)))+'MB'
         await Basic.send(self, ctx, ipInfo+"\n"+platInfo+"\n"+cpuInfo+"\n"+memInfo)
+
     @B.command()
     async def hello(self, ctx):
         await Basic.send(self, ctx, 'Hello B!')
+
     @B.command()
     async def block(self, ctx):
         await Basic.send(self, ctx, '□□□□□□□□\n□■■■■□□□\n□■□□□■□□\n□■□□□■□□\n□■■■■□□□\n□■□□□■□□\n□■□□□□■□\n□■□□□□■□\n□■■■■■□□\n□□□□□□□□')
+
     @B.command()
     async def ping(self, ctx):
         await Basic.send(self, ctx, f"{bot.latency*1000}ms")
+
     @B.command()
     async def typing(self, ctx):
         async with ctx.typing():
             await asyncio.sleep(10)
             ctx.typing()
             await Basic.send(self, ctx, 'B')
+
     @B.command()
     async def hattori(self, ctx, *tx:str):
         """ htr """
@@ -366,26 +411,32 @@ class Image(commands.Cog):
     async def melt(self, ctx):
         """melt picture"""
         await Image.get_pic(self, ctx, 'https://dic.nicovideo.jp/oekaki/674964.png', 'melt.png')
+
     @commands.command(description='abya picture')
     async def abya(self, ctx):
         """abya picture"""
         await Image.get_pic(self, ctx, 'https://livedoor.blogimg.jp/mn726/imgs/0/3/03812153.jpg', 'abya.png')
+
     @commands.command(description='shiran kedo~ picture')
     async def shiran(self, ctx):
         """shiran kedo~ picture"""
         await Image.get_pic(self, ctx, 'https://pbs.twimg.com/media/DoGwbj0UwAALenI.jpg', 'shiran.jpg')
+
     @commands.command(description='party parrot GIF')
     async def party(self, ctx):
         """party parrot GIF"""
         await Image.get_pic(self, ctx, 'https://cdn.discordapp.com/attachments/705099416083890281/766528750456012841/parrot.gif', 'party_parrot.gif')
+
     @commands.command(description='B picture')
     async def b_pic(self, ctx):
         """B picture"""
         await Image.get_pic(self, ctx, 'https://cdn.discordapp.com/attachments/705099416083890281/766668684188975114/letter-b-clipart-158558-5546542.jpg', 'b_picture.jpg')
+
     @commands.command(description='gaming presentation GIF')
     async def presen(self, ctx):
         """gaming presentation GIF"""
         await Image.get_pic(self, ctx, 'https://cdn.discordapp.com/attachments/733937061199085610/768300192818135040/GPW.gif', 'gaming_presentation.gif')
+
     @commands.command(description='maji yabakune')
     async def majiyaba(self, ctx):
         """maji yabakune"""
