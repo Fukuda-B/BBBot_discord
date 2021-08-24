@@ -52,7 +52,6 @@ from niconico_dl_async import NicoNico
 import ffmpeg
 # import requests #req
 
-
 VERSION='v2.6.4 beta'
 
 TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
@@ -86,9 +85,6 @@ slash = SlashCommand(bot, sync_commands=True, sync_on_cog_reload=True)
 @bot.event
 async def on_ready():
     # ログイン通知
-    TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
-    LOG_C, MAIN_C, VOICE_C, HA, UP_SERVER,\
-    M_CALL = [None, None, None, None, None, None, None, None, None, None]
     print(bot.user.name + ' is logged in.')
     # await bot.change_presence(status=discord.Status.idle, activity=discord.Game(name="BBBot "+VERSION, emoji="🍝"))
     await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="BBBot "+VERSION, emoji="🍝"))
@@ -230,13 +226,13 @@ class Calc(commands.Cog):
         self.bot = bot
         self._last_member = None
 
-    @commands.command(description='計算 Eval')
-    # Evalなので攻撃しないでください。
-    async def calc(self, ctx, *inc: str):
-        """Calc number Eval"""
-        inc = ''.join(inc)
-        inc = re.sub(r"[\u3000 \t]", "", inc)
-        await Basic.send(self, ctx, eval(inc))
+    # @commands.command(description='計算 Eval')
+    # # Evalなので攻撃しないでください。
+    # async def calc(self, ctx, *inc: str):
+    #     """Calc number Eval"""
+    #     inc = ''.join(inc)
+    #     inc = re.sub(r"[\u3000 \t]", "", inc)
+    #     await Basic.send(self, ctx, eval(inc))
     @commands.command(description='足し算')
     async def add(self, ctx, left: str, right: str):
         """Add number + number"""
