@@ -54,8 +54,8 @@ import ffmpeg
 
 VERSION='v2.6.4 beta'
 
-TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
-    LOG_C, MAIN_C, VOICE_C, HA, UP_SERVER,\
+_TOKEN, _A3RT_URI, _A3RT_KEY, _GoogleTranslateAPP_URL,\
+    LOG_C, MAIN_C, VOICE_C, HA, _UP_SERVER,\
     M_CALL = my_key.get_keys()
 
 HTR_LIST = htr.get_hattori()
@@ -203,7 +203,7 @@ class UpServer:
         while True:
             # await lChannel.send('up server')
             try:
-                for i in UP_SERVER:
+                for i in _UP_SERVER:
                     req = urllib.request.Request(i)
                     with urllib.request.urlopen(req):
                         pass
@@ -226,13 +226,13 @@ class Calc(commands.Cog):
         self.bot = bot
         self._last_member = None
 
-    # @commands.command(description='計算 Eval')
-    # # Evalなので攻撃しないでください。
-    # async def calc(self, ctx, *inc: str):
-    #     """Calc number Eval"""
-    #     inc = ''.join(inc)
-    #     inc = re.sub(r"[\u3000 \t]", "", inc)
-    #     await Basic.send(self, ctx, eval(inc))
+    @commands.command(description='計算 Eval')
+    # Evalなので攻撃しないでください。
+    async def calc(self, ctx, *inc: str):
+        """Calc number Eval"""
+        inc = ''.join(inc)
+        inc = re.sub(r"[\u3000 \t]", "", inc)
+        await Basic.send(self, ctx, eval(inc, {}, {'math':math}))
     @commands.command(description='足し算')
     async def add(self, ctx, left: str, right: str):
         """Add number + number"""
@@ -414,8 +414,8 @@ class AI(commands.Cog):
     @commands.command(description='a3rt AI TalkAPI')
     async def ai(self, ctx, talk: str):
         """a3rt AI TalkAPI"""
-        data = urllib.parse.urlencode({"apikey":A3RT_KEY, "query":talk}).encode('utf-8')
-        request = urllib.request.Request(A3RT_URI, data)
+        data = urllib.parse.urlencode({"apikey":_A3RT_KEY, "query":talk}).encode('utf-8')
+        request = urllib.request.Request(_A3RT_URI, data)
         res = urllib.request.urlopen(request)
         json_load = json.load(res)
         # await Basic.send(self, ctx, '精度:'+str(json_load['results'][0]['perplexity'])+"\n"+json_load['results'][0]['reply'])
@@ -1010,13 +1010,13 @@ class Translate(commands.Cog):
     async def trans(self, ctx, *text):
         """Translate  English -> Japanese"""
         gReq = '?text='+str(' '.join(text))+'&source=en&target=ja'
-        await Translate.transA(self, ctx, GoogleTranslateAPP_URL+gReq)
+        await Translate.transA(self, ctx, _GoogleTranslateAPP_URL+gReq)
 
     @commands.command(description='Translate ja -> en')
     async def transJ(self, ctx, *text):
         """Translate Japanese -> English"""
         gReq = '?text='+str(' '.join(text))+'&source=ja&target=en'
-        await Translate.transA(self, ctx, GoogleTranslateAPP_URL+gReq)
+        await Translate.transA(self, ctx, _GoogleTranslateAPP_URL+gReq)
 
     async def transA(self, ctx, uri:str):
         async with aiohttp.ClientSession() as session:
@@ -1190,4 +1190,4 @@ bot.add_cog(Timer(bot))
 bot.add_cog(BrainFuck(bot))
 bot.add_cog(URL(bot))
 bot.add_cog(Slash(bot))
-bot.run(TOKEN)
+bot.run(_TOKEN)
