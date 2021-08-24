@@ -53,7 +53,7 @@ import ffmpeg
 # import requests #req
 
 
-VERSION='v2.6.2 beta'
+VERSION='v2.6.3 beta'
 
 TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, UP_SERVER,\
@@ -150,7 +150,8 @@ class EqCheck:
                                             await lChannel.send(await EqCheck.castRes(self,res_json, i))
                                             res_log  = res_json[i]
                                         break
-                                    except:
+                                    except Exception as e:
+                                        print(e)
                                         continue
 
             except urllib.error.URLError as err:
@@ -212,6 +213,8 @@ class UpServer:
                     #     body = res.read()
             except urllib.error.URLError:
                 pass
+            except Exception as e:
+                print(e)
             # except urllib.error.URLError as err:
             #     print(err.reason)
             #     pass
@@ -400,7 +403,7 @@ class Image(commands.Cog):
                 if resp.status != 200:
                     return await Basic.send(self, ctx, 'server error... b')
                 data = io.BytesIO(await resp.read())
-                await Basic.send(self, ctx, file=discord.File(data, file_name))
+                await ctx.send(file=discord.File(data, file_name))
 
 
 #---------------------------------------------------------- AI系
@@ -565,10 +568,11 @@ class Youtube(commands.Cog):
     async def ydl_send(self, ctx, filename):
         try:
             with open(filename, 'rb') as fp:
-                await Basic.send(self, ctx, file=discord.File(fp, filename))
+                await ctx.send(file=discord.File(fp, filename))
         except discord.errors.HTTPException:
             await Basic.send(self, ctx, 'Error: File size is too large? [Max 8MB]\n')
-        except:
+        except Exception as e:
+            print(e)
             await Basic.send(self, ctx, 'Error: Unknown')
         finally:
             if os.path.exists(filename):
@@ -736,7 +740,8 @@ class VoiceChat(commands.Cog):
             self.ytdl_opts['noplaylist'] = True
             filename_ = await Youtube.ydl_proc(self, ctx, mm['url'], self.ytdl_opts)
             if not filename_ and self.now == None: # youtube_dl error
-                await Basic.send(self, ctx, 'Error: Youtube.ydl_proc')
+                # await Basic.send(self, ctx, 'Error: Youtube.ydl_proc')
+                print('Error: Youtube.ydl_proc')
                 continue
             elif self.now == None: # 正常
                 # try:
@@ -866,10 +871,11 @@ class VoiceChat(commands.Cog):
                 tmp_audio_enc = ffmpeg.output(tmp_audio, str('.'.join(split_filename))+'.mp3', format='mp3')
                 ffmpeg.run(tmp_audio_enc)
                 try: os.remove(org_filename) # ファイル形式の変換前のファイルを削除
-                except: pass
+                except Exception as e: print(e)
                 filename = str('.'.join(split_filename))+'.mp3'
-            except:
-                await Basic.send('Error: VoiceChat.effect')
+            except Exception as e:
+                print(e)
+                # await Basic.send('Error: VoiceChat.effect')
                 return filename
         imouto = kawaii_voice_gtts.kawaii_voice(filename)
         if self.nightcore:
@@ -891,8 +897,9 @@ class VoiceChat(commands.Cog):
                 self.now.play(audio_source) # 再生
                 while ctx.guild.voice_client.is_playing():
                     await asyncio.sleep(1)
-            except:
-                await VoiceChat.v_connect(self, ctx)
+            except Exception as e:
+                print(e)
+                # await VoiceChat.v_connect(self, ctx)
 
             os.remove(filename)
             self.now = None
@@ -1165,12 +1172,10 @@ class Basic():
             await ctx.send(str(tx))
         else:
             try:
-                fname = 'tmp_'+Basic.get_random(30)+'.txt'
-                with open(fname, mode='w') as fp:
-                    fp.write(tx)
-                with open(fname, 'rb') as fp:
-                    await channel.send(file=discord.File(fp, 'res.txt'))
-            except: # サイズ上限?
+                data = io.StringIO(str(tx))
+                await ctx.send(file=discord.File(data, 'res.txt'))
+            except Exception as e: # サイズ上限?
+                print(e)
                 await ctx.send('Error: Size limit has been exceeded?')
 
 # Botの起動とDiscordサーバーへの接続
