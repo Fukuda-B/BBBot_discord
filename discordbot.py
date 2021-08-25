@@ -87,7 +87,7 @@ async def on_ready():
     # ログイン通知
     print(bot.user.name + ' is logged in.')
     # await bot.change_presence(status=discord.Status.idle, activity=discord.Game(name="BBBot "+VERSION, emoji="🍝"))
-    await bot.change_presence(status=discord.Status.offline, activity=discord.Game(name="BBBot "+VERSION, emoji="🍝"))
+    await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="BBBot "+VERSION, emoji="🍝"))
     # await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name="BBBot "+VERSION))
     lChannel = bot.get_channel(LOG_C)
     await lChannel.send('BBBot is Ready! ' + VERSION)
@@ -775,6 +775,7 @@ class VoiceChat(commands.Cog):
             self.now.stop()
             self.now = None
             self.inf_play = False
+            self.state = False
 
     @v_music.command(description='pause music')
     async def pause(self, ctx):
