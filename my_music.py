@@ -6,6 +6,7 @@
 # ブランドの詳細は https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%80%E3%83%AB%E3%83%88%E3%82%B2%E3%83%BC%E3%83%A0%E3%83%A1%E3%83%BC%E3%82%AB%E3%83%BC%E4%B8%80%E8%A6%A7
 # 2021/07頃 更新
 
+import random
 def get_my_music():
     # 通常
     music = {
@@ -1224,3 +1225,26 @@ def get_my_music():
 
     return music, sagyou_music
 
+def get_music():
+    while True:
+        music, sagyou_music = get_my_music()
+        if len(music) <= 0: break # 曲がない
+        if len(music) == 1: brand_n = list(music)[0]
+        else:
+            rr = random.randint(0,int(len(music))-1)
+            brand_n = list(music)[rr]
+            # print(f'brand {rr} | {brand_n}')
+
+        brand = music[brand_n]
+        if len(brand) <= 0: continue # ブランドに曲がない
+        if len(brand) == 1: mm = brand[0]
+        else:
+            rr = random.randint(0,int(len(brand))-1)
+            mm = brand[rr]
+            # print(f'mm {rr} | {mm}')
+            break
+    return brand_n, mm
+
+if __name__ == '__main__':
+    for _ in range(100):
+        print(get_music())

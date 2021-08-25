@@ -52,7 +52,7 @@ from niconico_dl_async import NicoNico
 import ffmpeg
 # import requests #req
 
-VERSION='v2.6.7 beta'
+VERSION='v2.6.8 beta'
 
 _TOKEN, _A3RT_URI, _A3RT_KEY, _GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, _UP_SERVER,\
@@ -101,11 +101,10 @@ async def on_ready():
 # メッセージ受信時に動作する処理
 @bot.event
 async def on_message(message):
-    if message.author.bot:
-        return
-    lChannel = bot.get_channel(LOG_C)
     if message.content.startswith('?'):
+        lChannel = bot.get_channel(LOG_C)
         await lChannel.send("```\n@"+str(message.author.name)+"\n"+str(message.author.id)+"\n"+str(message.content)+" ```")
+        if message.author.bot: return # ボットだったら何もしない
         await bot.process_commands(message)
 
 #---------------------------------------------------------- 定期実行系
@@ -116,8 +115,8 @@ class EqCheck:
     async def p2peq_check(self):
         # req = urllib.request.Request(P2PEQ_URI)
         res_log = [] # Earthquake log
-        mChannel = bot.get_channel(MAIN_C)
         lChannel = bot.get_channel(LOG_C)
+        mChannel = bot.get_channel(MAIN_C)
 
         while True:
             # print('req')
@@ -141,7 +140,7 @@ class EqCheck:
                                         and res_json[i]['earthquake']['domesticTsunami'] != "Checking" :
                                             res_log  = res_json[i]
                                             await mChannel.send(await EqCheck.castRes(self, res_json, i))
-                                            await lChannel.send(await EqCheck.castRes(self,res_json, i))
+                                            await lChannel.send(await EqCheck.castRes(self, res_json, i))
                                             # await lChannel.send(res_json)
                                         elif res_log != res_json[i] \
                                         and type(res_json[i]['earthquake']['maxScale']) != type(None)\
@@ -199,7 +198,7 @@ class UpServer:
         self.bot = bot
 
     async def up_server(self):
-        # lChannel = bot.get_channel(LOG_C)
+        lChannel = bot.get_channel(LOG_C)
         while True:
             # await lChannel.send('up server')
             try:
@@ -211,9 +210,11 @@ class UpServer:
                     #     pass
                     #     body = res.read()
             except urllib.error.URLError:
+                # await lChannel.send('Error: urllib.error.URLError')
                 pass
             except Exception as e:
                 print(e)
+                await lChannel.send(str(e))
             # except urllib.error.URLError as err:
             #     print(err.reason)
             #     pass
@@ -465,12 +466,16 @@ class AI(commands.Cog):
     @commands.command(description='a3rt AI TalkAPI')
     async def ai(self, ctx, talk: str):
         """a3rt AI TalkAPI"""
-        data = urllib.parse.urlencode({"apikey":_A3RT_KEY, "query":talk}).encode('utf-8')
-        request = urllib.request.Request(_A3RT_URI, data)
-        res = urllib.request.urlopen(request)
-        json_load = json.load(res)
-        # await Basic.send(self, ctx, '精度:'+str(json_load['results'][0]['perplexity'])+"\n"+json_load['results'][0]['reply'])
-        await Basic.send(self, ctx, json_load['results'][0]['reply'])
+        try:
+            data = urllib.parse.urlencode({"apikey":_A3RT_KEY, "query":talk}).encode('utf-8')
+            request = urllib.request.Request(_A3RT_URI, data)
+            res = urllib.request.urlopen(request)
+            json_load = json.load(res)
+            # await Basic.send(self, ctx, '精度:'+str(json_load['results'][0]['perplexity'])+"\n"+json_load['results'][0]['reply'])
+            await Basic.send(self, ctx, json_load['results'][0]['reply'])
+        except Exception as e:
+            print(e)
+            await bot.get_channel(LOG_C).send(str(e))
 
 #---------------------------------------------------------- youtube-dl
 class Youtube(commands.Cog):
@@ -555,7 +560,9 @@ class Youtube(commands.Cog):
                     return plist
                 else:
                     return [url]
-            except:
+            except Exception as e:
+                print(e)
+                await bot.get_channel(LOG_C).send(str(e))
                 return False
 
     async def ydl_proc(self, ctx, url:str, ytdl_opts):
@@ -588,8 +595,9 @@ class Youtube(commands.Cog):
                             if 'postprocessors' in ytdl_opts:
                                 filename = pathlib.PurePath(filename).stem + '.' + ytdl_opts['postprocessors'][0]['preferredcodec']
                             return [filename]
-                except:
+                except Exception as e:
                     await Basic.send(self, ctx, 'Error: Youtube.ydl_proc')
+                    await bot.get_channel(LOG_C).send(str(e))
                     return False
 
     # niconico download
@@ -602,7 +610,8 @@ class Youtube(commands.Cog):
             await nico.download(title) # download & save
             nico.close()
             return await Youtube.ffmpeg(self, title, 'm4a')
-        except:
+        except Exception as e:
+            await bot.get_channel(LOG_C).send(str(e))
             return False
 
     # convert (need install ffmpeg) fmt = m4a, mp3, ...
@@ -626,6 +635,7 @@ class Youtube(commands.Cog):
         except Exception as e:
             print(e)
             await Basic.send(self, ctx, 'Error: Unknown')
+            await bot.get_channel(LOG_C).send(str(e))
 
 
 #---------------------------------------------------------- Discord_VoiceChat
@@ -712,6 +722,7 @@ class VoiceChat(commands.Cog):
             except Exception as e:
                 print(e)
                 await Basic.send('network error')
+                await bot.get_channel(LOG_C).send(str(e))
                 return False
             if self.now != None and self.state != True:
                 self.now.stop()
@@ -719,7 +730,8 @@ class VoiceChat(commands.Cog):
 
             pre_send = await Basic.send(self, ctx, "Now processing...")
             plist = await Youtube.ydl_getc(self, ctx, tx, self.ytdl_opts)
-            self.queue.extend(plist)
+            if plist:
+                self.queue.extend(plist)
             if self.now == None and len(self.queue):
                 if len(self.queue) == 1: # 1曲だけの場合
                     next_song_url = self.queue.pop(0)
@@ -731,6 +743,7 @@ class VoiceChat(commands.Cog):
                     await Basic.delete(self, pre_send)
                     await Basic.send(self, ctx, str(len(plist))+" songs added ("+str(len(self.queue))+" songs in the queue)")
                     await VoiceChat.play(self, ctx)
+            else: return False
 
     @v_music.command(description='skip')
     async def skip(self, ctx):
@@ -783,14 +796,8 @@ class VoiceChat(commands.Cog):
         if self.now != None:
             self.now.stop()
             self.now = None
-        music, sagyou_music = my_music.get_my_music()
-
-        if len(music) == 1: brand_n = list(music)[0]
-        else: brand_n = list(music)[random.randint(0,int(len(music))-1)]
-
-        brand = music[brand_n]
-        if len(brand) == 1: mm = brand[0]
-        else: mm = brand[random.randint(0,int(len(brand))-1)]
+        pre_send = await Basic.send(self, ctx, "Now processing...")
+        brand_n, mm = my_music.get_music() # 1曲ランダムに取り出し
 
         tmp_opts = self.ytdl_opts
         tmp_opts['noplaylist'] = True
@@ -799,6 +806,7 @@ class VoiceChat(commands.Cog):
             filename = filename_[0]
             filename = await VoiceChat.effect(self, filename) # エフェクト
             # await Basic.send(self, ctx, f'`{brand_n}` - `{mm["title"]}`')
+            await Basic.delete(self, pre_send)
             await Basic.send(self, ctx, f'```ini\n[TITLE] {brand_n} - {mm["title"]}\n[ URL ] {mm["url"]}```')
             await VoiceChat.voice_send(self, ctx, filename)
 
@@ -813,11 +821,7 @@ class VoiceChat(commands.Cog):
         self.inf_play = True # infiniry play: on
         music, sagyou_music = my_music.get_my_music()
         while self.inf_play:
-            brand_n = list(music)[random.randrange(len(music))]
-            # brand_n = list(music)[random.randint(0,int(len(music)-1))]
-            brand = music[brand_n]
-            # mm = brand[random.randint(0,int(len(brand)-1))]
-            mm = brand[random.randrange(len(brand))]
+            brand_n, mm = my_music.get_music() # 1曲ランダムに取り出し
 
             pre_send = await Basic.send(self, ctx, "Now processing...")
             tmp_opts = self.ytdl_opts
@@ -825,6 +829,7 @@ class VoiceChat(commands.Cog):
             filename_ = await Youtube.ydl_proc(self, ctx, mm['url'], tmp_opts)
             if not filename_ and self.now == None: # youtube_dl error
                 # await Basic.send(self, ctx, 'Error: Youtube.ydl_proc')
+                await Basic.delete(self, pre_send)
                 print('Error: Youtube.ydl_proc')
                 continue
             elif self.now == None: # 正常
@@ -837,7 +842,9 @@ class VoiceChat(commands.Cog):
                 await VoiceChat.voice_send(self, ctx, filename)
                 # except:
                 #     await Basic.send(self, ctx, 'Error: Youtube.voice_send')
-            else: break
+            else:
+                await Basic.delete(self, pre_send)
+                break
 
     @v_music.command(description='play')
     async def play(self, ctx):
@@ -849,16 +856,17 @@ class VoiceChat(commands.Cog):
         except: pass
         if len(self.queue) <= 0:
             await Basic.send(self, ctx, 'queue = Null')
-            return
         while len(self.queue):
             if self.now == None:
                 # try:
+                pre_send = await Basic.send(self, ctx, "Now processing...")
                 next_song_url = self.queue.pop(0)
                 [next_song_filename] = await Youtube.ydl_proc(self, ctx, next_song_url, self.ytdl_opts)
                 next_song_filename = await VoiceChat.effect(self, next_song_filename) # エフェクト
                 split_filename = os.path.basename(next_song_filename).split('.')
                 split_filename.pop(len(split_filename)-1) # ファイルの拡張子を除く
                 split_filename.pop(len(split_filename)-1) # youtube id を除く
+                await Basic.delete(self, pre_send)
                 await Basic.send(self, ctx, f'```ini\n[TITLE] {"".join(split_filename)}\n[ URL ] {next_song_url}```')
                 await VoiceChat.voice_send(self, ctx, next_song_filename)
                 # except:
@@ -969,6 +977,7 @@ class VoiceChat(commands.Cog):
                 filename = str('.'.join(split_filename))+'.mp3'
             except Exception as e:
                 print(e)
+                await bot.get_channel(LOG_C).send(str(e))
                 # await Basic.send('Error: VoiceChat.effect')
                 return filename
         imouto = kawaii_voice_gtts.kawaii_voice(filename)
@@ -993,6 +1002,7 @@ class VoiceChat(commands.Cog):
                     await asyncio.sleep(1)
             except Exception as e:
                 print(e)
+                await bot.get_channel(LOG_C).send(str(e))
                 # await VoiceChat.v_connect(self, ctx)
 
             os.remove(filename)
@@ -1083,6 +1093,7 @@ class VoiceChat(commands.Cog):
         except Exception as e:
             print(e)
             await Basic.send(self, ctx, 'Network error')
+            await bot.get_channel(LOG_C).send(str(e))
             return False
         pre_send = await Basic.send(self, ctx, "Now processing...")
         plist = await Youtube.ydl_getc(self, ctx, tx, self.ytdl_opts)
@@ -1289,6 +1300,7 @@ class Basic():
             except Exception as e: # サイズ上限?
                 print(e)
                 await ctx.send('Error: Size limit has been exceeded?')
+                await bot.get_channel(LOG_C).send(str(e))
                 return False
 
     async def edit(self, res, tx):
@@ -1304,6 +1316,7 @@ class Basic():
             except Exception as e:
                 print(e)
                 await res.send("Error: Size limit or can't edit files")
+                await bot.get_channel(LOG_C).send(str(e))
                 return False
 
     async def delete(self, res):
