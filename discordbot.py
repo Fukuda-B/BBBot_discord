@@ -12,14 +12,6 @@ from __future__ import unicode_literals
 
 from discord import channel
 
-# ---- my module ----
-import my_key # get my api keys
-import my_music
-import brainfuck # my brainfuck interpreter
-import htr # get hattori
-import htr_end
-import htr_dead
-import kawaii_voice_gtts
 # ----- basic module ----
 import os
 import io
@@ -50,7 +42,16 @@ import urllib.request
 import urllib.parse
 from niconico_dl_async import NicoNico
 import ffmpeg
-# import requests #req
+# ---- my module ----
+from modules import my_key # get my api keys
+from modules import my_music
+from modules import brainfuck # my brainfuck interpreter
+from modules import kawaii_voice_gtts
+from modules import htr # get hattori
+from modules import htr_end
+from modules import htr_dead
+from modules import eq_check
+from modules import up_server
 
 VERSION='v2.6.9 beta'
 
@@ -62,13 +63,7 @@ HTR_LIST = htr.get_hattori()
 HTRE_LIST = htr_end.end_hattori()
 HTRD_LIST = htr_dead.dead_hattori()
 
-P2PEQ_URI = 'https://api.p2pquake.net/v1/human-readable'
-# P2PEQ_URI = 'http://localhost:1011/p2p_ex/'
-P2PEQ_INT = 5 # GET interval (s)
-P2PEW_NMIN = 40 # Notification minimum earthquake scale
-P2PEW_NMIN_LOG = 20 # Notification minimum earthquake scale (logger)
 
-UP_SERVER_INT = 5 # up interval (min)
 
 description = 'BさんのBBBot ('+VERSION+')'
 bot = commands.Bot(
@@ -92,10 +87,13 @@ async def on_ready():
     lChannel = bot.get_channel(LOG_C)
     await lChannel.send('BBBot is Ready! ' + VERSION)
 
+#---------------------------------------------------------- 定期実行系
     # 非同期並行処理
+    eqc = eq_check.EqCheck(bot, LOG_C, MAIN_C)
+    ups = up_server.UpServer(bot, LOG_C, _UP_SERVER)
     await asyncio.gather(
-        EqCheck(bot).p2peq_check(),
-        UpServer(bot).up_server(),
+        eqc.p2peq_check(),
+        ups.up_server(),
     )
 
 # メッセージ受信時に動作する処理
@@ -107,119 +105,6 @@ async def on_message(message):
         if message.author.bot: return # ボットだったら何もしない
         await bot.process_commands(message)
 
-#---------------------------------------------------------- 定期実行系
-class EqCheck:
-    def __init__(self, bot):
-        self.bot = bot
-
-    async def p2peq_check(self):
-        # req = urllib.request.Request(P2PEQ_URI)
-        res_log = [] # Earthquake log
-        lChannel = bot.get_channel(LOG_C)
-        mChannel = bot.get_channel(MAIN_C)
-
-        while True:
-            # print('req')
-            try:
-                async with aiohttp.ClientSession() as session:
-                    async with session.get(P2PEQ_URI) as res:
-                        if res.status == 200:
-                            res_json = await res.json()
-                            # res_json = json.loads(body.decode('utf-8'))
-                            for i in range(len(res_json)):
-                                # print(res_json[i]['code'])
-                                if int(res_json[i]['code']) == 551: # Earthquake Code
-                                    # await mChannel.send(json.dumps(res_json[i]))
-                                    # print(len(res_log))
-                                    try:
-                                        if len(res_log) <= 0: # 初回の処理
-                                            res_log  = res_json[i]
-                                        elif res_log != res_json[i] \
-                                        and type(res_json[i]['earthquake']['maxScale']) != type(None)\
-                                        and int(res_json[i]['earthquake']['maxScale']) >= P2PEW_NMIN \
-                                        and res_json[i]['earthquake']['domesticTsunami'] != "Checking" :
-                                            res_log  = res_json[i]
-                                            await mChannel.send(await EqCheck.castRes(self, res_json, i))
-                                            await lChannel.send(await EqCheck.castRes(self, res_json, i))
-                                            # await lChannel.send(res_json)
-                                        elif res_log != res_json[i] \
-                                        and type(res_json[i]['earthquake']['maxScale']) != type(None)\
-                                        and int(res_json[i]['earthquake']['maxScale']) >= P2PEW_NMIN_LOG:
-                                            await lChannel.send(await EqCheck.castRes(self,res_json, i))
-                                            res_log  = res_json[i]
-                                        break
-                                    except Exception as e:
-                                        print(e)
-                                        continue
-
-            except urllib.error.URLError as err:
-                print(err.reason)
-            await asyncio.sleep(P2PEQ_INT)
-
-    async def castScale(self, scale: int):
-        print(scale)
-        if scale <= 40 or scale == 70:
-            return str(int(scale/10))
-        elif scale%10 == 5:
-            return str(int(scale/10)+1)+"弱"
-        else:
-            return str(int(scale/10))+"強"
-
-    async def castTsunami(self, status: str):
-        if status == 'None':
-            return 'なし'
-        elif status == 'Unknown':
-            return '不明'
-        elif status == 'Checking':
-            return '調査中'
-        elif status == 'NonEffective':
-            return '若干の海面変動 (被害の心配なし)'
-        elif status == 'Watch':
-            return '津波注意報'
-        elif status == 'Warning':
-            return '津波警報 (種類不明)'
-        else:
-            return status
-
-    async def castRes(self, res_json, i: int):
-        return "```yaml\n"\
-            + "Earthquake : " + str(res_json[i]['time']) + "\n"\
-            + "Place      : " + str(res_json[i]['earthquake']['hypocenter']['name'])\
-            + " (" + str(res_json[i]['earthquake']['hypocenter']['latitude']) + " "\
-            + str(res_json[i]['earthquake']['hypocenter']['longitude']) + ")\n"\
-            + "Depth      : " + str(res_json[i]['earthquake']['hypocenter']['depth']) + "\n"\
-            + "MaxScale   : " + await EqCheck.castScale(self, res_json[i]['earthquake']['maxScale'])+"\n"\
-            + "Magnitude  : " + str(res_json[i]['earthquake']['hypocenter']['magnitude'])+"\n"\
-            + "Tsunami    : " + await EqCheck.castTsunami(self, res_json[i]['earthquake']['domesticTsunami'])+"\n"\
-            + "```"
-
-class UpServer:
-    def __init__(self, bot):
-        self.bot = bot
-
-    async def up_server(self):
-        lChannel = bot.get_channel(LOG_C)
-        while True:
-            # await lChannel.send('up server')
-            try:
-                for i in _UP_SERVER:
-                    req = urllib.request.Request(i)
-                    with urllib.request.urlopen(req):
-                        pass
-                    # with urllib.request.urlopen(req) as res:
-                    #     pass
-                    #     body = res.read()
-            except urllib.error.URLError:
-                # await lChannel.send('Error: urllib.error.URLError')
-                pass
-            except Exception as e:
-                print(e)
-                await lChannel.send(str(e))
-            # except urllib.error.URLError as err:
-            #     print(err.reason)
-            #     pass
-
-            await asyncio.sleep(60*UP_SERVER_INT)
 
 #---------------------------------------------------------- 計算系
 class Calc(commands.Cog):
@@ -661,6 +546,16 @@ class VoiceChat(commands.Cog):
             'default_search': 'auto',
             'source_address': '0.0.0.0'
         }
+        self.ytdl_opts_np = {
+            'format' : 'bestaudio/best',
+            'outtmpl': '%(title)s.%(id)s.%(ext)s',
+            'restrictfilenames': True,
+            'noplaylist': True,
+            'nocheckcertificate': True,
+            'no_warnings': True,
+            'default_search': 'auto',
+            'source_address': '0.0.0.0'
+        }
     @commands.command(description='Discord_VoiceChat Connect')
     async def v_connect(self, ctx):
         """Voice Connect"""
@@ -804,9 +699,7 @@ class VoiceChat(commands.Cog):
         pre_send = await Basic.send(self, ctx, "Now processing...")
         brand_n, mm = my_music.get_music() # 1曲ランダムに取り出し
 
-        tmp_opts = self.ytdl_opts
-        tmp_opts['noplaylist'] = True
-        filename_ = await Youtube.ydl_proc(self, ctx, mm['url'], tmp_opts)
+        filename_ = await Youtube.ydl_proc(self, ctx, mm['url'], self.ytdl_opts_np)
         if filename_:
             filename = filename_[0]
             filename = await VoiceChat.effect(self, filename) # エフェクト
@@ -829,9 +722,7 @@ class VoiceChat(commands.Cog):
             brand_n, mm = my_music.get_music() # 1曲ランダムに取り出し
 
             pre_send = await Basic.send(self, ctx, "Now processing...")
-            tmp_opts = self.ytdl_opts
-            tmp_opts['noplaylist'] = True
-            filename_ = await Youtube.ydl_proc(self, ctx, mm['url'], tmp_opts)
+            filename_ = await Youtube.ydl_proc(self, ctx, mm['url'], self.ytdl_opts_np)
             if not filename_ and self.now == None: # youtube_dl error
                 # await Basic.send(self, ctx, 'Error: Youtube.ydl_proc')
                 await Basic.delete(self, pre_send)
