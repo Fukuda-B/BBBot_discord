@@ -859,6 +859,8 @@ class VoiceChat(commands.Cog):
             if self.now.is_paused(): # 既にpauseされていた場合
                 self.now.resume()
         except: pass
+        if len(self.queue) <= 0:
+            await Basic.send(self, ctx, 'queue = Null')
         while len(self.queue):
             if self.now == None:
                 # try:
