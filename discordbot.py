@@ -837,6 +837,7 @@ class VoiceChat(commands.Cog):
             filename_ = await Youtube.ydl_proc(self, ctx, mm['url'], tmp_opts)
             if not filename_ and self.now == None: # youtube_dl error
                 # await Basic.send(self, ctx, 'Error: Youtube.ydl_proc')
+                await Basic.delete(self, pre_send)
                 print('Error: Youtube.ydl_proc')
                 continue
             elif self.now == None: # 正常
@@ -849,7 +850,9 @@ class VoiceChat(commands.Cog):
                 await VoiceChat.voice_send(self, ctx, filename)
                 # except:
                 #     await Basic.send(self, ctx, 'Error: Youtube.voice_send')
-            else: break
+            else:
+                await Basic.delete(self, pre_send)
+                break
 
     @v_music.command(description='play')
     async def play(self, ctx):
