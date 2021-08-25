@@ -52,7 +52,7 @@ from niconico_dl_async import NicoNico
 import ffmpeg
 # import requests #req
 
-VERSION='v2.6.6'
+VERSION='v2.6.7 alpha'
 
 _TOKEN, _A3RT_URI, _A3RT_KEY, _GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, _UP_SERVER,\
@@ -103,8 +103,8 @@ async def on_ready():
 async def on_message(message):
     if message.author.bot:
         return
-    lChannel = bot.get_channel(LOG_C)
     if message.content.startswith('?'):
+        lChannel = bot.get_channel(LOG_C)
         await lChannel.send("```\n@"+str(message.author.name)+"\n"+str(message.author.id)+"\n"+str(message.content)+" ```")
         await bot.process_commands(message)
 
@@ -116,8 +116,8 @@ class EqCheck:
     async def p2peq_check(self):
         # req = urllib.request.Request(P2PEQ_URI)
         res_log = [] # Earthquake log
-        mChannel = bot.get_channel(MAIN_C)
         lChannel = bot.get_channel(LOG_C)
+        mChannel = bot.get_channel(MAIN_C)
 
         while True:
             # print('req')
@@ -141,7 +141,7 @@ class EqCheck:
                                         and res_json[i]['earthquake']['domesticTsunami'] != "Checking" :
                                             res_log  = res_json[i]
                                             await mChannel.send(await EqCheck.castRes(self, res_json, i))
-                                            await lChannel.send(await EqCheck.castRes(self,res_json, i))
+                                            await lChannel.send(await EqCheck.castRes(self, res_json, i))
                                             # await lChannel.send(res_json)
                                         elif res_log != res_json[i] \
                                         and type(res_json[i]['earthquake']['maxScale']) != type(None)\
@@ -199,9 +199,9 @@ class UpServer:
         self.bot = bot
 
     async def up_server(self):
-        # lChannel = bot.get_channel(LOG_C)
+        lChannel = bot.get_channel(LOG_C)
         while True:
-            # await lChannel.send('up server')
+            await lChannel.send('up server')
             try:
                 for i in _UP_SERVER:
                     req = urllib.request.Request(i)
@@ -211,9 +211,10 @@ class UpServer:
                     #     pass
                     #     body = res.read()
             except urllib.error.URLError:
-                pass
+                await lChannel.send('Error: urllib.error.URLError')
             except Exception as e:
                 print(e)
+                await lChannel.send(str(e))
             # except urllib.error.URLError as err:
             #     print(err.reason)
             #     pass
@@ -465,12 +466,16 @@ class AI(commands.Cog):
     @commands.command(description='a3rt AI TalkAPI')
     async def ai(self, ctx, talk: str):
         """a3rt AI TalkAPI"""
-        data = urllib.parse.urlencode({"apikey":_A3RT_KEY, "query":talk}).encode('utf-8')
-        request = urllib.request.Request(_A3RT_URI, data)
-        res = urllib.request.urlopen(request)
-        json_load = json.load(res)
-        # await Basic.send(self, ctx, '精度:'+str(json_load['results'][0]['perplexity'])+"\n"+json_load['results'][0]['reply'])
-        await Basic.send(self, ctx, json_load['results'][0]['reply'])
+        try:
+            data = urllib.parse.urlencode({"apikey":_A3RT_KEY, "query":talk}).encode('utf-8')
+            request = urllib.request.Request(_A3RT_URI, data)
+            res = urllib.request.urlopen(request)
+            json_load = json.load(res)
+            # await Basic.send(self, ctx, '精度:'+str(json_load['results'][0]['perplexity'])+"\n"+json_load['results'][0]['reply'])
+            await Basic.send(self, ctx, json_load['results'][0]['reply'])
+        except Exception as e:
+            print(e)
+            await bot.get_channel(LOG_C).send(str(e))
 
 #---------------------------------------------------------- youtube-dl
 class Youtube(commands.Cog):
@@ -555,7 +560,9 @@ class Youtube(commands.Cog):
                     return plist
                 else:
                     return [url]
-            except:
+            except Exception as e:
+                print(e)
+                await bot.get_channel(LOG_C).send(str(e))
                 return False
 
     async def ydl_proc(self, ctx, url:str, ytdl_opts):
@@ -588,8 +595,9 @@ class Youtube(commands.Cog):
                             if 'postprocessors' in ytdl_opts:
                                 filename = pathlib.PurePath(filename).stem + '.' + ytdl_opts['postprocessors'][0]['preferredcodec']
                             return [filename]
-                except:
+                except Exception as e:
                     await Basic.send(self, ctx, 'Error: Youtube.ydl_proc')
+                    await bot.get_channel(LOG_C).send(str(e))
                     return False
 
     # niconico download
@@ -602,7 +610,8 @@ class Youtube(commands.Cog):
             await nico.download(title) # download & save
             nico.close()
             return await Youtube.ffmpeg(self, title, 'm4a')
-        except:
+        except Exception as e:
+            await bot.get_channel(LOG_C).send(str(e))
             return False
 
     # convert (need install ffmpeg) fmt = m4a, mp3, ...
@@ -619,15 +628,14 @@ class Youtube(commands.Cog):
         try:
             with open(filename, 'rb') as fp:
                 await ctx.send(file=discord.File(fp, filename))
+                if os.path.exists(filename):
+                    os.remove(filename)
         except discord.errors.HTTPException:
             await Basic.send(self, ctx, 'Error: File size is too large? [Max 8MB]\n')
         except Exception as e:
             print(e)
             await Basic.send(self, ctx, 'Error: Unknown')
-        finally:
-            if os.path.exists(filename):
-                os.remove(filename)
-            print(filename)
+            await bot.get_channel(LOG_C).send(str(e))
 
 
 #---------------------------------------------------------- Discord_VoiceChat
@@ -714,6 +722,7 @@ class VoiceChat(commands.Cog):
             except Exception as e:
                 print(e)
                 await Basic.send('network error')
+                await bot.get_channel(LOG_C).send(str(e))
                 return False
             if self.now != None and self.state != True:
                 self.now.stop()
@@ -965,6 +974,7 @@ class VoiceChat(commands.Cog):
                 filename = str('.'.join(split_filename))+'.mp3'
             except Exception as e:
                 print(e)
+                await bot.get_channel(LOG_C).send(str(e))
                 # await Basic.send('Error: VoiceChat.effect')
                 return filename
         imouto = kawaii_voice_gtts.kawaii_voice(filename)
@@ -989,6 +999,7 @@ class VoiceChat(commands.Cog):
                     await asyncio.sleep(1)
             except Exception as e:
                 print(e)
+                await bot.get_channel(LOG_C).send(str(e))
                 # await VoiceChat.v_connect(self, ctx)
 
             os.remove(filename)
@@ -1079,6 +1090,7 @@ class VoiceChat(commands.Cog):
         except Exception as e:
             print(e)
             await Basic.send(self, ctx, 'Network error')
+            await bot.get_channel(LOG_C).send(str(e))
             return False
         pre_send = await Basic.send(self, ctx, "Now processing...")
         plist = await Youtube.ydl_getc(self, ctx, tx, self.ytdl_opts)
@@ -1285,6 +1297,7 @@ class Basic():
             except Exception as e: # サイズ上限?
                 print(e)
                 await ctx.send('Error: Size limit has been exceeded?')
+                await bot.get_channel(LOG_C).send(str(e))
                 return False
 
     async def edit(self, res, tx):
@@ -1300,6 +1313,7 @@ class Basic():
             except Exception as e:
                 print(e)
                 await res.send("Error: Size limit or can't edit files")
+                await bot.get_channel(LOG_C).send(str(e))
                 return False
 
     async def delete(self, res):
