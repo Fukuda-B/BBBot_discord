@@ -52,7 +52,7 @@ from niconico_dl_async import NicoNico
 import ffmpeg
 # import requests #req
 
-VERSION='v2.6.7 alpha'
+VERSION='v2.6.7 beta'
 
 _TOKEN, _A3RT_URI, _A3RT_KEY, _GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, _UP_SERVER,\
@@ -802,8 +802,9 @@ class VoiceChat(commands.Cog):
         if len(brand) == 1: mm = brand[0]
         else: mm = brand[random.randint(0,int(len(brand))-1)]
 
-        self.ytdl_opts['noplaylist'] = True
-        filename_ = await Youtube.ydl_proc(self, ctx, mm['url'], self.ytdl_opts)
+        tmp_opts = self.ytdl_opts
+        tmp_opts['noplaylist'] = True
+        filename_ = await Youtube.ydl_proc(self, ctx, mm['url'], tmp_opts)
         if filename_:
             filename = filename_[0]
             filename = await VoiceChat.effect(self, filename) # エフェクト
@@ -829,8 +830,9 @@ class VoiceChat(commands.Cog):
             mm = brand[random.randrange(len(brand))]
 
             pre_send = await Basic.send(self, ctx, "Now processing...")
-            self.ytdl_opts['noplaylist'] = True
-            filename_ = await Youtube.ydl_proc(self, ctx, mm['url'], self.ytdl_opts)
+            tmp_opts = self.ytdl_opts
+            tmp_opts['noplaylist'] = True
+            filename_ = await Youtube.ydl_proc(self, ctx, mm['url'], tmp_opts)
             if not filename_ and self.now == None: # youtube_dl error
                 # await Basic.send(self, ctx, 'Error: Youtube.ydl_proc')
                 print('Error: Youtube.ydl_proc')
