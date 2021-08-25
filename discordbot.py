@@ -201,7 +201,7 @@ class UpServer:
     async def up_server(self):
         lChannel = bot.get_channel(LOG_C)
         while True:
-            await lChannel.send('up server')
+            # await lChannel.send('up server')
             try:
                 for i in _UP_SERVER:
                     req = urllib.request.Request(i)
@@ -211,7 +211,8 @@ class UpServer:
                     #     pass
                     #     body = res.read()
             except urllib.error.URLError:
-                await lChannel.send('Error: urllib.error.URLError')
+                # await lChannel.send('Error: urllib.error.URLError')
+                pass
             except Exception as e:
                 print(e)
                 await lChannel.send(str(e))
@@ -768,6 +769,7 @@ class VoiceChat(commands.Cog):
         if self.now != None:
             self.now.stop()
             self.now = None
+            self.inf_play = False
 
     @v_music.command(description='pause music')
     async def pause(self, ctx):
