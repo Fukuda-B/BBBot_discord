@@ -52,7 +52,7 @@ from niconico_dl_async import NicoNico
 import ffmpeg
 # import requests #req
 
-VERSION='v2.6.8 beta'
+VERSION='v2.6.9 beta'
 
 _TOKEN, _A3RT_URI, _A3RT_KEY, _GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, _UP_SERVER,\
@@ -87,7 +87,7 @@ async def on_ready():
     # ログイン通知
     print(bot.user.name + ' is logged in.')
     # await bot.change_presence(status=discord.Status.idle, activity=discord.Game(name="BBBot "+VERSION, emoji="🍝"))
-    await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="BBBot "+VERSION, emoji="🍝"))
+    await bot.change_presence(status=discord.Status.offline, activity=discord.Game(name="BBBot "+VERSION, emoji="🍝"))
     # await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name="BBBot "+VERSION))
     lChannel = bot.get_channel(LOG_C)
     await lChannel.send('BBBot is Ready! ' + VERSION)
@@ -675,6 +675,9 @@ class VoiceChat(commands.Cog):
     @commands.command(description='Discord_VoiceChat Disconnect')
     async def v_disconnect(self, ctx):
         """Voice Disconnect"""
+        self.inf_play = False
+        self.queue = []
+        self.state = False
         await ctx.voice_client.disconnect()
 
     @commands.command(description='same as v_disconnect')
@@ -728,6 +731,7 @@ class VoiceChat(commands.Cog):
                 self.now.stop()
                 self.now = None
 
+            await ctx.message.delete()
             pre_send = await Basic.send(self, ctx, "Now processing...")
             plist = await Youtube.ydl_getc(self, ctx, tx, self.ytdl_opts)
             if plist:
@@ -1002,6 +1006,8 @@ class VoiceChat(commands.Cog):
                     await asyncio.sleep(1)
             except Exception as e:
                 print(e)
+                self.inf_play = False
+                self.state = False
                 await bot.get_channel(LOG_C).send(str(e))
                 # await VoiceChat.v_connect(self, ctx)
 
