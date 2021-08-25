@@ -14,7 +14,7 @@ If you want to use "Translate" class, set up main.gs in Google Apps Script and a
 ---  
   
 # Command list
-BBBot v2.6.2 beta (prefix is "?")
+BBBot v2.6.6 (prefix is "?")
 ```c
 ?B hello            // -> Hello B!
 ?add 1000 11        // -> 1011
@@ -83,13 +83,18 @@ BBBot v2.6.2 beta (prefix is "?")
 --- | ---
 | v_bd | ALL D (Disconnect) |
 | v_boice | Voice TTS (Japanese) |
+| v_voice | Voice TTS (Japanese) (same as v_boice) |
 | v_boice_en | Voice TTS (English) |
+| v_voice_en | Voice TTS (English) (same as v_voice_en) |
 | v_connect | Voice Connect |
 | v_disconnect | Voice Disconnect |
-| v_volume | volume ( 0.0 - 1.0 ) |
+| v_d | Voice Disconnect (same as v_disconnect) |
 | v_list | voice channel member list |
 | v_mute | mute member's voice (b = all) |
 | v_unmute | unmute member's voice (b = all) |
+| | |
+| v_add "url" | add queue |
+| v_volume | volume ( 0.0 - 1.0 ) |
 | v_music b | recommended (random) |
 | v_music b_loop | recommended (random & loop) |
 | v_music "url" | youtube player |
@@ -98,6 +103,8 @@ BBBot v2.6.2 beta (prefix is "?")
 | v_music queue_del | delete queue |
 | v_music play | playback |
 | v_music stop | stop playback |
+| v_music pause | pause music |
+| v_music resume | resume paused music |
 | v_music nightcore | nightcore effect toggle |
 | v_music bassboost | bassboost effect toggle |
 

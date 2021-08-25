@@ -52,7 +52,7 @@ from niconico_dl_async import NicoNico
 import ffmpeg
 # import requests #req
 
-VERSION='v2.6.4'
+VERSION='v2.6.6'
 
 _TOKEN, _A3RT_URI, _A3RT_KEY, _GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, _UP_SERVER,\
@@ -642,7 +642,17 @@ class VoiceChat(commands.Cog):
         self.state = False # continue to play
         self.nightcore = False # nightcore effect
         self.bassboost = False # bassboost effect
-
+        self.ytdl_opts = {
+            'format' : 'bestaudio/best',
+            # 'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
+            'outtmpl': '%(title)s.%(id)s.%(ext)s',
+            'restrictfilenames': True,
+            # 'noplaylist': True,
+            'nocheckcertificate': True,
+            'no_warnings': True,
+            'default_search': 'auto',
+            'source_address': '0.0.0.0'
+        }
     @commands.command(description='Discord_VoiceChat Connect')
     async def v_connect(self, ctx):
         """Voice Connect"""
@@ -659,6 +669,11 @@ class VoiceChat(commands.Cog):
         """Voice Disconnect"""
         await ctx.voice_client.disconnect()
 
+    @commands.command(description='same as v_disconnect')
+    async def v_d(self, ctx):
+        """Voice Disconnect (same as ?v_disconnect)"""
+        await VoiceChat.v_disconnect(self, ctx)
+
     @commands.command(description='Discord_VoiceChat TTS')
     async def v_boice(self, ctx, *tx:str):
         """Voice TTS (Japanese)"""
@@ -666,7 +681,7 @@ class VoiceChat(commands.Cog):
 
     @commands.command(description='same as v_boice')
     async def v_voice(self, ctx, *tx:str):
-        """same as v_boice"""
+        """Voice TTS (Japanese) (same as ?v_boice)"""
         tx = ' '.join(tx)
         await VoiceChat.v_boice(self, ctx, tx)
 
@@ -677,39 +692,34 @@ class VoiceChat(commands.Cog):
 
     @commands.command(description='same as v_boice_en')
     async def v_voice_en(self, ctx, *tx:str):
-        """same as v_boice_en"""
+        """Voice TTS EN (English) (same as v_boice_en)"""
         tx = ' '.join(tx)
         await VoiceChat.v_boice_en(self, ctx, tx)
 
     @commands.group(description='play music (b/b_loop/stop/skip/queue/play)')
     async def v_music(self, ctx):
         """play music. (b/b_loop/stop/skip/queue/queue_del/play)"""
-        self.ytdl_opts = {
-            'format' : 'bestaudio/best',
-            # 'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
-            'outtmpl': '%(title)s.%(id)s.%(ext)s',
-            'restrictfilenames': True,
-            # 'noplaylist': True,
-            'nocheckcertificate': True,
-            'no_warnings': True,
-            'default_search': 'auto',
-            'source_address': '0.0.0.0'
-        }
         await VoiceChat.v_connect(self, ctx) # 接続確認
 
         if ctx.invoked_subcommand is None: # サブコマンドがない場合
             self.state = False # auto play: off
             self.inf_play = False # stop inf play
             tx = str(ctx.message.content).split()[1] # サブコマンドではない場合、URLとして扱う
-            if not tx: return
+            if not tx:
+                await Basic.send('The URL value is not appropriate')
+                return
             try: # try connect url
                 f = urllib.request.urlopen(tx)
                 f.close()
-            except: return False
+            except Exception as e:
+                print(e)
+                await Basic.send('network error')
+                return False
             if self.now != None and self.state != True:
                 self.now.stop()
                 self.now = None
 
+            pre_send = await Basic.send(self, ctx, "Now processing...")
             plist = await Youtube.ydl_getc(self, ctx, tx, self.ytdl_opts)
             self.queue.extend(plist)
             if self.now == None and len(self.queue):
@@ -717,13 +727,16 @@ class VoiceChat(commands.Cog):
                     next_song_url = self.queue.pop(0)
                     [next_song_filename] = await Youtube.ydl_proc(self, ctx, next_song_url, self.ytdl_opts)
                     next_song_filename = await VoiceChat.effect(self, next_song_filename) # エフェクト
+                    await Basic.delete(self, pre_send) # 事前に送信したメッセージの削除
                     await VoiceChat.voice_send(self, ctx, next_song_filename)
                 elif len(self.queue) > 0: # 複数曲の場合 (曲の表示等あり)
-                    await Basic.send(self, ctx, str(len(plist))+" songs added")
+                    await Basic.delete(self, pre_send)
+                    await Basic.send(self, ctx, str(len(plist))+" songs added ("+str(len(self.queue))+" songs in the queue)")
                     await VoiceChat.play(self, ctx)
 
     @v_music.command(description='skip')
     async def skip(self, ctx):
+        """skip current music"""
         # self.inf_play = False # infiniry play: off
         self.now.stop()
         self.now = None
@@ -741,13 +754,31 @@ class VoiceChat(commands.Cog):
 
     @v_music.command(description='stop')
     async def stop(self, ctx):
+        """stop music"""
         self.state = False # auto play: off
         if self.now != None:
             self.now.stop()
             self.now = None
 
+    @v_music.command(description='pause music')
+    async def pause(self, ctx):
+        """pause music"""
+        if self.now != None and not self.now.is_paused():
+            self.now.pause()
+        else:
+            await Basic.send('No song is currently playing')
+
+    @v_music.command(description='resume music')
+    async def resume(self, ctx):
+        """resume paused music"""
+        if self.now != None and self.now.is_paused():
+            self.now.resume()
+        else:
+            await Basic.send('The son has not been paused')
+
     @v_music.command(description='random play!')
     async def b(self, ctx):
+        """One song from Mr. B's recommendation"""
         self.state = False # auto play: off
         self.inf_play = False # stop inf play
         if self.now != None:
@@ -773,6 +804,7 @@ class VoiceChat(commands.Cog):
 
     @v_music.command(description='infinity random play!')
     async def b_loop(self, ctx):
+        """infinity random play!"""
         self.state = False # auto play: off
         if self.now != None:
             self.now.stop()
@@ -787,6 +819,7 @@ class VoiceChat(commands.Cog):
             # mm = brand[random.randint(0,int(len(brand)-1))]
             mm = brand[random.randrange(len(brand))]
 
+            pre_send = await Basic.send(self, ctx, "Now processing...")
             self.ytdl_opts['noplaylist'] = True
             filename_ = await Youtube.ydl_proc(self, ctx, mm['url'], self.ytdl_opts)
             if not filename_ and self.now == None: # youtube_dl error
@@ -798,6 +831,7 @@ class VoiceChat(commands.Cog):
                 filename = filename_[0]
                 filename = await VoiceChat.effect(self, filename) # エフェクト
                 # await Basic.send(self, ctx, f'`{brand_n}` - `{mm["title"]}`')
+                await Basic.delete(self, pre_send)
                 await Basic.send(self, ctx, f'```ini\n[TITLE] {brand_n} - {mm["title"]}\n[ URL ] {mm["url"]}```')
                 await VoiceChat.voice_send(self, ctx, filename)
                 # except:
@@ -806,8 +840,12 @@ class VoiceChat(commands.Cog):
 
     @v_music.command(description='play')
     async def play(self, ctx):
-        """ play queue """
+        """play queue"""
         self.state = True
+        try:
+            if self.now.is_paused(): # 既にpauseされていた場合
+                self.now.resume()
+        except: pass
         while len(self.queue):
             if self.now == None:
                 # try:
@@ -825,8 +863,9 @@ class VoiceChat(commands.Cog):
             if len(self.queue) <= 0 or not self.state:
                 break
 
-    @v_music.command(description='queue')
+    @v_music.command(description='show queue')
     async def queue(self, ctx):
+        """show queue"""
         if len(self.queue) > 0:
             sd = '> | '+str(self.queue[0])+'\n'
             for i in range(1, len(self.queue)):
@@ -837,6 +876,7 @@ class VoiceChat(commands.Cog):
 
     @v_music.command(description='delete queue')
     async def del_queue(self, ctx):
+        """delete queue"""
         self.queue = []
         await Basic.send(self, ctx, "deleted queue")
 
@@ -945,7 +985,7 @@ class VoiceChat(commands.Cog):
             self.now = ctx.voice_client
             try:
                 self.now.play(audio_source) # 再生
-                while ctx.guild.voice_client.is_playing():
+                while ctx.guild.voice_client.is_playing() or ctx.guild.voice_client.is_paused():
                     await asyncio.sleep(1)
             except Exception as e:
                 print(e)
@@ -1027,6 +1067,24 @@ class VoiceChat(commands.Cog):
             for member in ch.members:
                 await member.move_to(None)
 
+    @commands.command(description='add queue')
+    async def v_add(self, ctx, tx):
+        """add queue"""
+        if not tx:
+            await Basic.send('The URL value is not appropriate')
+            return False
+        try: # try connect music url
+            f = urllib.request.urlopen(tx)
+            f.close()
+        except Exception as e:
+            print(e)
+            await Basic.send(self, ctx, 'Network error')
+            return False
+        pre_send = await Basic.send(self, ctx, "Now processing...")
+        plist = await Youtube.ydl_getc(self, ctx, tx, self.ytdl_opts)
+        self.queue.extend(plist)
+        await Basic.delete(self, pre_send)
+        await Basic.send(self, ctx, str(len(plist))+" songs added ("+str(len(self.queue))+" songs in the queue)")
 
 #---------------------------------------------------------- ASCII Encode
 class Encode(commands.Cog):
@@ -1219,14 +1277,34 @@ class Basic():
     async def send(self, ctx, tx):
         """ 文字の送信 """
         if len(str(tx)) <= 2000: # 2000文字以下
-            await ctx.send(str(tx))
+            return await ctx.send(str(tx))
         else:
             try:
                 data = io.StringIO(str(tx))
-                await ctx.send(file=discord.File(data, 'res.txt'))
+                return await ctx.send(file=discord.File(data, 'res.txt'))
             except Exception as e: # サイズ上限?
                 print(e)
                 await ctx.send('Error: Size limit has been exceeded?')
+                return False
+
+    async def edit(self, res, tx):
+        """ 送信した内容の編集 """
+        if len(str(tx)) <= 2000 and len(str(tx)) > 0: # 2000字以下 1文字以上
+            return await res.edit(content = str(tx))
+        elif len(str(tx)) <= 0: # 0文字以下の時は削除
+            await Basic.delete(self, res)
+        else:
+            try:
+                data = io.StringIO(str(tx))
+                return await res.edit(file=discord.File(data, 'res.txt'))
+            except Exception as e:
+                print(e)
+                await res.send("Error: Size limit or can't edit files")
+                return False
+
+    async def delete(self, res):
+        """ 送信した内容の削除 """
+        await res.delete()
 
 # Botの起動とDiscordサーバーへの接続
 bot.add_cog(Calc(bot))
