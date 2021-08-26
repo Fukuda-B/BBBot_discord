@@ -14,7 +14,7 @@ If you want to use "Translate" class, set up main.gs in Google Apps Script and a
 ---  
   
 # Command list
-BBBot v2.6.6 (prefix is "?")
+BBBot v2.6.11 beta (prefix is "?")
 ```c
 ?B hello            // -> Hello B!
 ?add 1000 11        // -> 1011
@@ -64,13 +64,21 @@ BBBot v2.6.6 (prefix is "?")
 **Image**  
 | command | outline |
 --- | ---
-| abya | abya picture |
 | b_img | b_img url file_name |
-| b_pic | B picture |
-| melt | melt picture |
-| party | party parrot GIF |
-| presen | gaming presentation GIF |
-| shiran | shiran kedo~ picture |
+| img abya | abya picture |
+| img b_pic | B picture |
+| img melt | melt picture |
+| img party | party parrot GIF |
+| img presen | gaming presentation GIF |
+| img shiran | shiran kedo~ picture |
+| img majiyaba | maji yabakune |
+| img bohe | bohe~ |
+| img gyu | gyu GIF |
+| img ha | ha! GIF |
+| img hello | hello GIF|
+| img maken | maken GIF |
+| img onegai | onegai GIF |
+| img b_pet | Pet the B !! |
 
 **Translate**
 | command | outline |
@@ -129,3 +137,10 @@ BBBot v2.6.6 (prefix is "?")
 | url_expand | Restore the shortened URL |
 | url_enc | URL encode |
 | url_dec | URL decode |
+
+**Archive**
+| command | outline |
+--- | ---
+| ms_cnt | message counter |
+| archive | Simple text arching |
+| archive full | fill arching |

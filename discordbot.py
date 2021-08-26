@@ -53,7 +53,7 @@ from modules import htr_dead
 from modules import eq_check
 from modules import up_server
 
-VERSION='v2.6.10 beta'
+VERSION='v2.6.11 beta'
 
 _TOKEN, _A3RT_URI, _A3RT_KEY, _GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, _UP_SERVER,\
@@ -1222,6 +1222,86 @@ class Slash(commands.Cog):
     async def v_volume(self, ctx:SlashContext, volume:str):
         await VoiceChat.v_volume(self, ctx, volume)
 
+#---------------------------------------------------------- Archive
+class Archive(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
+    @commands.command(description="message counter **CAUTION**")
+    async def ms_cnt(self, ctx):
+        """message counter (count this channel) / This will take a long time."""
+        cnt = {}
+        cc = 0
+        await Basic.send(self, ctx, "This will take a long time.")
+        pre_send = await Basic.send(self, ctx, "Now processing...")
+        try:
+            async for message in ctx.channel.history(limit = None):
+                user_id = str(message.author.name) + '#' + str(message.author.discriminator)
+                cc += 1
+                if user_id not in cnt: cnt[user_id] = 1
+                else:
+                    cnt[user_id] += 1
+                # if message.auther == ctx.message.author:
+                #     cnt += 1
+            await Basic.delete(self, pre_send)
+            res = '```hs\nchannel name:' + str(urllib.parse.unquote(ctx.channel.name)) + ' / id:' + str(ctx.channel.id) + '\n'
+            for key, val in cnt.items():
+                url_dec = urllib.parse.unquote(key)
+                res += str(url_dec) + ' -> ' + str(val) + '\n'
+            res += '```'
+        except Exception as e:
+            print(e)
+            await bot.get_channel(LOG_C).send(str(e))
+            await Basic.delete(self, pre_send)
+            await Basic.send(self, ctx, 'Error: Archive.ms_cnt / 429 Too Many Requests?')
+            return False
+        await Basic.send(self, ctx, res)
+
+    @commands.group(description="Simple text archiving")
+    async def archive(self, ctx):
+        """Simple text arching (only this channel)"""
+        if ctx.invoked_subcommand is None:
+            try:
+                await Basic.send(self, ctx, "only 100 will be archived")
+                pre_send = await Basic.send(self, ctx, "Now processing...")
+                buf = '```\nchannel name:' + str(urllib.parse.unquote(ctx.channel.name)) + ' / id:' + str(ctx.channel.id) + '\n'
+                ms_cnt = 0
+                async for message in ctx.channel.history():
+                    ms_cnt += 1
+                    user_id = str(urllib.parse.unquote(message.author.name)) + '#' + str(message.author.discriminator)
+                    buf += user_id + ' ' + str(message.created_at) + ' ' + str(message.content).replace('\n', '') + '\n'
+                buf += '```'
+                await Basic.delete(self, pre_send)
+            except Exception as e:
+                print(e)
+                await bot.get_channel(LOG_C).send(str(e))
+                await Basic.delete(self, pre_send)
+                await Basic.send(self, ctx, 'Error: Archive.ms_cnt / 429 Too Many Requests?')
+                return False
+            await Basic.send(self, ctx, buf)
+
+    @archive.command(description='full archiving **CAUTION**')
+    async def full(self, ctx):
+        """Full archive of this channel. This will take a long time."""
+        try:
+            await Basic.send(self, ctx, "This will take a long time.")
+            pre_send = await Basic.send(self, ctx, "Now processing...")
+            buf = '```\nchannel name:' + str(urllib.parse.unquote(ctx.channel.name)) + ' / id:' + str(ctx.channel.id) + '\n'
+            ms_cnt = 0
+            async for message in ctx.channel.history(limit = None):
+                ms_cnt += 1
+                user_id = str(urllib.parse.unquote(message.author.name)) + '#' + str(message.author.discriminator)
+                buf += user_id + ' ' + str(message.created_at) + ' ' + str(message.content).replace('\n', '') + '\n'
+            buf += '```'
+            await Basic.delete(self, pre_send)
+        except Exception as e:
+            print(e)
+            await bot.get_channel(LOG_C).send(str(e))
+            await Basic.delete(self, pre_send)
+            await Basic.send(self, ctx, 'Error: Archive.ms_cnt / 429 Too Many Requests?')
+            return False
+        await Basic.send(self, ctx, buf)
+
 #---------------------------------------------------------- Basic
 class Basic():
     def __init__(self, bot):
@@ -1278,4 +1358,5 @@ bot.add_cog(Timer(bot))
 bot.add_cog(BrainFuck(bot))
 bot.add_cog(URL(bot))
 bot.add_cog(Slash(bot))
+bot.add_cog(Archive(bot))
 bot.run(_TOKEN)
