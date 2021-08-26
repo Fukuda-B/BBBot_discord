@@ -53,7 +53,7 @@ from modules import htr_dead
 from modules import eq_check
 from modules import up_server
 
-VERSION='v2.6.9 beta'
+VERSION='v2.6.10 beta'
 
 _TOKEN, _A3RT_URI, _A3RT_KEY, _GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, _UP_SERVER,\
@@ -293,40 +293,81 @@ class Image(commands.Cog):
         self.bot = bot
         self._last_member = None
 
-    @commands.command(description='melt picture')
+    @commands.group(description='send img')
+    async def img(self, ctx):
+        """send img. melt/abya/shiran/party/... -> ?help img"""
+        if ctx.invoked_subcommand is None:
+            await Basic.send(self, ctx, 'img help: `?help img`')
+
+    @img.command(description='melt picture')
     async def melt(self, ctx):
         """melt picture"""
         await Image.get_pic(self, ctx, 'https://dic.nicovideo.jp/oekaki/674964.png', 'melt.png')
 
-    @commands.command(description='abya picture')
+    @img.command(description='abya picture')
     async def abya(self, ctx):
         """abya picture"""
         await Image.get_pic(self, ctx, 'https://livedoor.blogimg.jp/mn726/imgs/0/3/03812153.jpg', 'abya.png')
 
-    @commands.command(description='shiran kedo~ picture')
+    @img.command(description='shiran kedo~ picture')
     async def shiran(self, ctx):
         """shiran kedo~ picture"""
         await Image.get_pic(self, ctx, 'https://pbs.twimg.com/media/DoGwbj0UwAALenI.jpg', 'shiran.jpg')
 
-    @commands.command(description='party parrot GIF')
+    @img.command(description='party parrot GIF')
     async def party(self, ctx):
         """party parrot GIF"""
         await Image.get_pic(self, ctx, 'https://cdn.discordapp.com/attachments/705099416083890281/766528750456012841/parrot.gif', 'party_parrot.gif')
 
-    @commands.command(description='B picture')
+    @img.command(description='B picture')
     async def b_pic(self, ctx):
         """B picture"""
         await Image.get_pic(self, ctx, 'https://cdn.discordapp.com/attachments/705099416083890281/766668684188975114/letter-b-clipart-158558-5546542.jpg', 'b_picture.jpg')
 
-    @commands.command(description='gaming presentation GIF')
+    @img.command(description='gaming presentation GIF')
     async def presen(self, ctx):
         """gaming presentation GIF"""
         await Image.get_pic(self, ctx, 'https://cdn.discordapp.com/attachments/733937061199085610/768300192818135040/GPW.gif', 'gaming_presentation.gif')
 
-    @commands.command(description='maji yabakune')
+    @img.command(description='maji yabakune')
     async def majiyaba(self, ctx):
         """maji yabakune"""
         await Image.get_pic(self, ctx, 'https://pbs.twimg.com/media/C34X4w0UcAEyKW-.jpg', 'majiyaba.jpg')
+
+    @img.command(description='bohe')
+    async def bohe(self, ctx):
+        """bohe"""
+        await Image.get_pic(self, ctx, 'https://maidragon.jp/news/wordpress/wp-content/uploads/2021/07/806b36e95d491beec2aaaec7af98ad28-2.gif', 'bohe.gif')
+
+    @img.command(description='gyu')
+    async def gyu(self, ctx):
+        """gyu GIF"""
+        await Image.get_pic(self, ctx, 'https://maidragon.jp/news/wordpress/wp-content/uploads/2021/07/58b9f8279c61a217bc7770446a6d542f.gif', 'gyu.gif')
+
+    @img.command(description='ha!')
+    async def ha(self, ctx):
+        """ha! GIF"""
+        await Image.get_pic(self, ctx, 'https://maidragon.jp/news/wordpress/wp-content/uploads/2021/07/13a658840a8373deb4355975b3e56e0b.gif', 'ha!.gif')
+
+    @img.command(description='hello')
+    async def hello(self, ctx):
+        """hello GIF"""
+        await Image.get_pic(self, ctx, 'https://maidragon.jp/news/wordpress/wp-content/uploads/2021/07/3f5592cb37efa6b1a0e1f5ac2cc86e26.gif', 'hello.gif')
+
+    @img.command(description='maken')
+    async def maken(self, ctx):
+        """maken GIF"""
+        await Image.get_pic(self, ctx, 'https://maidragon.jp/news/wordpress/wp-content/uploads/2021/07/a5f64bc592c42aecea1e8fb29eac3642-2.gif', 'maken.gif')
+
+    @img.command(description='onegai')
+    async def onegai(self, ctx):
+        """onegai GIF"""
+        await Image.get_pic(self, ctx, 'https://maidragon.jp/news/wordpress/wp-content/uploads/2021/07/a533a6932106c9f63ae9ee4ea3a478a5.gif', 'onegai.gif')
+
+    @img.command(description='Pet the B')
+    async def b_pet(self, ctx):
+        """Pet the B GIF"""
+        await Image.get_pic(self, ctx, 'https://cdn.discordapp.com/attachments/705099416083890281/880373964088692736/Pet_the_B.gif', 'Pet_the_B.gif')
 
     @commands.command(description='send photo')
     async def b_img(self, ctx, url: str, file_name: str):
@@ -371,6 +412,7 @@ class Youtube(commands.Cog):
         'restrictfilenames': True,
         # 'noplaylist': True, # allow playlist
         'nocheckcertificate': True,
+        'quiet': True,
         'no_warnings': True,
         'default_search': 'auto',
         'source_address': '0.0.0.0'
@@ -542,6 +584,7 @@ class VoiceChat(commands.Cog):
             'restrictfilenames': True,
             # 'noplaylist': True,
             'nocheckcertificate': True,
+            'quiet': True,
             'no_warnings': True,
             'default_search': 'auto',
             'source_address': '0.0.0.0'
@@ -552,6 +595,7 @@ class VoiceChat(commands.Cog):
             'restrictfilenames': True,
             'noplaylist': True,
             'nocheckcertificate': True,
+            'quiet': True,
             'no_warnings': True,
             'default_search': 'auto',
             'source_address': '0.0.0.0'
