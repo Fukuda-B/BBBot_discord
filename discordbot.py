@@ -369,6 +369,11 @@ class Image(commands.Cog):
         """Pet the B GIF"""
         await Image.get_pic(self, ctx, 'https://cdn.discordapp.com/attachments/705099416083890281/880373964088692736/Pet_the_B.gif', 'Pet_the_B.gif')
 
+    @img.command(description='thx')
+    async def thx(self, ctx):
+        """thx GIF"""
+        await Image.get_pic(self, ctx, 'https://cdn.discordapp.com/attachments/880371118148558848/880701571917307914/meidora2.gif', 'thx.gif')
+
     @commands.command(description='send photo')
     async def b_img(self, ctx, url: str, file_name: str):
         """b_img url file_name"""
