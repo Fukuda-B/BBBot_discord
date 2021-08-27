@@ -10,12 +10,13 @@
 
 from __future__ import unicode_literals
 
-from discord import channel
+from discord import channel, file
 
 # ----- basic module ----
 import os
 import io
 import re
+import sys
 import math
 import random
 import string
@@ -25,6 +26,9 @@ import socket
 import time
 import platform
 import threading
+import zipfile
+import datetime
+import secrets
 # ----- extend module -----
 import aiohttp #画像転送系
 from pyshorteners import Shortener
@@ -53,7 +57,7 @@ from modules import htr_dead
 from modules import eq_check
 from modules import up_server
 
-VERSION='v2.6.11 beta'
+VERSION='v2.6.11'
 
 _TOKEN, _A3RT_URI, _A3RT_KEY, _GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, _UP_SERVER,\
@@ -82,8 +86,8 @@ async def on_ready():
     # ログイン通知
     print(bot.user.name + ' is logged in.')
     # await bot.change_presence(status=discord.Status.idle, activity=discord.Game(name="BBBot "+VERSION, emoji="🍝"))
-    await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="BBBot "+VERSION, emoji="🍝"))
-    # await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name="BBBot "+VERSION))
+    # await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="BBBot "+VERSION, emoji="🍝"))
+    await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name="BBBot "+VERSION))
     lChannel = bot.get_channel(LOG_C)
     await lChannel.send('BBBot is Ready! ' + VERSION)
 
@@ -256,6 +260,24 @@ class B(commands.Cog):
     @B.command()
     async def ping(self, ctx):
         await Basic.send(self, ctx, f"{bot.latency*1000}ms")
+
+    @B.command()
+    async def many_b(self, ctx):
+        bbb = ['b']*(1011)
+        tx = '```\nThis is 1011B of B (1011).\n'+''.join(bbb)+'```'
+        await Basic.send(self, ctx, tx)
+
+    @B.command()
+    async def more_b(self, ctx):
+        bbb = ['b']*(11*1024)
+        tx = 'This is 11KB of B (11*1024).\n'+''.join(bbb)
+        await Basic.send(self, ctx, tx)
+
+    @B.command()
+    async def most_b(self, ctx):
+        bbb = ['b']*(11*1024**2)
+        tx = 'This is 11MB of B (11*1024**2).\n'+''.join(bbb)
+        await Basic.send(self, ctx, tx)
 
     @B.command()
     async def typing(self, ctx):
@@ -1267,14 +1289,20 @@ class Archive(commands.Cog):
         """Simple text arching (only this channel)"""
         if ctx.invoked_subcommand is None:
             try:
-                await Basic.send(self, ctx, "only 100 will be archived")
-                pre_send = await Basic.send(self, ctx, "Now processing...")
+                pre_send = await Basic.send(self, ctx, "only 100 will be archived\nNow processing...")
                 buf = '```\nchannel name:' + str(urllib.parse.unquote(ctx.channel.name)) + ' / id:' + str(ctx.channel.id) + '\n'
                 ms_cnt = 0
                 async for message in ctx.channel.history():
                     ms_cnt += 1
                     user_id = str(urllib.parse.unquote(message.author.name)) + '#' + str(message.author.discriminator)
-                    buf += user_id + ' ' + str(message.created_at) + ' ' + str(message.content).replace('\n', '') + '\n'
+                    # https://discordpy.readthedocs.io/en/latest/api.html#discord.Message.attachments
+                    # https://discordpy.readthedocs.io/en/latest/api.html#discord.Attachment.url
+                    atc = ''
+                    if message.attachments:
+                        atc = ' '
+                        for i in range(len(message.attachments)):
+                            atc += ' '+message.attachments[i].url
+                    buf += user_id + ' ' + str(message.created_at) + ' ' + str(message.content).replace('\n', '') + str(atc) + '\n'
                 buf += '```'
                 await Basic.delete(self, pre_send)
             except Exception as e:
@@ -1289,14 +1317,18 @@ class Archive(commands.Cog):
     async def full(self, ctx):
         """Full archive of this channel. This will take a long time."""
         try:
-            await Basic.send(self, ctx, "This will take a long time.")
-            pre_send = await Basic.send(self, ctx, "Now processing...")
+            pre_send = await Basic.send(self, ctx, "This will take a long time.\nNow processing...")
             buf = '```\nchannel name:' + str(urllib.parse.unquote(ctx.channel.name)) + ' / id:' + str(ctx.channel.id) + '\n'
             ms_cnt = 0
             async for message in ctx.channel.history(limit = None):
                 ms_cnt += 1
                 user_id = str(urllib.parse.unquote(message.author.name)) + '#' + str(message.author.discriminator)
-                buf += user_id + ' ' + str(message.created_at) + ' ' + str(message.content).replace('\n', '') + '\n'
+                atc = ''
+                if message.attachments:
+                    atc = ' '
+                    for i in range(len(message.attachments)):
+                        atc += ' '+message.attachments[i].url
+                buf += user_id + ' ' + str(message.created_at) + ' ' + str(message.content).replace('\n', '') + str(atc) + '\n'
             buf += '```'
             await Basic.delete(self, pre_send)
         except Exception as e:
@@ -1320,11 +1352,31 @@ class Basic():
         """ 文字の送信 """
         if len(str(tx)) <= 2000: # 2000文字以下
             return await ctx.send(str(tx))
-        else:
+        elif sys.getsizeof(str(tx)) <= 8*1024**2-1: # 8MB未満
             try:
                 data = io.StringIO(str(tx))
                 return await ctx.send(file=discord.File(data, 'res.txt'))
             except Exception as e: # サイズ上限?
+                print(e)
+                await ctx.send('Error: Basic.send (text file)')
+                await bot.get_channel(LOG_C).send(str(e))
+                return False
+        else:
+            try:
+                dt_n = datetime.datetime.now()
+                zname = str(dt_n.strftime('%Y%m%d%H%M%S%f')) + str(secrets.token_hex(16))
+                with open(zname+'.txt', mode='w') as f:
+                    f.write(str(tx))
+                with zipfile.ZipFile(zname+'.zip', 'w', compression=zipfile.ZIP_DEFLATED) as n_z:
+                    n_z.write(zname+'.txt', arcname='res.txt')
+                resp = await ctx.send(file=discord.File(zname+'.zip', 'res.zip'))
+                try:
+                    os.remove(zname+'.txt')
+                    os.remove(zname+'.zip')
+                except Exception as e: print(e)
+                return resp
+
+            except Exception as e:
                 print(e)
                 await ctx.send('Error: Size limit has been exceeded?')
                 await bot.get_channel(LOG_C).send(str(e))
@@ -1336,13 +1388,32 @@ class Basic():
             return await res.edit(content = str(tx))
         elif len(str(tx)) <= 0: # 0文字以下の時は削除
             await Basic.delete(self, res)
-        else:
+        elif sys.getsizeof(str(tx)) <= 8*1024**2-1: # 8MB未満
             try:
                 data = io.StringIO(str(tx))
                 return await res.edit(file=discord.File(data, 'res.txt'))
             except Exception as e:
                 print(e)
-                await res.send("Error: Size limit or can't edit files")
+                await res.send('Error: Basic.send (text file)')
+                await bot.get_channel(LOG_C).send(str(e))
+                return False
+        else:
+            try:
+                dt_n = datetime.datetime.now()
+                zname = str(dt_n.strftime('%Y%m%d%H%M%S%f')) + str(secrets.token_hex(16))
+                with open(zname+'.txt', mode='w') as f:
+                    f.write(str(tx))
+                with zipfile.ZipFile(zname+'.zip', 'w', compression=zipfile.ZIP_DEFLATED) as n_z:
+                    n_z.write(zname+'.txt', arcname='res.txt')
+                resp = await res.send(file=discord.File(zname+'.zip', 'res.zip'))
+                try:
+                    os.remove(zname+'.txt')
+                    os.remove(zname+'.zip')
+                except Exception as e: print(e)
+                return resp
+            except Exception as e:
+                print(e)
+                await res.send('Error: Size limit has been exceeded?')
                 await bot.get_channel(LOG_C).send(str(e))
                 return False
 
