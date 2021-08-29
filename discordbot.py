@@ -1352,7 +1352,7 @@ class Basic():
     async def send(self, ctx, tx):
         """ 文字の送信 """
         dt_nt = datetime.datetime.now()
-        send_fname = 'res'+str(dt_nt.strftime('%Ym%d%H%M%S'))
+        send_fname = 'res_'+str(dt_nt.strftime('%Y%m%d%H%M%S'))
         if len(str(tx)) <= 2000: # 2000文字以下
             return await ctx.send(str(tx))
         elif sys.getsizeof(str(tx)) <= 8*1024**2-1: # 8MB未満
