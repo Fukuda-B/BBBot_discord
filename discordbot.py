@@ -1388,7 +1388,7 @@ class Basic():
     async def edit(self, res, tx):
         """ 送信した内容の編集 """
         dt_nt = datetime.datetime.now()
-        send_fname = 'res'+str(dt_nt.strftime('%Ym%d%H%M%S'))
+        send_fname = 'res_'+str(dt_nt.strftime('%Y%m%d%H%M%S'))
         if len(str(tx)) <= 2000 and len(str(tx)) > 0: # 2000字以下 1文字以上
             return await res.edit(content = str(tx))
         elif len(str(tx)) <= 0: # 0文字以下の時は削除
