@@ -1303,7 +1303,7 @@ class Archive(commands.Cog):
                         atc = ' '
                         for i in range(len(message.attachments)):
                             atc += ' '+message.attachments[i].url
-                    buf += user_id + ' ' + str(message.created_at) + ' ' + str(message.content).replace('\n', '') + str(atc) + '\n'
+                    buf = user_id + ' ' + str(message.created_at) + ' ' + str(message.content).replace('\n', '') + str(atc) + '\n' + buf
                 buf += '```'
                 await Basic.delete(self, pre_send)
             except Exception as e:
@@ -1329,7 +1329,7 @@ class Archive(commands.Cog):
                     atc = ' '
                     for i in range(len(message.attachments)):
                         atc += ' '+message.attachments[i].url
-                buf += user_id + ' ' + str(message.created_at) + ' ' + str(message.content).replace('\n', '') + str(atc) + '\n'
+                buf = user_id + ' ' + str(message.created_at) + ' ' + str(message.content).replace('\n', '') + str(atc) + '\n' + buf
             buf += '```'
             await Basic.delete(self, pre_send)
         except Exception as e:
