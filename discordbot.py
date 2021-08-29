@@ -439,7 +439,7 @@ class Youtube(commands.Cog):
         'restrictfilenames': True,
         # 'noplaylist': True, # allow playlist
         'nocheckcertificate': True,
-        'quiet': True,
+        # 'quiet': True,
         'no_warnings': True,
         'default_search': 'auto',
         'source_address': '0.0.0.0'
@@ -611,7 +611,7 @@ class VoiceChat(commands.Cog):
             'restrictfilenames': True,
             # 'noplaylist': True,
             'nocheckcertificate': True,
-            'quiet': True,
+            # 'quiet': True,
             'no_warnings': True,
             'default_search': 'auto',
             'source_address': '0.0.0.0'
@@ -622,7 +622,7 @@ class VoiceChat(commands.Cog):
             'restrictfilenames': True,
             'noplaylist': True,
             'nocheckcertificate': True,
-            'quiet': True,
+            # 'quiet': True,
             'no_warnings': True,
             'default_search': 'auto',
             'source_address': '0.0.0.0'
@@ -682,7 +682,7 @@ class VoiceChat(commands.Cog):
             self.state = False # auto play: off
             self.inf_play = False # stop inf play
             tx = str(ctx.message.content).split()[1] # サブコマンドではない場合、URLとして扱う
-            if not tx:
+            if not tx or len(tx) <= 0:
                 await Basic.send('The URL value is not appropriate')
                 return
             try: # try connect url
@@ -710,8 +710,7 @@ class VoiceChat(commands.Cog):
                     await Basic.delete(self, pre_send) # 事前に送信したメッセージの削除
                     await VoiceChat.voice_send(self, ctx, next_song_filename)
                 elif len(self.queue) > 0: # 複数曲の場合 (曲の表示等あり)
-                    await Basic.delete(self, pre_send)
-                    await Basic.send(self, ctx, str(len(plist))+" songs added ("+str(len(self.queue))+" songs in the queue)")
+                    await Basic.edit(self, pre_send, str(len(plist))+" songs added ("+str(len(self.queue))+" songs in the queue)")
                     await VoiceChat.play(self, ctx)
             else: return False
 
@@ -825,20 +824,22 @@ class VoiceChat(commands.Cog):
             await Basic.send(self, ctx, 'queue = Null')
         while len(self.queue):
             if self.now == None:
-                # try:
-                pre_send = await Basic.send(self, ctx, "Now processing...")
-                next_song_url = self.queue.pop(0)
-                [next_song_filename] = await Youtube.ydl_proc(self, ctx, next_song_url, self.ytdl_opts)
-                next_song_filename = await VoiceChat.effect(self, next_song_filename) # エフェクト
-                split_filename = os.path.basename(next_song_filename).split('.')
-                split_filename.pop(len(split_filename)-1) # ファイルの拡張子を除く
-                split_filename.pop(len(split_filename)-1) # youtube id を除く
-                await Basic.delete(self, pre_send)
-                await Basic.send(self, ctx, f'```ini\n[TITLE] {"".join(split_filename)}\n[ URL ] {next_song_url}```')
-                await VoiceChat.voice_send(self, ctx, next_song_filename)
-                # except:
-                #     await Basic.send(self, ctx, "Error: VoiceChat.play")
-                #     continue
+                try:
+                    pre_send = await Basic.send(self, ctx, "Now processing...")
+                    next_song_url = self.queue.pop(0)
+                    [next_song_filename] = await Youtube.ydl_proc(self, ctx, next_song_url, self.ytdl_opts)
+                    next_song_filename = await VoiceChat.effect(self, next_song_filename) # エフェクト
+                    split_filename = os.path.basename(next_song_filename).split('.')
+                    split_filename.pop(len(split_filename)-1) # ファイルの拡張子を除く
+                    split_filename.pop(len(split_filename)-1) # youtube id を除く
+                    await Basic.edit(self, pre_send, f'```ini\n[TITLE] {"".join(split_filename)}\n[ URL ] {next_song_url}```')
+                    await VoiceChat.voice_send(self, ctx, next_song_filename)
+                except Exception as e:
+                    print(e)
+                    await bot.get_channel(LOG_C).send(str(e))
+                    # await Basic.send(self, ctx, "Error: VoiceChat.play")
+
+                    continue
             if len(self.queue) <= 0 or not self.state:
                 break
 
@@ -1350,12 +1351,14 @@ class Basic():
 
     async def send(self, ctx, tx):
         """ 文字の送信 """
+        dt_nt = datetime.datetime.now()
+        send_fname = 'res'+str(dt_nt.strftime('%Ym%d%H%M%S'))
         if len(str(tx)) <= 2000: # 2000文字以下
             return await ctx.send(str(tx))
         elif sys.getsizeof(str(tx)) <= 8*1024**2-1: # 8MB未満
             try:
                 data = io.StringIO(str(tx))
-                return await ctx.send(file=discord.File(data, 'res.txt'))
+                return await ctx.send(file=discord.File(data, send_fname+'.txt'))
             except Exception as e: # サイズ上限?
                 print(e)
                 await ctx.send('Error: Basic.send (text file)')
@@ -1368,8 +1371,8 @@ class Basic():
                 with open(zname+'.txt', mode='w') as f:
                     f.write(str(tx))
                 with zipfile.ZipFile(zname+'.zip', 'w', compression=zipfile.ZIP_DEFLATED) as n_z:
-                    n_z.write(zname+'.txt', arcname='res.txt')
-                resp = await ctx.send(file=discord.File(zname+'.zip', 'res.zip'))
+                    n_z.write(zname+'.txt', arcname=send_fname+'.txt')
+                resp = await ctx.send(file=discord.File(zname+'.zip', send_fname+'.zip'))
                 try:
                     os.remove(zname+'.txt')
                     os.remove(zname+'.zip')
@@ -1384,6 +1387,8 @@ class Basic():
 
     async def edit(self, res, tx):
         """ 送信した内容の編集 """
+        dt_nt = datetime.datetime.now()
+        send_fname = 'res'+str(dt_nt.strftime('%Ym%d%H%M%S'))
         if len(str(tx)) <= 2000 and len(str(tx)) > 0: # 2000字以下 1文字以上
             return await res.edit(content = str(tx))
         elif len(str(tx)) <= 0: # 0文字以下の時は削除
@@ -1391,7 +1396,7 @@ class Basic():
         elif sys.getsizeof(str(tx)) <= 8*1024**2-1: # 8MB未満
             try:
                 data = io.StringIO(str(tx))
-                return await res.edit(file=discord.File(data, 'res.txt'))
+                return await res.edit(file=discord.File(data, send_fname+'.txt'))
             except Exception as e:
                 print(e)
                 await res.send('Error: Basic.send (text file)')
@@ -1404,8 +1409,8 @@ class Basic():
                 with open(zname+'.txt', mode='w') as f:
                     f.write(str(tx))
                 with zipfile.ZipFile(zname+'.zip', 'w', compression=zipfile.ZIP_DEFLATED) as n_z:
-                    n_z.write(zname+'.txt', arcname='res.txt')
-                resp = await res.send(file=discord.File(zname+'.zip', 'res.zip'))
+                    n_z.write(zname+'.txt', arcname=send_fname+'.txt')
+                resp = await res.send(file=discord.File(zname+'.zip', send_fname+'.zip'))
                 try:
                     os.remove(zname+'.txt')
                     os.remove(zname+'.zip')
