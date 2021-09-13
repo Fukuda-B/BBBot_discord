@@ -1,10 +1,11 @@
 # 好みのADV (PC, 他) 曲
 # 数が多いため、内部で異なるブランドの場合も同じブランドとする場合がある
 # 非公式の場合は、コメントを書くこと
+# オープニング等は、OPで省略
 #
 # 同会社でも別ブランドがある場合や、さらにそのサブブランドという位置付けのものもあるので難しい。姉妹ブランドやグループブランドなども。
 # ブランドの詳細は https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%80%E3%83%AB%E3%83%88%E3%82%B2%E3%83%BC%E3%83%A0%E3%83%A1%E3%83%BC%E3%82%AB%E3%83%BC%E4%B8%80%E8%A6%A7
-# 2021/07頃 更新
+# 2021/09頃 更新
 
 import random
 def get_my_music():
@@ -88,6 +89,8 @@ def get_my_music():
             # ----- CIRCUS | https://circus-co.jp/ -----
             #
             {"title":"D.C.4 Fortunate Departures OP", "url":"https://youtu.be/ZwKpvrCe-LQ"},
+            {"title":"D.C.4 Plus Harmony ～ダ・カーポ4～ プラスハーモニー OP", "url":"https://www.youtube.com/watch?v=U3s89VJgA7k"},
+            {"title":"D.C.4 ～ダ・カーポ4～ 中間ルートOP 恋するMODE", "url":"https://www.youtube.com/watch?v=8hY_DOLgR-k"},
             {"title":"D.C.4 ～ダ・カーポ4～ OP", "url":"https://youtu.be/7sQSihFvHJM"},
             {"title":"D.C.4 ～ダ・カーポ4～ プレムービー", "url":"https://youtu.be/zHYOzkp_a9k"},
             {"title":"D.C.III ～キミにささげる あいのマホウ～ リアレンジ Ver.", "url":"https://youtu.be/bxz5k82RfrY"},
@@ -358,6 +361,7 @@ def get_my_music():
             {"title":"Making*Lovers OP FHD", "url":"https://www.youtube.com/watch?v=AEaAHBzpI6k"},
             {"title":"ハジラブ -Making*Lovers- OP", "url":"https://www.youtube.com/watch?v=mUGKuLvHCiE"},
             {"title":"ハジラブ -Making*Lovers- OP", "url":"https://www.youtube.com/watch?v=P6iaZSEcqCU"},
+            {"title":"思い出抱えてアイにコイ!! OP", "url":"https://www.youtube.com/watch?v=zFsZHlmkF_E"},
         ],
         "FAVORITE":[
             # https://www.youtube.com/channel/UC4hZsj494Gkf72PCJJ8DUzA
@@ -574,6 +578,7 @@ def get_my_music():
             {"title":"pieces/揺り籠のカナリア ED1", "url":"https://www.youtube.com/watch?v=UuCYbgWToOk"},
             {"title":"竜姫ぐーたらいふ OP", "url":"https://www.youtube.com/watch?v=c4vWWKW3-j8"},
             {"title":"竜姫ぐーたらいふ２", "url":"https://www.youtube.com/watch?v=1TT4ZwCi0Sw"},
+            {"title":"けもの道☆ガーリッシュスクエア OP", "url":"https://www.youtube.com/watch?v=elB5B5YsmK8"},
         ],
         "purple software":[
             # https://www.youtube.com/user/purplesoftware01
@@ -682,6 +687,7 @@ def get_my_music():
             {"title":"らぶおぶ恋愛皇帝 of LOVE! OP", "url":"https://www.youtube.com/watch?v=0gfl39dK0mg"},
             {"title":"ノラと皇女と野良猫ハート OP", "url":"https://www.youtube.com/watch?v=y9IOxID6zBE"},
             {"title":"ノラと皇女と野良猫ハート2 -Nora, Princess, and Crying Cat.-", "url":"https://www.youtube.com/watch?v=IP-OG3vm9h8"},
+            {"title":"Monkeys!¡ OP", "url":"https://www.youtube.com/watch?v=blcmmXxUvzU"},
 
             # 非公式
             {"title":"ノラとと (アニメ版) OP", "url":"https://www.youtube.com/watch?v=CQ7ik1JFFIQ"},
@@ -755,7 +761,7 @@ def get_my_music():
         "Hulotte":[
             # https://www.youtube.com/user/HulotteJP
             #
-            # ----- Hulotte | http://hulotte.jp/pc/ -----
+            # ----- Hulotte (ユロット) | http://hulotte.jp/pc/ -----
             #
             {"title":"With Ribbon", "url":"https://www.youtube.com/watch?v=fcHFVa8AFD4"},
             {"title":"妹のおかげでモテすぎてヤバい。", "url":"https://www.youtube.com/watch?v=Gyf5lD0fhc8"},
@@ -764,6 +770,7 @@ def get_my_music():
             {"title":"出会って5分は俺のもの！　時間停止と不可避な運命 OP", "url":"https://www.youtube.com/watch?v=xJ-y9MkQHag"},
             {"title":"俺の姿が、透明に！？ 不可視の薬と数奇な運命 OP", "url":"https://www.youtube.com/watch?v=gUlpsCPDHLk"},
             {"title":"ココロのカタチとイロとオト OP", "url":"https://www.youtube.com/watch?v=v21E-vCPg7o"},
+            {"title":"俺の恋天使がポンコツすぎてコワ～い。 OP", "url":"https://www.youtube.com/watch?v=Ht4aQFeYVfQ"},
         ],
         "Tinkle Position":[
             #
@@ -1125,13 +1132,40 @@ def get_my_music():
             #
             {"title":"ひとつ屋根の、ツバサの下で OP", "url":"https://www.youtube.com/watch?v=BlPWAyhb2j8"},
         ],
-        "May-Be SOFT":[
+        # "May-Be SOFT":[
             #
             #
             # ----- May-Be SOFT | http://www.maybesoft.jp/index.html -----
             #
 
-        ]
+        # ],
+        "らぶまてぃっく":[
+            #
+            #
+            # ----- らぶまてぃっく | http://lovematic.net/koipia/top.html -----
+            #
+            {"title":"恋と恋するユートピア OP", "url":"https://www.youtube.com/watch?v=ZiXoQh-jnxc"},
+        ],
+        "tone work's":[
+            # https://www.youtube.com/channel/UC8hOMfPbeYrDVnd6__uDQ3g
+            #
+            # ----- tone work's | http://toneworks.product.co.jp/top.html -----
+            #
+            {"title":"初恋1/1 OP", "url":"https://www.youtube.com/watch?v=Jx2LIAUN4H0"},
+            {"title":"星織ユメミライ OP", "url":"https://www.youtube.com/watch?v=-u0yglqbf28"},
+            {"title":"銀色、遥か OP", "url":"https://www.youtube.com/watch?v=uebSF0PQd24"},
+            {"title":"月の彼方で逢いましょう OP", "url":"https://www.youtube.com/watch?v=uUAVj_SRtCU"},
+            {"title":"月の彼方で逢いましょう 挿入歌 With Tomorrow", "url":"https://www.youtube.com/watch?v=5Wfpp296p24"},
+            {"title":"月の彼方で逢いましょう 佐倉雨音イメージソング でんじゃらすきゅーとはっかーレインちゃん", "url":"https://www.youtube.com/watch?v=2nahD0Mzhso"},
+            {"title":"月の彼方で逢いましょう 倉橋聖衣良ルート曲 Lovely Spice", "url":"https://www.youtube.com/watch?v=zB41Fxt_GJM"},
+            {"title":"月の彼方で逢いましょう 日紫喜うぐいすルート曲 月ノ鐘", "url":"https://www.youtube.com/watch?v=W9voufk-CiQ"},
+            {"title":"月の彼方で逢いましょう 佐倉雨音ルート曲 After Rain", "url":"https://www.youtube.com/watch?v=teEJyfVCO1I"},
+            {"title":"月の彼方で逢いましょう 新谷灯華ルート曲 Sign", "url":"https://www.youtube.com/watch?v=76xW380qOtI"},
+            {"title":"月の彼方で逢いましょう エンディング曲 僕たちの詩", "url":"https://www.youtube.com/watch?v=umT-WjdjiL4"},
+            {"title":"月の彼方で逢いましょう SweetSummerRainbow OP", "url":"https://www.youtube.com/watch?v=C3cdYa7Uaig"},
+            {"title":"月の彼方で逢いましょう SweetSummerRainbow OP (発売日変更版)", "url":"https://www.youtube.com/watch?v=CjTARToFizI"},
+            {"title":"星織ユメミライ Perfect Edition OP", "url":"https://www.youtube.com/watch?v=SRnQo9UVgrc"},
+        ],
     }
 
     # 作業用
@@ -1145,7 +1179,6 @@ def get_my_music():
     # May-Be SOFT -> ぱいタッチ！ OP
     # aries soft -> タラレバ ED
     # Cabbit -> キミへ贈る、ソラの花 OP
-    # tone work's -> 銀色、遥か
     # lantis -> ましろ色シンフォニー
     # Navel -> 月乙
     # 絶対☆大好き https://www.youtube.com/watch?v=YA5EioW0oLQ
@@ -1162,7 +1195,7 @@ def get_my_music():
     # studio-ego
     # GLacé / Galette
     # プラリネ
-    # らぶまてぃく -> 恋と恋するユートピア
+    # ILLUSIONI
 
     akabei3 = [
         # https://www.youtube.com/channel/UC-nhyMMGNXQQsXrdtDx3mSg
