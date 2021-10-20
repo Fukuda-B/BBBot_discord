@@ -14,7 +14,7 @@ If you want to use "Translate" class, set up main.gs in Google Apps Script and a
 ---  
   
 # Command list
-BBBot v2.6.11 beta (prefix is "?")
+BBBot v2.6.13 (prefix is "?")
 ```c
 ?B hello            // -> Hello B!
 ?add 1000 11        // -> 1011
@@ -105,6 +105,8 @@ BBBot v2.6.11 beta (prefix is "?")
 | v_volume | volume ( 0.0 - 1.0 ) |
 | v_music b | recommended (random) |
 | v_music b_loop | recommended (random & loop) |
+| v_music b_loop "brand name" | select brand name (random & loop) |
+| v_music b_list | recommended brand list |
 | v_music "url" | youtube player |
 | v_music skip | skip to next song |
 | v_music queue | show queue |
