@@ -57,7 +57,7 @@ from modules import htr_dead
 from modules import eq_check
 from modules import up_server
 
-VERSION='v2.6.11'
+VERSION='v2.6.12'
 
 _TOKEN, _A3RT_URI, _A3RT_KEY, _GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, _UP_SERVER,\
@@ -457,7 +457,7 @@ class Youtube(commands.Cog):
         else: # youtube (or niconico)
             filename = await self.ydl_proc(ctx, url, self.ytdl_opts)
             for i in range(len(filename)):
-                await self.ydl_send(ctx, filename[i])
+                await self.ydl_send(ctx, filename[i]['filename'])
 
     @commands.command(description='youtube-dl audio mp3')
     async def ydl_mp3(self, ctx, url: str):
@@ -470,7 +470,7 @@ class Youtube(commands.Cog):
         }
         filename = await self.ydl_proc(ctx, url, dict(self.ytdl_opts, **setOpt))
         for i in range(len(filename)):
-            await self.ydl_send(ctx, filename[i])
+            await self.ydl_send(ctx, filename[i]['filename'])
 
     @commands.command(description='youtube-dl audio m4a')
     async def ydl_m4a(self, ctx, url: str):
@@ -483,7 +483,7 @@ class Youtube(commands.Cog):
         }
         filename = await self.ydl_proc(ctx, url, dict(self.ytdl_opts, **setOpt))
         for i in range(len(filename)):
-            await self.ydl_send(ctx, filename[i])
+            await self.ydl_send(ctx, filename[i]['filename'])
         # await Basic.send(self, ctx, json.dumps(self.ytdl_opts | setOpt)) #Debug
 
     @commands.command(description='youtube-dl audio aac')
@@ -497,7 +497,7 @@ class Youtube(commands.Cog):
         }
         filename = await self.ydl_proc(ctx, url, dict(self.ytdl_opts, **setOpt))
         for i in range(len(filename)):
-            await self.ydl_send(ctx, filename[i])
+            await self.ydl_send(ctx, filename[i]['filename'])
         # await Basic.send(self, ctx, json.dumps(self.ytdl_opts | setOpt)) #Debug
 
     async def ydl_getc(self, ctx, url:str, ytdl_opts):
@@ -510,17 +510,17 @@ class Youtube(commands.Cog):
                     video = pre_info['entries']
                     plist = []
                     for i, item in enumerate(video):
-                        plist.append(pre_info['entries'][i]['webpage_url'])
+                        plist.append({'title':pre_info['entries'][i]['title'],'url':pre_info['entries'][i]['webpage_url']})
                     return plist
                 else:
-                    return [url]
+                    return [{'title':pre_info['title'],'url':url}]
             except Exception as e:
                 print(e)
                 await bot.get_channel(LOG_C).send(str(e))
                 return False
 
     async def ydl_proc(self, ctx, url:str, ytdl_opts):
-        """" download video & return filenames(list) """
+        """" download video & return title + filename """
         if 'nico' in urllib.parse.urlparse(url).netloc: # niconico
             return await Youtube.ndl_proc(self, ctx, url)
         else: # youtube
@@ -532,23 +532,25 @@ class Youtube(commands.Cog):
                     if 'entries' in pre_info:
                         # playlist (multiple video)
                         video = pre_info['entries']
-                        filenames = []
+                        res = []
                         for i, item in enumerate(video):
                             with youtube_dl.YoutubeDL(ytdl_opts) as ydl:
                                 info = ydl.extract_info(pre_info['entries'][i]['webpage_url'], download=True)
                                 filename = ydl.prepare_filename(info)
+                                title = info['title']
                                 if 'postprocessors' in ytdl_opts:
                                     filename = pathlib.PurePath(filename).stem + '.' + ytdl_opts['postprocessors'][0]['preferredcodec']
-                                filenames.append(filename)
-                        return filenames
+                                res.append({'title':title, 'filename':filename})
+                        return res
                     else:
                         # single video
                         with youtube_dl.YoutubeDL(ytdl_opts) as ydl:
                             info = ydl.extract_info(url, download=True)
+                            title = info['title']
                             filename = ydl.prepare_filename(info)
                             if 'postprocessors' in ytdl_opts:
                                 filename = pathlib.PurePath(filename).stem + '.' + ytdl_opts['postprocessors'][0]['preferredcodec']
-                            return [filename]
+                            return [{'title':title, 'filename':filename}]
                 except Exception as e:
                     await Basic.send(self, ctx, 'Error: Youtube.ydl_proc')
                     await bot.get_channel(LOG_C).send(str(e))
@@ -598,9 +600,10 @@ class VoiceChat(commands.Cog):
         self.bot = bot
         self._last_member = None
         self.now = None # now playing
-        self.volume = 1.0
+        self.volume = 1.0 # music volume
+        # self.voice_volume = 1.0 # voice volume
         self.inf_play = False # infinity play music
-        self.queue = [] # music queue ['now play', 'next', '...'] (url)
+        self.queue = [] # music queue [{'title':'current music title', 'url':'current music url'},...]
         self.state = False # continue to play
         self.nightcore = False # nightcore effect
         self.bassboost = False # bassboost effect
@@ -636,7 +639,7 @@ class VoiceChat(commands.Cog):
             return
         if ctx.voice_client is not None:
             return await ctx.voice_client.move_to(channel)
-        await channel.connect()
+        await channel.connect(reconnect = True)
 
     @commands.command(description='Discord_VoiceChat Disconnect')
     async def v_disconnect(self, ctx):
@@ -675,22 +678,22 @@ class VoiceChat(commands.Cog):
 
     @commands.group(description='play music (b/b_loop/stop/skip/queue/play)')
     async def v_music(self, ctx):
-        """play music. (b/b_loop/stop/skip/queue/queue_del/play)"""
-        await VoiceChat.v_connect(self, ctx) # 接続確認
+        """play music. (b/b_loop/b_list/stop/skip/queue/queue_del/play)"""
+        # await VoiceChat.v_connect(self, ctx) # 接続確認
 
         if ctx.invoked_subcommand is None: # サブコマンドがない場合
             self.state = False # auto play: off
             self.inf_play = False # stop inf play
             tx = str(ctx.message.content).split()[1] # サブコマンドではない場合、URLとして扱う
             if not tx or len(tx) <= 0:
-                await Basic.send('The URL value is not appropriate')
+                await Basic.send(self, ctx, 'The URL value is not appropriate')
                 return
             try: # try connect url
                 f = urllib.request.urlopen(tx)
                 f.close()
             except Exception as e:
                 print(e)
-                await Basic.send('network error')
+                await Basic.send(self, ctx, 'network error')
                 await bot.get_channel(LOG_C).send(str(e))
                 return False
             if self.now != None and self.state != True:
@@ -704,11 +707,11 @@ class VoiceChat(commands.Cog):
                 self.queue.extend(plist)
             if self.now == None and len(self.queue):
                 if len(self.queue) == 1: # 1曲だけの場合
-                    next_song_url = self.queue.pop(0)
-                    [next_song_filename] = await Youtube.ydl_proc(self, ctx, next_song_url, self.ytdl_opts)
+                    next_song = self.queue.pop(0)
+                    next_song_filename = await Youtube.ydl_proc(self, ctx, next_song['url'], self.ytdl_opts)
                     next_song_filename = await VoiceChat.effect(self, next_song_filename) # エフェクト
                     await Basic.delete(self, pre_send) # 事前に送信したメッセージの削除
-                    await VoiceChat.voice_send(self, ctx, next_song_filename)
+                    await VoiceChat.voice_send(self, ctx, next_song['title'])
                 elif len(self.queue) > 0: # 複数曲の場合 (曲の表示等あり)
                     await Basic.edit(self, pre_send, str(len(plist))+" songs added ("+str(len(self.queue))+" songs in the queue)")
                     await VoiceChat.play(self, ctx)
@@ -748,7 +751,7 @@ class VoiceChat(commands.Cog):
         if self.now != None and not self.now.is_paused():
             self.now.pause()
         else:
-            await Basic.send('No song is currently playing')
+            await Basic.send(self, ctx, 'No song is currently playing')
 
     @v_music.command(description='resume music')
     async def resume(self, ctx):
@@ -756,7 +759,7 @@ class VoiceChat(commands.Cog):
         if self.now != None and self.now.is_paused():
             self.now.resume()
         else:
-            await Basic.send('The son has not been paused')
+            await Basic.send(self, ctx, 'The son has not been paused')
 
     @v_music.command(description='random play!')
     async def b(self, ctx):
@@ -771,7 +774,8 @@ class VoiceChat(commands.Cog):
 
         filename_ = await Youtube.ydl_proc(self, ctx, mm['url'], self.ytdl_opts_np)
         if filename_:
-            filename = filename_[0]
+            print(filename_)
+            filename = filename_[0]['filename']
             filename = await VoiceChat.effect(self, filename) # エフェクト
             # await Basic.send(self, ctx, f'`{brand_n}` - `{mm["title"]}`')
             await Basic.delete(self, pre_send)
@@ -800,7 +804,7 @@ class VoiceChat(commands.Cog):
                 continue
             elif self.now == None: # 正常
                 # try:
-                filename = filename_[0]
+                filename = filename_[0]['filename']
                 filename = await VoiceChat.effect(self, filename) # エフェクト
                 # await Basic.send(self, ctx, f'`{brand_n}` - `{mm["title"]}`')
                 await Basic.delete(self, pre_send)
@@ -811,6 +815,12 @@ class VoiceChat(commands.Cog):
             else:
                 await Basic.delete(self, pre_send)
                 break
+
+    @v_music.command(description='b/b_loop brand list')
+    async def b_list(self, ctx):
+        """b/b_loop brand list"""
+        brand_list = my_music.get_brand_list()
+        await Basic.send(self, ctx, '```c\n// b/b_loopで再生されるADVのブランド一覧\n'+', '.join(brand_list)+'```')
 
     @v_music.command(description='play')
     async def play(self, ctx):
@@ -826,13 +836,11 @@ class VoiceChat(commands.Cog):
             if self.now == None:
                 try:
                     pre_send = await Basic.send(self, ctx, "Now processing...")
-                    next_song_url = self.queue.pop(0)
-                    [next_song_filename] = await Youtube.ydl_proc(self, ctx, next_song_url, self.ytdl_opts)
-                    next_song_filename = await VoiceChat.effect(self, next_song_filename) # エフェクト
-                    split_filename = os.path.basename(next_song_filename).split('.')
-                    split_filename.pop(len(split_filename)-1) # ファイルの拡張子を除く
-                    split_filename.pop(len(split_filename)-1) # youtube id を除く
-                    await Basic.edit(self, pre_send, f'```ini\n[TITLE] {"".join(split_filename)}\n[ URL ] {next_song_url}```')
+                    next_song = self.queue.pop(0)
+                    next_song_filename = await Youtube.ydl_proc(self, ctx, next_song['url'], self.ytdl_opts)
+                    next_song_title = next_song_filename[0]['title']
+                    next_song_filename = await VoiceChat.effect(self, next_song_filename[0]['filename']) # エフェクト
+                    await Basic.edit(self, pre_send, f'```ini\n[TITLE] {next_song_title}\n[ URL ] {next_song["url"]}```')
                     await VoiceChat.voice_send(self, ctx, next_song_filename)
                 except Exception as e:
                     print(e)
@@ -847,9 +855,9 @@ class VoiceChat(commands.Cog):
     async def queue(self, ctx):
         """show queue"""
         if len(self.queue) > 0:
-            sd = '> | '+str(self.queue[0])+'\n'
+            sd = f'> | {self.queue[0]["title"]}\n'
             for i in range(1, len(self.queue)):
-                sd += str(i)+' | '+str(self.queue[i])+'\n'
+                sd += f'{i} | {self.queue[i]["title"]}\n'
             await Basic.send(self, ctx, "```py\n"+sd+"```")
         else:
             await Basic.send(self, ctx, "queue = Null")
@@ -926,7 +934,7 @@ class VoiceChat(commands.Cog):
             imouto.audio.export(filename, 'mp3')
 
         if not voice_client: # join voice channel
-            await ctx.author.voice.channel.connect()
+            await ctx.author.voice.channel.connect(reconnect = True)
         await VoiceChat.voice_send(self, ctx, filename)
 
     async def effect(self, filename):
@@ -963,6 +971,8 @@ class VoiceChat(commands.Cog):
             if self.volume == 1.0: audio_source = discord.FFmpegPCMAudio(filename)
             else: audio_source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(filename), volume=self.volume)
 
+            if not ctx.voice_client: # ボイスチャンネルに接続されていない場合
+                await ctx.author.voice.channel.connect(reconnect = True)
             self.now = ctx.voice_client
             try:
                 self.now.play(audio_source) # 再生

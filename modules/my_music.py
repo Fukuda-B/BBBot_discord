@@ -20,7 +20,7 @@ def get_my_music():
             {"title":"ENGAGE LINKS OP", "url":"https://www.youtube.com/watch?v=sgyq_vUwdyI"},
             {"title":'ロケットラブパニック！ (幼なじみは大統領 OP) カラオケ', "url":"https://youtu.be/UCSM97CEfao"},
             {"title":'アンコール (幼なじみは大統領 ED) カラオケ', "url":"https://youtu.be/OKavnKstc6s"},
-            {"title":"幼なじみは大統領ファンディスク OP", "url":"https://www.youtube.com/watch?v=EPS25SorQmw&t=35s"},
+            {"title":"幼なじみは大統領ファンディスク OP", "url":"https://www.youtube.com/watch?v=EPS25SorQmw"},
             {"title":'百花繚乱ファンタズム (鬼ごっこ！ OP) カラオケ', "url":"https://youtu.be/7WnG1jOcvWk"},
             {"title":'SHINE RING (中の人などいない！ OP) カラオケ', "url":"https://youtu.be/j-P2xbGezsI"},
             {"title":'Rebirth ∞ Impact (中の人などいない OP2) カラオケ', "url":"https://youtu.be/JkNlQSFq8EU"},
@@ -82,6 +82,9 @@ def get_my_music():
             {"title":'宿星のガールフレンド2 OP', "url":"https://youtu.be/qI-ARefQ8vA"},
             {"title":'宿星のガールフレンド OP', "url":"https://youtu.be/iuOBb-gmULo"},
             {"title":'ハナヒメ＊アブソリュート！ OP Ver.2.0', "url":"https://youtu.be/INjkodzJYVw"},
+            {"title":'宿星のガールフレンド ED 星空memories!', "url":"https://www.youtube.com/watch?v=wqhrVtUohZk"},
+            {"title":'宿星のガールフレンド2 ED HAPPY✩SHINING DAYS!', "url":"https://www.youtube.com/watch?v=1b2UhpCvSnw"},
+            {"title":'宿星のガールフレンド3 ED 星屑メリーゴーランド', "url":"https://www.youtube.com/watch?v=sYrwZscCVGI"},
         ],
         "CIRCUS":[
             # https://www.youtube.com/channel/UCiBzCxAZClXt7WYRRW9vQtg
@@ -148,7 +151,7 @@ def get_my_music():
             #
             # ----- Qruppo | https://qruppo.com/ -----
             #
-            {"title":"抜きゲーみたいな島に住んでる貧乳はどうすりゃいいですか？ 1stOP", "url":"https://www.youtube.com/watch?v=-5lP5j52eSY"},
+            # {"title":"抜きゲーみたいな島に住んでる貧乳はどうすりゃいいですか？ 1stOP", "url":"https://www.youtube.com/watch?v=-5lP5j52eSY"}, # 年齢制限あり
             {"title":"抜きゲーみたいな島に住んでる貧乳はどうすりゃいいですか？ 2ndOP", "url":"https://www.youtube.com/watch?v=1MWD5CF36pU"},
             {"title":"抜きゲーみたいな島に住んでる貧乳はどうすりゃいいですか？ 2 OP", "url":"https://www.youtube.com/watch?v=0jYAKWdIJ7Q"},
         ],
@@ -386,14 +389,14 @@ def get_my_music():
             # ----- sprite | https://sprite.tokyo/ -----
             #
             {"title":"いますぐお兄ちゃんに妹だっていいたい！グランドOP", "url":"https://www.youtube.com/watch?v=VshGzEEX2GI"},
-            {"title":"蒼の彼方のフォーリズム 2ndOP", "url":"https://www.youtube.com/watch?v=tJ-6-ygxehM&t=1s"},
+            {"title":"蒼の彼方のフォーリズム 2ndOP", "url":"https://www.youtube.com/watch?v=tJ-6-ygxehM"},
             {"title":"蒼の彼方のフォーリズム PS VITA版 OP", "url":"https://www.youtube.com/watch?v=EsfRdBQ7Do4"},
             {"title":"蒼の彼方のフォーリズム PS VITA 2nd OP", "url":"https://www.youtube.com/watch?v=nr9mu4c_bkU"},
             {"title":"蒼の彼方のフォーリズム PS VITA版 グランドOP", "url":"https://www.youtube.com/watch?v=miocQ5Gi-54"},
             {"title":"蒼の彼方のフォーリズム PS4 グランド OP", "url":"https://www.youtube.com/watch?v=xr8_wQK3-qE"},
             {"title":"蒼の彼方のフォーリズム PS4 OP", "url":"https://www.youtube.com/watch?v=O7K1G2vV8MA"},
             {"title":"蒼の彼方のフォーリズム EXTRA1 OP", "url":"https://www.youtube.com/watch?v=1hLZ-CxNQb4"},
-            {"title":"蒼の彼方のフォーリズム for Nintendo Switch", "url":"https://www.youtube.com/watch?v=d3LdpWI712k&t=7s"},
+            {"title":"蒼の彼方のフォーリズム for Nintendo Switch", "url":"https://www.youtube.com/watch?v=d3LdpWI712k"},
             {"title":"恋と選挙とチョコレート OP", "url":"https://www.youtube.com/watch?v=zgYDdQgh9Ms"},
             {"title":"蒼の彼方のフォーリズム 挿入歌 - INFINITE SKY", "url":"https://www.youtube.com/watch?v=-WO1UuEq3QY"},
             {"title":"蒼の彼方のフォーリズム High Resolution", "url":"https://www.youtube.com/watch?v=aDwOJb9p2lg"},
@@ -646,7 +649,7 @@ def get_my_music():
             {"title":"Lowすぺっく!? OP", "url":"https://www.youtube.com/watch?v=rddjogBoOio"},
             {"title":"妹を汚した記憶 OP修正版", "url":"https://www.youtube.com/watch?v=8h4PyJ7x4o0"},
             {"title":"雪の夜、俺は妹を裸にする。 OP", "url":"https://www.youtube.com/watch?v=rSuRQNvxJ-M"},
-            {"title":"雪の夜、俺は妹を裸にする。 OP", "url":"https://www.youtube.com/watch?v=_HwPsAyuV2M"},
+            # {"title":"雪の夜、俺は妹を裸にする。 OP", "url":"https://www.youtube.com/watch?v=_HwPsAyuV2M"}, # 年齢制限あり
 
             # 非公式
             {"title":"LOあんぐる!! OP", "url":"https://www.youtube.com/watch?v=pxFJHp6evBE"},
@@ -803,7 +806,7 @@ def get_my_music():
             {"title":"恋愛０キロメートル 主題歌", "url":"https://www.youtube.com/watch?v=EfZhW2shroE"},
             {"title":"ひとつとばし恋愛 主題歌", "url":"https://www.youtube.com/watch?v=keiQt7zPYr4"},
             {"title":"プラマイウォーズ 主題歌", "url":"https://www.youtube.com/watch?v=NpghM7oQgCQ"},
-            {"title":"スキとスキとでサンカク恋愛 OP", "url":"https://www.youtube.com/watch?v=GfTh1KK7eHE&t=4s"},
+            {"title":"スキとスキとでサンカク恋愛 OP", "url":"https://www.youtube.com/watch?v=GfTh1KK7eHE"},
             {"title":"かりぐらし恋愛 OP", "url":"https://www.youtube.com/watch?v=CqcrT1rL-_c"},
             {"title":"恋愛、借りちゃいました OP", "url":"https://www.youtube.com/watch?v=lLJHa5mTPSI"},
             {"title":"恋愛×ロワイアル  OP", "url":"https://www.youtube.com/watch?v=rYUlY05gRII"},
@@ -1259,6 +1262,7 @@ def get_my_music():
     return music, sagyou_music
 
 def get_music():
+    """get random music"""
     while True:
         music, sagyou_music = get_my_music()
         if len(music) <= 0: break # 曲がない
@@ -1277,6 +1281,14 @@ def get_music():
             # print(f'mm {rr} | {mm}')
             break
     return brand_n, mm
+
+def get_brand_list():
+    """get brand list"""
+    music, sagyou_music = get_my_music()
+    brand_list = []
+    for key in music.keys():
+        brand_list.append(key)
+    return brand_list
 
 if __name__ == '__main__':
     for _ in range(100):
