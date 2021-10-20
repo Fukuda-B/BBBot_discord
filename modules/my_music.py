@@ -1282,18 +1282,6 @@ def get_music():
             break
     return brand_n, mm
 
-def get_brand_music(brand_n):
-    """get random music (select name)"""
-    # print(brand_n)
-    music, sagyou_music = get_my_music()
-    if brand_n in music.keys() and len(music[brand_n]) > 0: # ブランド, 曲が存在する
-        brand = music[brand_n]
-        rr = random.randint(0, int(len(brand))-1)
-        mm = brand[rr]
-        return brand_n, mm
-    else: return get_music()
-
-
 def get_brand_list():
     """get brand list"""
     music, sagyou_music = get_my_music()

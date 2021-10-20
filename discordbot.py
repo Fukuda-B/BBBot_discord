@@ -57,7 +57,7 @@ from modules import htr_dead
 from modules import eq_check
 from modules import up_server
 
-VERSION='v2.6.13'
+VERSION='v2.6.12'
 
 _TOKEN, _A3RT_URI, _A3RT_KEY, _GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, _UP_SERVER,\
@@ -151,7 +151,7 @@ class Calc(commands.Cog):
     @commands.command(description='自己情報量I()')
     async def self_info(self, ctx, p: str):
         """Self-information I(p)"""
-        p = float(eval(p, {}, {'math':math}))
+        p = float(eval(p))
         if p == 0.0:
             await Basic.send(self, ctx, 0.0)
         else:
@@ -160,7 +160,7 @@ class Calc(commands.Cog):
     @commands.command(description='エントロピー関数計算H()')
     async def ent(self, ctx, p: str):
         """EntropyFunc H(p)"""
-        p = float(eval(p, {}, {'math':math}))
+        p = float(eval(p))
         if p == 0.0:
             await Basic.send(self, ctx, 0.0)
         else:
@@ -169,7 +169,7 @@ class Calc(commands.Cog):
     @commands.command(description='乱数(int) 1~x')
     async def rand(self, ctx, p: str):
         """Random(int) 1~x"""
-        p = float(eval(p, {}, {'math':math}))
+        p = int(eval(p))
         if p>1:
             await Basic.send(self, ctx, random.randint(1, p))
         else:
@@ -178,7 +178,7 @@ class Calc(commands.Cog):
     @commands.command(description='乱数(float)) 1.0~x')
     async def randd(self, ctx, p: str):
         """Random(float) 1.0~x"""
-        p = float(eval(p, {}, {'math':math}))
+        p = float(eval(p))
         if p > 1.0:
             await Basic.send(self, ctx, random.uniform(1.0, p))
         else:
@@ -435,7 +435,7 @@ class Youtube(commands.Cog):
     ytdl_opts = {
         'format' : 'bestaudio/best',
         # 'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
-        'outtmpl': 'tmp/%(title)s.%(id)s.%(ext)s',
+        'outtmpl': '%(title)s.%(id)s.%(ext)s',
         'restrictfilenames': True,
         # 'noplaylist': True, # allow playlist
         'nocheckcertificate': True,
@@ -545,11 +545,7 @@ class Youtube(commands.Cog):
                     else:
                         # single video
                         with youtube_dl.YoutubeDL(ytdl_opts) as ydl:
-                            dl_thread = threading.Thread(target = ydl.extract_info, args=(url,))
-                            dl_thread.start()
-                            dl_thread.join()
-                            info = pre_info
-                            # info = ydl.extract_info(url, download=True)
+                            info = ydl.extract_info(url, download=True)
                             title = info['title']
                             filename = ydl.prepare_filename(info)
                             if 'postprocessors' in ytdl_opts:
@@ -559,16 +555,6 @@ class Youtube(commands.Cog):
                     await Basic.send(self, ctx, 'Error: Youtube.ydl_proc')
                     await bot.get_channel(LOG_C).send(str(e))
                     return False
-
-    def ydl_pre(self, url:str, ytdl_opts):
-        """ pre yt download """
-        try:
-            with youtube_dl.YoutubeDL(ytdl_opts) as ydl:
-                info = ydl.extract_info(url, download=True)
-                return
-        except Exception as e:
-            print(e)
-            return
 
     # niconico download
     async def ndl_proc(self, ctx, url:str):
@@ -621,11 +607,10 @@ class VoiceChat(commands.Cog):
         self.state = False # continue to play
         self.nightcore = False # nightcore effect
         self.bassboost = False # bassboost effect
-        self.b_brand = False # b/b_loop selected brand name
         self.ytdl_opts = {
             'format' : 'bestaudio/best',
             # 'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
-            'outtmpl': 'tmp/%(title)s.%(id)s.%(ext)s',
+            'outtmpl': '%(title)s.%(id)s.%(ext)s',
             'restrictfilenames': True,
             # 'noplaylist': True,
             'nocheckcertificate': True,
@@ -636,7 +621,7 @@ class VoiceChat(commands.Cog):
         }
         self.ytdl_opts_np = {
             'format' : 'bestaudio/best',
-            'outtmpl': 'tmp/%(title)s.%(id)s.%(ext)s',
+            'outtmpl': '%(title)s.%(id)s.%(ext)s',
             'restrictfilenames': True,
             'noplaylist': True,
             'nocheckcertificate': True,
@@ -721,9 +706,15 @@ class VoiceChat(commands.Cog):
             if plist:
                 self.queue.extend(plist)
             if self.now == None and len(self.queue):
-                if len(self.queue) > 1: # 複数曲の場合 (曲の表示等あり)
+                if len(self.queue) == 1: # 1曲だけの場合
+                    next_song = self.queue.pop(0)
+                    next_song_filename = await Youtube.ydl_proc(self, ctx, next_song['url'], self.ytdl_opts)
+                    next_song_filename = await VoiceChat.effect(self, next_song_filename) # エフェクト
+                    await Basic.delete(self, pre_send) # 事前に送信したメッセージの削除
+                    await VoiceChat.voice_send(self, ctx, next_song['title'])
+                elif len(self.queue) > 0: # 複数曲の場合 (曲の表示等あり)
                     await Basic.edit(self, pre_send, str(len(plist))+" songs added ("+str(len(self.queue))+" songs in the queue)")
-                await VoiceChat.play(self, ctx)
+                    await VoiceChat.play(self, ctx)
             else: return False
 
     @v_music.command(description='skip')
@@ -793,26 +784,16 @@ class VoiceChat(commands.Cog):
 
     @v_music.command(description='infinity random play!')
     async def b_loop(self, ctx):
-        """infinity random play!
-           select brand -> ?v_music b_loop "brand name"
-        """
+        """infinity random play!"""
         self.state = False # auto play: off
         if self.now != None:
             self.now.stop()
             self.now = None
+
         self.inf_play = True # infiniry play: on
-
-        if ctx.message.content: # 再生するブランド名が指定された場合
-            sp_tmp = str(ctx.message.content).split()
-            self.b_brand = ' '.join(sp_tmp[2:])
-        else:
-            self.b_brand = False
-
+        music, sagyou_music = my_music.get_my_music()
         while self.inf_play:
-            if self.b_brand: # 再生するブランド名が指定されている場合
-                brand_n, mm = my_music.get_brand_music(self.b_brand)
-            else:
-                brand_n, mm = my_music.get_music() # 1曲ランダムに取り出し
+            brand_n, mm = my_music.get_music() # 1曲ランダムに取り出し
 
             pre_send = await Basic.send(self, ctx, "Now processing...")
             filename_ = await Youtube.ydl_proc(self, ctx, mm['url'], self.ytdl_opts_np)
@@ -859,12 +840,6 @@ class VoiceChat(commands.Cog):
                     next_song_filename = await Youtube.ydl_proc(self, ctx, next_song['url'], self.ytdl_opts)
                     next_song_title = next_song_filename[0]['title']
                     next_song_filename = await VoiceChat.effect(self, next_song_filename[0]['filename']) # エフェクト
-
-                    if len(self.queue) > 0: # 別スレッドで次の曲を事前にダウンロードする
-                        next_q = self.queue[0]['url']
-                        next_th = threading.Thread(target = Youtube.ydl_pre, args=(self, next_q, self.ytdl_opts,))
-                        next_th.start()
-
                     await Basic.edit(self, pre_send, f'```ini\n[TITLE] {next_song_title}\n[ URL ] {next_song["url"]}```')
                     await VoiceChat.voice_send(self, ctx, next_song_filename)
                 except Exception as e:
