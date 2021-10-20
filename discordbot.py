@@ -779,7 +779,14 @@ class VoiceChat(commands.Cog):
             self.now.stop()
             self.now = None
         pre_send = await Basic.send(self, ctx, "Now processing...")
-        brand_n, mm = my_music.get_music() # 1曲ランダムに取り出し
+
+        sp_tmp = str(ctx.message.content).split()
+        if len(sp_tmp) >= 3: # 再生するブランド名が指定された場合
+            self.b_brand = ' '.join(sp_tmp[2:])
+            brand_n, mm = my_music.get_brand_music(self.b_brand)
+        else:
+            self.b_brand = False
+            brand_n, mm = my_music.get_music() # 1曲ランダムに取り出し
 
         filename_ = await Youtube.ydl_proc(self, ctx, mm['url'], self.ytdl_opts_np)
         if filename_:
@@ -802,8 +809,8 @@ class VoiceChat(commands.Cog):
             self.now = None
         self.inf_play = True # infiniry play: on
 
-        if ctx.message.content: # 再生するブランド名が指定された場合
-            sp_tmp = str(ctx.message.content).split()
+        sp_tmp = str(ctx.message.content).split()
+        if len(sp_tmp) >= 3: # 再生するブランド名が指定された場合
             self.b_brand = ' '.join(sp_tmp[2:])
         else:
             self.b_brand = False
