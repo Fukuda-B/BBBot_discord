@@ -106,7 +106,7 @@ BBBot v2.6.13 (prefix is "?")
 | v_music b | recommended (random) |
 | v_music b_loop | recommended (random & loop) |
 | v_music b_loop "brand name" | select brand name (random & loop) |
-| v_music b_list | recommended brand list |
+| v_music b_list | recommended brand name list |
 | v_music "url" | youtube player |
 | v_music skip | skip to next song |
 | v_music queue | show queue |
