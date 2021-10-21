@@ -442,7 +442,7 @@ class Youtube(commands.Cog):
         # 'quiet': True,
         'no_warnings': True,
         'default_search': 'auto',
-        'source_address': '0.0.0.0'
+        # 'source_address': '0.0.0.0'
     }
     # ytdl = youtube_dl.YoutubeDL(ytdl_opts)
     def __init__(self, bot):
@@ -632,7 +632,7 @@ class VoiceChat(commands.Cog):
             # 'quiet': True,
             'no_warnings': True,
             'default_search': 'auto',
-            'source_address': '0.0.0.0'
+            # 'source_address': '0.0.0.0'
         }
         self.ytdl_opts_np = {
             'format' : 'bestaudio/best',
@@ -643,7 +643,7 @@ class VoiceChat(commands.Cog):
             # 'quiet': True,
             'no_warnings': True,
             'default_search': 'auto',
-            'source_address': '0.0.0.0'
+            # 'source_address': '0.0.0.0'
         }
     @commands.command(description='Discord_VoiceChat Connect')
     async def v_connect(self, ctx):
@@ -790,7 +790,7 @@ class VoiceChat(commands.Cog):
 
         filename_ = await Youtube.ydl_proc(self, ctx, mm['url'], self.ytdl_opts_np)
         if filename_:
-            print(filename_)
+            # print(filename_)
             filename = filename_[0]['filename']
             filename = await VoiceChat.effect(self, filename) # エフェクト
             # await Basic.send(self, ctx, f'`{brand_n}` - `{mm["title"]}`')
