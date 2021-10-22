@@ -867,10 +867,10 @@ class VoiceChat(commands.Cog):
                     next_song_title = next_song_filename[0]['title']
                     next_song_filename = await VoiceChat.effect(self, next_song_filename[0]['filename']) # エフェクト
 
-                    if len(self.queue) > 0: # 別スレッドで次の曲を事前にダウンロードする
-                        next_q = self.queue[0]['url']
-                        next_th = threading.Thread(target = Youtube.ydl_pre, args=(self, next_q, self.ytdl_opts,))
-                        next_th.start()
+                    # if len(self.queue) > 0: # 別スレッドで次の曲を事前にダウンロードする
+                    #     next_q = self.queue[0]['url']
+                    #     next_th = threading.Thread(target = Youtube.ydl_pre, args=(self, next_q, self.ytdl_opts,))
+                    #     next_th.start()
 
                     await Basic.edit(self, pre_send, f'```ini\n[TITLE] {next_song_title}\n[ URL ] {next_song["url"]}```')
                     await VoiceChat.voice_send(self, ctx, next_song_filename)
