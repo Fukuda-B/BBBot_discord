@@ -606,7 +606,7 @@ class Youtube(commands.Cog):
             await Basic.send(self, ctx, 'Error: File size is too large? [Max 8MB]\n')
         except Exception as e:
             print(e)
-            await Basic.send(self, ctx, 'Error: Unknown')
+            # await Basic.send(self, ctx, 'Error: Unknown')
             await bot.get_channel(LOG_C).send(str(e))
 
 
