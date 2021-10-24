@@ -16,4 +16,5 @@ docs/crowdin.py
 *.mo
 *.webm
 *.part
+*.aac
 __pycache__

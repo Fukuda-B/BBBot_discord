@@ -57,7 +57,7 @@ from modules import htr_dead
 from modules import eq_check
 from modules import up_server
 
-VERSION='v2.6.13'
+VERSION='v2.6.14'
 
 _TOKEN, _A3RT_URI, _A3RT_KEY, _GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, _UP_SERVER,\
@@ -108,7 +108,6 @@ async def on_message(message):
         await lChannel.send("```\n@"+str(message.author.name)+"\n"+str(message.author.id)+"\n"+str(message.content)+" ```")
         if message.author.bot: return # ボットだったら何もしない
         await bot.process_commands(message)
-
 
 #---------------------------------------------------------- 計算系
 class Calc(commands.Cog):
@@ -539,21 +538,24 @@ class Youtube(commands.Cog):
                                 filename = ydl.prepare_filename(info)
                                 title = info['title']
                                 if 'postprocessors' in ytdl_opts:
-                                    filename = pathlib.PurePath(filename).stem + '.' + ytdl_opts['postprocessors'][0]['preferredcodec']
+                                    filename = str(pathlib.Path(filename).with_suffix('.'+ytdl_opts['postprocessors'][0]['preferredcodec']))
                                 res.append({'title':title, 'filename':filename})
                         return res
                     else:
                         # single video
                         with youtube_dl.YoutubeDL(ytdl_opts) as ydl:
-                            dl_thread = threading.Thread(target = ydl.extract_info, args=(url,))
-                            dl_thread.start()
-                            dl_thread.join()
                             info = pre_info
                             # info = ydl.extract_info(url, download=True)
                             title = info['title']
                             filename = ydl.prepare_filename(info)
+
+                            dl_thread = threading.Thread(target = ydl.extract_info, args=(url,))
+                            dl_thread.setDaemon(True)
+                            dl_thread.start()
+                            dl_thread.join()
+
                             if 'postprocessors' in ytdl_opts:
-                                filename = pathlib.PurePath(filename).stem + '.' + ytdl_opts['postprocessors'][0]['preferredcodec']
+                                filename = str(pathlib.Path(filename).with_suffix('.'+ytdl_opts['postprocessors'][0]['preferredcodec']))
                             return [{'title':title, 'filename':filename}]
                 except Exception as e:
                     await Basic.send(self, ctx, 'Error: Youtube.ydl_proc')
