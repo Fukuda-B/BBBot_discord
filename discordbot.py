@@ -4,12 +4,12 @@
 # This Discord bot uses PyNaCl & FFmpeg in VoiceChat class.
 
 # pip update
-# powershell: pip3 install --upgrade ((pip3 freeze) -replace '==.+','')
+# powershell: pip install --upgrade ((pip freeze) -replace '==.+','')
 # https://www.yukkuriikouze.com/2019/07/12/3105/
 
+# 2.7.0~ | youtube-dl --> yt-dlp
 
 from __future__ import unicode_literals
-
 from discord import channel, file
 
 # ----- basic module ----
@@ -37,14 +37,15 @@ import asyncio
 import pathlib
 import psutil
 import cpuid
-import youtube_dl
+# import youtube_dl
+import yt_dlp as youtube_dl
 import discord
 from discord.ext import commands
 from discord_slash import SlashCommand
 from discord_slash import cog_ext, SlashContext
 import urllib.request
 import urllib.parse
-from niconico_dl_async import NicoNico
+# from niconico_dl_async import NicoNico
 import ffmpeg
 # ---- my module ----
 from modules import my_key # get my api keys
@@ -57,7 +58,7 @@ from modules import htr_dead
 from modules import eq_check
 from modules import up_server
 
-VERSION='v2.6.14'
+VERSION='v2.7.0'
 
 _TOKEN, _A3RT_URI, _A3RT_KEY, _GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, _UP_SERVER,\
@@ -86,8 +87,10 @@ async def on_ready():
     # ログイン通知
     print(bot.user.name + ' is logged in.')
     # await bot.change_presence(status=discord.Status.idle, activity=discord.Game(name="BBBot "+VERSION, emoji="🍝"))
-    await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="BBBot "+VERSION, emoji="🍝"))
     # await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name="BBBot "+VERSION))
+
+    # await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="B is bot"))
+    await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="BBBot "+VERSION, emoji="🍝"))
     lChannel = bot.get_channel(LOG_C)
     await lChannel.send('BBBot is Ready! ' + VERSION)
 
@@ -185,6 +188,7 @@ class Calc(commands.Cog):
 
     @commands.command(description='素因数分解(2以上の整数のみ)')
     async def fractor(self, ctx, p: int):
+        """Factorization"""
         try:
             p = int(p)
             ct = p
@@ -521,7 +525,11 @@ class Youtube(commands.Cog):
     async def ydl_proc(self, ctx, url:str, ytdl_opts):
         """" download video & return title + filename """
         if 'nico' in urllib.parse.urlparse(url).netloc: # niconico
-            return await Youtube.ndl_proc(self, ctx, url)
+            e = 'Currently, Nico Nico Douga is not supported.'
+            await Basic.send(self, ctx, e)
+            await bot.get_channel(LOG_C).send(str(e))
+            return False
+            # return await Youtube.ndl_proc(self, ctx, url)
         else: # youtube
             async with ctx.typing():
                 try:
