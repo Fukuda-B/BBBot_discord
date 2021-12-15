@@ -1,11 +1,11 @@
-# 好みのADV (PC, 他) 曲
+# 好みのADV (PC, 他 / 美少女ゲーム) 曲
 # 数が多いため、内部で異なるブランドの場合も同じブランドとする場合がある
 # 非公式の場合は、コメントを書くこと
 # オープニング等は、OPで省略
 #
 # 同会社でも別ブランドがある場合や、さらにそのサブブランドという位置付けのものもあるので難しい。姉妹ブランドやグループブランドなども。
 # ブランドの詳細は https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%80%E3%83%AB%E3%83%88%E3%82%B2%E3%83%BC%E3%83%A0%E3%83%A1%E3%83%BC%E3%82%AB%E3%83%BC%E4%B8%80%E8%A6%A7
-# 2021/09頃 更新
+# 2021/12頃 更新
 
 import random
 def get_my_music():
@@ -451,6 +451,7 @@ def get_my_music():
             {"title":"ALIA's CARNIVAL! フラワリングスカイ OP", "url":"https://www.youtube.com/watch?v=w3dAx_ao8U0"},
             {"title":"春音アリス＊グラム OP", "url":"https://www.youtube.com/watch?v=RRyhgyX6LsI"},
             {"title":"白恋サクラ＊グラム OP", "url":"https://www.youtube.com/watch?v=78OT2IKmpfE"},
+            {"title":"花鐘カナデ＊グラム Chapter:1 -Ringing*Days-", "url":"https://www.youtube.com/watch?v=ijmERDpQJu4"},
         ],
         "みらーじゅそふと":[
             # https://www.youtube.com/channel/UC_pZucDbqMVwoKm-bb9cVtQ
@@ -729,7 +730,7 @@ def get_my_music():
             # ----- ホエール | https://web.archive.org/web/20120424071623/http://www.whale.bz/index2.html -----
             #
             # 非公式
-            {"title":"俺の彼女はヒトでなし OP 超越↑↑恋してナイしょ☆メア！！", "url":"https://www.youtube.com/watch?v=oUqeizcW_gA"}
+            {"title":"俺の彼女はヒトでなし OP 超越↑↑恋してナイしょ☆メア！！", "url":"https://www.youtube.com/watch?v=oUqeizcW_gA"},
         ],
         "PENCIL - ぱじゃまソフト":[
             # https://www.youtube.com/user/pajamassoftofficial
@@ -839,6 +840,7 @@ def get_my_music():
             {"title":"Rewrite Harvest festa! OP", "url":"https://www.youtube.com/watch?v=vS6mwyHNacA"},
             {"title":"Summer Pockets OP", "url":"https://www.youtube.com/watch?v=EWdTEw7Shog"},
             {"title":"Summer Pockets REFLECTION BLUE OP", "url":"https://www.youtube.com/watch?v=JalI6kGXs8k"},
+            {"title":"LUNARiA -Virtualized Moonchild 2nd OP", "url":"https://www.youtube.com/watch?v=RBMcpYYC_SY"},
 
             # 非公式
             {"title":"Planetarian ～ちいさなほしのうた～", "url":"https://www.youtube.com/watch?v=bW1sV0ovf54"},
@@ -1169,6 +1171,73 @@ def get_my_music():
             {"title":"月の彼方で逢いましょう SweetSummerRainbow OP (発売日変更版)", "url":"https://www.youtube.com/watch?v=CjTARToFizI"},
             {"title":"星織ユメミライ Perfect Edition OP", "url":"https://www.youtube.com/watch?v=SRnQo9UVgrc"},
         ],
+        "プレカノ":[
+            # (戯画) https://www.youtube.com/channel/UCJfWoSur-QkoSOZr1ULjBrA
+            #
+            # ----- プレカノ | http://prekano.com/top.html -----
+            #
+            {"title":"経験ゼロなクラスメイトπ", "url":"https://www.youtube.com/watch?v=nuN19zWCy4g"},
+            {"title":"おにあま -わたしに甘えて、お兄ちゃん♡- OP", "url":"https://www.youtube.com/watch?v=zoii6AQYH-U"},
+            {"title":"キスから始まるギャルの恋　～くるみのウワサとホントのキモチ～", "url":"https://www.youtube.com/watch?v=MfugKyy5xb0"},
+        ],
+        "Aino+Links":[
+            #
+            #
+            # ----- Aino+Links | http://ainolinks.com/ -----
+            #
+            {"title":"創作彼女の恋愛公式 OP", "url":"https://www.youtube.com/watch?v=VW6XRZexyS4"},
+        ],
+        "CUFFS":[
+            # (CUFFS) https://www.youtube.com/channel/UCTl08-5uJ4U2V1tOQrwuVLg
+            #
+            # ----- CUFFS | http://www.cuffs.co.jp/main/ -----
+            #
+            # CUFFS
+            # CUFFS - CUBE
+            # CUFFS - MintCUBE
+            # CUFFS - Sonora
+            {"title":"ウチはもう、延期できない。 OP", "url":"https://www.youtube.com/watch?v=vQ_dYZ9BO24"},
+        ],
+        "ensemble":[
+            # (WillPulus) https://www.youtube.com/user/willgamejapan
+            #
+            # ----- ensemble | http://www.ensemble-game.com/ -----
+            #
+            {"title":"星の乙女と六華の姉妹 OP", "url":"https://www.youtube.com/watch?v=dlS3qYYqcqw"},
+
+        ],
+        "Purple software":[
+            #
+            #
+            # ----- Purple software | https://www.purplesoftware.jp/main.php -----
+            #
+            {"title":"クナド国記", "url":"https://www.youtube.com/watch?v=ZPujk4cRrh8"},
+            {"title":"Primary Step OP", "url":"https://www.youtube.com/watch?v=TtmhlEi3Q_4"},
+            {"title":"未来ノスタルジア OP", "url":"https://www.youtube.com/watch?v=kq1mUYROo7Q"},
+            {"title":"しあわせ家族部 OP", "url":"https://www.youtube.com/watch?v=fahlHt22HNc"},
+            {"title":"ハピメア OP", "url":"https://www.youtube.com/watch?v=6FoKNRjs5rM"},
+            {"title":"ハピメア-Fragmentation Dream- OP", "url":"https://www.youtube.com/watch?v=W4erYT2gMm8"},
+            {"title":"クロノクロック OP", "url":"https://www.youtube.com/watch?v=s5ptMrB5EIs"},
+            {"title":"アマツツミ OP", "url":"https://www.youtube.com/watch?v=bUc0os0quVo"},
+            {"title":"アマツツミ挿入歌 コトダマ紬ぐ未来", "url":"https://www.youtube.com/watch?v=bW_GrvFN2ro"},
+            {"title":"アオイトリ OP", "url":"https://www.youtube.com/watch?v=PcR8FcYEFw4"},
+            {"title":"リアライブ OP", "url":"https://www.youtube.com/watch?v=lXxO-8IZ0Os"},
+            {"title":"青春フラジャイル OP", "url":"https://www.youtube.com/watch?v=0y9sdeJjbaY"},
+        ],
+        "Princess Sugar":[
+            # https://www.youtube.com/channel/UCZ8e166Q-MfwOt11AsWi7Qw
+            #
+            # ----- Princess Sugar | https://www.s-digi.jp/princess-sugar/princess-sugar.html -----
+            #
+            {"title":"プリンセス☆シスターズ！～四姉妹は全員あなたの許嫁～ OP", "url":"https://www.youtube.com/watch?v=0RRBu5ieKF0"},
+            {"title":"姫様限定！ OP", "url":"https://www.youtube.com/watch?v=4WTJhPyUEVs"},
+            {"title":"プリンセスキッス！～少女1000年紀物語～ OP", "url":"https://www.youtube.com/watch?v=LTyCDrAXmp0"},
+            {"title":"姫様ＬＯＶＥライフ！ OP", "url":"https://www.youtube.com/watch?v=FHQV7mFE2h0"},
+            {"title":"姫恋＊シュクレーヌ！ OP", "url":"https://www.youtube.com/watch?v=xAdY_ptxuDU"},
+            {"title":"姫様ＬＯＶＥライフ！ -もーっと！イチャイチャ☆ぱらだいす！- OP", "url":"https://www.youtube.com/watch?v=DIfjDPo_nRM"},
+            {"title":"姫と乙女のヤキモチＬＯＶＥ OP Jewelry Kiss", "url":"https://www.youtube.com/watch?v=boC6oIvVMJ0"},
+            {"title":"姫と乙女のヤキモチＬＯＶＥ -きらめき夏物語！- OP", "url":"https://www.youtube.com/watch?v=F-6224Upv0s"},
+        ]
     }
 
     # 作業用
@@ -1177,7 +1246,6 @@ def get_my_music():
     # アリスソフト
     # みなとそふと
     # TYPE-MOON
-    # ensemble
     # 自宅すたじお
     # May-Be SOFT -> ぱいタッチ！ OP
     # aries soft -> タラレバ ED
@@ -1212,9 +1280,6 @@ def get_my_music():
     ]
     
     PULLTOP = [
-    ]
-    
-    Purple_software = [
     ]
     
     tyuaburu_soft = [
