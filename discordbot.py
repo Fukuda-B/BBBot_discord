@@ -10,7 +10,6 @@
 # 2.7.0~ | youtube-dl --> yt-dlp
 
 from __future__ import unicode_literals
-from discord import channel, file
 
 # ----- basic module ----
 import os
@@ -58,7 +57,7 @@ from modules import htr_dead
 from modules import eq_check
 from modules import up_server
 
-VERSION='v2.7.0'
+VERSION='v2.7.1'
 
 _TOKEN, _A3RT_URI, _A3RT_KEY, _GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, _UP_SERVER,\
@@ -658,10 +657,10 @@ class VoiceChat(commands.Cog):
     @commands.command(description='Discord_VoiceChat Connect')
     async def v_connect(self, ctx):
         """Voice Connect"""
-        channel = ctx.author.voice.channel
         if (not ctx.author.voice) or (not ctx.author.voice.channel): # ボイスチャンネルに入っていない
             await Basic.send(self, ctx, 'You need to be in the voice channel first.')
             return
+        channel = ctx.author.voice.channel
         if ctx.voice_client is not None:
             return await ctx.voice_client.move_to(channel)
         if not ctx.voice_client: # ボイスチャンネルに接続されていない場合
@@ -965,7 +964,6 @@ class VoiceChat(commands.Cog):
     #             await Basic.send(self, ctx, 'Error: kawaii_voice_gttx.kawaii_voice, imouto.music_pack1, Youtube.voice_send')
 
     async def make_tts(self, ctx, text, lg, k_option): # text=text, lg=language, k_option=kawaii_voice_gtts(0=false, 1=true)
-        voice_client = ctx.message.guild.voice_client
         text = ' '.join(text)
         pool = string.ascii_letters + string.digits
         randm = ''.join(random.choice(pool) for _ in range(16))
@@ -977,8 +975,12 @@ class VoiceChat(commands.Cog):
             imouto = imouto.pitch(0.4)
             imouto.audio.export(filename, 'mp3')
 
-        if not voice_client: # join voice channel
-            await ctx.author.voice.channel.connect(reconnect = True)
+        if not hasattr(ctx.message, 'guild') or not hasattr(ctx.message.guild, 'voice_client'): # join voice channel
+            try:
+                await ctx.author.voice.channel.connect(reconnect = True)
+            except Exception as e:
+                print(e)
+                await bot.get_channel(LOG_C).send(str(e))
         await VoiceChat.voice_send(self, ctx, filename)
 
     async def effect(self, filename):
@@ -1009,14 +1011,16 @@ class VoiceChat(commands.Cog):
         return filename
 
     async def voice_send(self, ctx, filename):
-        if self.now != None:
+        if hasattr(self, 'now') and self.now != None:
             self.now.stop()
         if os.path.exists(filename): # ファイル存在確認
-            if self.volume == 1.0: audio_source = discord.FFmpegPCMAudio(filename)
-            else: audio_source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(filename), volume=self.volume)
+            if hasattr(self, 'volume') and self.volume == 1.0: audio_source = discord.FFmpegPCMAudio(filename)
+            else:
+                self.volume = 1.0
+                audio_source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(filename), volume=self.volume)
 
-            # if not ctx.voice_client: # ボイスチャンネルに接続されていない場合
-            #     await ctx.author.voice.channel.connect(reconnect = True)
+            if not hasattr(ctx, 'voice_client'): # ボイスチャンネルに接続されていない場合
+                await ctx.author.voice.channel.connect(reconnect = True)
             self.now = ctx.voice_client
             try:
                 self.now.play(audio_source) # 再生
@@ -1283,22 +1287,44 @@ class Slash(commands.Cog):
     async def hattori(self, ctx:SlashContext):
         await B.hattori(self, ctx)
 
+    @cog_ext.cog_slash(name="ydl")
+    async def ydl(self, ctx:SlashContext, url:str):
+        await Youtube.ydl(self, ctx, url)
+
+    @cog_ext.cog_slash(name="ydl_m4a")
+    async def ydl_m4a(self, ctx:SlashContext, url:str):
+        await Youtube.ydl_m4a(self, ctx, url)
+
     @cog_ext.cog_slash(name="v_connect")
     async def v_connect(self, ctx:SlashContext):
+        """connect voice chat"""
         await VoiceChat.v_connect(self, ctx)
+        await Basic.send_hidden(self, ctx, 'connected')
 
     @cog_ext.cog_slash(name="v_disconnect")
     async def v_disconnect(self, ctx:SlashContext):
         await VoiceChat.v_disconnect(self, ctx)
+        await Basic.send_hidden(self, ctx, 'disconnected')
+
+    @cog_ext.cog_slash(name="v_voice")
+    async def v_voice(self, ctx:SlashContext, tx:str):
+        await VoiceChat.v_boice(self, ctx, tx)
+        await Basic.send_hidden(self, ctx, 'b')
 
     @cog_ext.cog_slash(name="v_voice_en")
-    async def v_voice_en(self, ctx:SlashContext, *tx):
-        tx = ' '.join(tx)
+    async def v_voice_en(self, ctx:SlashContext, tx:str):
         await VoiceChat.v_boice_en(self, ctx, tx)
+        await Basic.send_hidden(self, ctx, 'b')
 
     @cog_ext.cog_slash(name="v_bd")
     async def v_bd(self, ctx:SlashContext):
         await VoiceChat.v_bd(self, ctx)
+        await Basic.send_hidden(self, ctx, 'v_bd')
+
+    @cog_ext.cog_slash(name="v_music")
+    async def v_music(self, ctx:SlashContext):
+        await VoiceChat.v_music(self, ctx)
+        await Basic.send_hidden(self, ctx, 'v_music')
 
     @cog_ext.cog_slash(name="v_volume")
     async def v_volume(self, ctx:SlashContext, volume:str):
@@ -1404,7 +1430,12 @@ class Basic():
         return str(''.join([random.choice(base) for _ in range(n)]))
 
     async def send(self, ctx, tx):
-        """ 文字の送信 """
+        """ 
+        文字の送信
+
+        サイズが大きい場合は、テキストファイルにして送信
+        さらに大きい場合はzip圧縮して送信
+        """
         dt_nt = datetime.datetime.now()
         send_fname = 'res_'+str(dt_nt.strftime('%Y%m%d%H%M%S'))
         if len(str(tx)) <= 2000: # 2000文字以下
@@ -1438,6 +1469,10 @@ class Basic():
                 await ctx.send('Error: Size limit has been exceeded?')
                 await bot.get_channel(LOG_C).send(str(e))
                 return False
+
+    async def send_hidden(self, ctx, tx):
+        """ コマンドを実行したクライアントにのみ送信 (Basic.sendのようにサイズの大きいテキストは送れない) """
+        await ctx.send(content=tx, hidden=True)
 
     async def edit(self, res, tx):
         """ 送信した内容の編集 """
