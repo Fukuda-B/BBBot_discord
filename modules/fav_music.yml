@@ -1,0 +1,56 @@
+# 個人的に良いと思っている曲．ADVに限らない
+#
+#
+# フォーマット
+# {"コメント", "メモ", "ブランド/サークル名など", "曲のタイトル", "URL", "発売日"}
+# {"comment":"", "memo":"", "brand":"", "title":"", "url":"", "date":""},
+
+{
+  "fav_music":
+  [
+    # adv
+    {"comment":"fengの最後として歌詞に隠された想いが感じられる", "memo":"夢と色でできている OP", "brand":"feng", "title":"夢と色でできている", "url":"https://www.youtube.com/watch?v=K8vDUk6qh9U", "date":"2019/02/22"},
+    {"comment":"明るくて楽しい学園ライフが送れそうな曲", "memo":"花咲ワークスプリング OP", "brand":"SAGA PLANETS", "title":"Girl meets Love", "url":"https://soundcloud.com/user-789981018/girl-meets-love", "date":"2015/03/27"},
+    {"comment":"ウソ シリーズの中で一番好き．理解してくれる人が少なくて悲しい．", "memo":"ナツウソ-Ahead of the reminiscence- OP", "brand":"Campus", "title":"Liar for You Xxx", "url":"https://www.youtube.com/watch?v=CGAVXoo_8Qk", "date":"2016/04/22"},
+    {"comment":"つらいときに聞くと泣いてしまうね", "memo":"いますぐお兄ちゃんに妹だっていいたい! 挿入歌", "brand":"sprite/fairys", "title":"今、歩き出す君へ。", "url":"https://www.youtube.com/watch?v=ZQqbhwH87OM", "date":"2012/12/14"},
+    {"comment":"", "memo":"失くしたものと生きていく南島恋愛ADV「LOST:SMILE memories」OP", "brand":"LIFE0", "title":"White promise", "url":"https://www.youtube.com/watch?v=CmzM9xvBYeI", "date":"2019/08/08"},
+    {"comment":"ドラムがいい感じだと思った．", "memo":"LAMUNATION! OP", "brand":"WhitePowder", "title":"FaV", "url":"https://www.youtube.com/watch?v=u1lJgxCn8uY", "date":"2016/06/24"},
+    {"comment":"たまに聞きたくなる", "memo":"こんそめ！ OP", "brand":"Silver Bullet", "title":"combination somebody!", "url":"https://www.youtube.com/watch?v=7D6JWBuMQuE", "date":"2010/06/25"},
+    {"comment":"", "memo":"鬼がくる。～姉がひん死でピンチです～ OP", "brand":"えにしそふと", "title":"鬼がくる。 〜姉がひん死でピンチです〜", "url":"https://www.youtube.com/watch?v=TUBChOpqu0I", "date":"2017/07/28"},
+    {"comment":"RococoWorksは不運すぎてとても悲しい", "memo":"airy［F］airy 〜Easter of Sant'Ariccia〜 OP", "brand":"RococoWorks", "title":"mirto", "url":"https://www.youtube.com/watch?v=HvScFeFJOyc", "date":"2010/01/29"},
+    {"comment":"ショパンの「蝶々」アレンジとして，とても良い．めいくぴーすのOPは2つあり，これは2ndのほう．CurefullBaseの情報が少なくて悲しい．", "memo":"ツギハギめいくぴーす！2nd OP", "brand":"Curefull Base", "title":"ツギハギ：⇔めいくぴーす！", "url":"https://www.youtube.com/watch?v=NPJKaJc_ByE", "date":"2017/10/27"},
+    {"comment":"こういうストーリーの最後はやっぱり泣いてしまうね．", "memo":"生命のスペア OP", "brand":"あかべぇそふとすりぃ", "title":"Liblume", "url":"https://www.youtube.com/watch?v=1fRg5mIXAOw", "date":"2016/08/26"},
+    {"comment":"宿ガルシリーズはどのOPもいいけど，やっぱりこの曲", "memo":"宿星のガールフレンド OP", "brand":"mirai", "title":"Magical Girl☆Conflict", "url":"https://www.youtube.com/watch?v=iuOBb-gmULo", "date":"2018/06/08"},
+    {"comment":"すたじお緑茶 復活してくれ..", "memo":"夏彩恋唄 OP", "brand":"すたじお緑茶", "title":"夏彩恋唄", "url":"https://www.youtube.com/watch?v=UOuNydU6b3A", "date":"2016/11/25"},
+    {"comment":"みらーじゅそふとも復活してくれ..", "memo":"君とつながる恋フラグ OP", "brand":"みらーじゅそふと", "title":"君とつながる恋フラグ", "url":"https://www.youtube.com/watch?v=u5DI7T-PGxg", "date":"2018/03/30延期 → 2018/05/25"},
+    {"comment":"もう回らない観覧車となってしまった..", "memo":"めぐる季節の約束とつないだその手のぬくもりと OP", "brand":"だんでらいおん", "title":"観覧車～あの日と、昨日と今日と明日と～", "url":"https://www.youtube.com/watch?v=H5OwRNj-G7E", "date":"2013/09/27"},
+    {"comment":"RPGゲームとしても遊べて面白い", "memo":"ドーナドーナ OP", "brand":"ALICESOFT", "title":"ドーナドーナ", "url":"https://www.youtube.com/watch?v=geqmu1xF4Ns", "date":"2020/11/27"},
+    {"comment":"まどそふとの白髪キャラは毎回とてもかわいい", "memo":"ワガママハイスペックOC OP", "brand":"まどそふと", "title":"Hey Darling!", "url":"https://www.youtube.com/watch?v=0BHz5Z2vaf8", "date":"2017/08/25"},
+    {"comment":"ベースがえろい曲", "memo":"ラズベリーキューブ OP", "brand":"まどそふと", "title":"raspberry cube", "url":"https://www.youtube.com/watch?v=0Yw6sAnA0NM", "date":"2018/09/28"},
+    {"comment":"どきどきわくわくする", "memo":"サノバウィッチ OP", "brand":"ゆずそふと", "title":"恋せよ乙女!", "url":"https://www.youtube.com/watch?v=W7ARsYs-Gq0", "date":"2015/02/27"},
+    {"comment":"とても楽しい．クルルとパフが特に可愛くて面白い．", "memo":"ワールド・エレクション OP", "brand":"Whirlpool", "title":"れみぜら！", "url":"https://www.youtube.com/watch?v=oYaHWbm4Z0Y", "date":"2016/02/26"},
+    {"comment":"演出が素晴らしい", "memo":"さくら、もゆ。 -as the Night's, Reincarnation- 2nd OP", "brand":"Favorite", "title":"輪廻", "url":"https://www.youtube.com/watch?v=MkhRWgEFP1E", "date":"2019/01/31"},
+    {"comment":"春ですね", "memo":"D.C.Ⅱ 挿入歌", "brand":"美郷あき", "title":"beautiful flower", "url":"https://www.youtube.com/watch?v=cRddDTefFME", "date":"2006/07/27"},
+    {"comment":"D.C.と言ったらこれがないとだめだ", "memo":"D.C.Ⅲ グランドOP", "brand":"CIRCUS", "title":"ダ・カーポⅢ ～キミにささげる あいのマホウ～", "url":"https://www.youtube.com/watch?v=PXKiFa_wFVc", "date":"2012/04/27"},
+    {"comment":"学校に行きたくなるアドベンチャー", "memo":"学☆王 -THE ROYAL SEVEN STARS- ＋METEOR PSP版 OP", "brand":"PC版:Lump of Sugar/PSP版:アルケミスト", "title":"My Little Glory", "url":"https://www.youtube.com/watch?v=kzrepUoD6Ew", "date":"2013/03/28"},
+    {"comment":"あべにゅうぷろじぇくとらしい高音．", "memo":"俺の彼女はヒトでなし OP", "brand":"あべにゅうぷろじぇくと", "title":"超越↑↑恋してナイしょ☆メア！！", "url":"https://soundcloud.com/tlswocnd/hitodenashi", "date":"2010/12/24"},
+    {"comment":"osu!のとても好みのマップ", "memo":"僕と恋するポンコツアクマ。 ED", "brand":"スミレ", "title":"メリィメリィゴゥランド", "url":"https://www.youtube.com/watch?v=g1D1qcsh6DQ", "date":"2015/9/25"},
+    {"comment":"楽しい日常が来そうな感じ", "memo":"彼女と俺の恋愛日常 主題歌", "brand":"Parasol", "title":"プリズム lovely day", "url":"https://www.youtube.com/watch?v=AY7PhbjAOSY", "date":"2017/1/27"},
+
+    # anime
+    {"comment":"eufoniusは良い曲が多い", "brand":"eufonius", "title":"リフレクティア", "url":"https://www.youtube.com/watch?v=bPuCsWhFjLY", "date":"2008/01/23"},
+    {"comment":"いい曲で，はまった", "brand":"ツインテイルズ", "title":"ツインテール・ドリーマー!", "url":"https://www.youtube.com/watch?v=PieVfcJiDsk", "date":"2014/10/22"},
+    {"comment":"音が良い", "brand":"岸田教団&THE明星ロケッツ", "title":"GATE～それは暁のように～", "url":"https://www.youtube.com/watch?v=JX5vgvcQLQk", "date":"2015/07/29"},
+    {"comment":"D.C. (初代) ww", "memo":"D.C. OP", "brand":"yuzuca*", "title":"サクラサクミライコイユメ", "url":"https://www.youtube.com/watch?v=Or7T9KspCOs", "date":"2003/07/24"},
+    {"comment":"曲の最初がよい", "memo":"D.C.Ⅱ OP", "brand":"yuzuca*", "title":"サクラキミニエム", "url":"https://www.youtube.com/watch?v=6iIJmJcW1Fg", "date":"2007/10/24"},
+
+    # music
+    {"comment":"メリークリスマス！", "brand":"Qulalimstella", "title":"ぷれぜんたー☆", "url":"https://www.youtube.com/watch?v=aJYbc8_CkFs", "date":"2017/12/29"},
+    {"comment":"ﾄﾞﾝ ｶﾝ!☆", "brand":"Tokyo 7th / Ci+LUS", "title":"Don! Kan! Boy!", "url":"https://www.youtube.com/watch?v=sVTcylNsKzc", "date":"2021/11/24"},
+    {"comment":"元気をもらえる", "brand":"Halozy", "title":"GO 4 IT", "url":"https://www.youtube.com/watch?v=TjffLXJFD84", "date":"2016/03/30"},
+    {"comment":"P I S T P I S T", "memo":"名古屋競輪 Kドリームス 主題歌", "brand":"あべにゅうぷろじぇくと feat.佐倉紗織", "title":"ぴすとっ☆SMILE♪ノンすとっP！！～輝け明日のスター大作戦～", "url":"https://www.youtube.com/watch?v=4J7-DfKWhTA", "date":"2012/06/08"},
+    {"comment":"あべにゅうぷろじぇくと最高", "memo":"", "brand":"ave;new feat.佐倉紗織", "title":"すとっ☆DREAM♪ネバーぎぶあっP!!～乙女の覚悟宣言～", "url":"https://www.youtube.com/watch?v=nW-N4opue_k", "date":"2013/?"},
+    {"comment":"ハヤブサさんの代表作．niconicoでは3/11に投稿されており，何かしらの意図がある説を押している．", "memo":"", "brand":"ハヤブサ/Falconnect", "title":"星屑オーケストラ", "url":"https://www.youtube.com/watch?v=wpVJQ3JWqc8", "date":"2016/03/12 (2016/03/11)"},
+    {"comment":"きれい", "memo":"", "brand":"ハヤブサ/Falconnect", "title":"ムゲンノツバサ", "url":"https://www.youtube.com/watch?v=vsJc20WCsxA", "date":"2015/11/10"},
+  ]
+}
