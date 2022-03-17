@@ -13,10 +13,10 @@ def open_yaml(f_name):
 
 def get_my_music():
     # 通常
-    music = open_yaml(f_name='./modules/adv_music.yaml')
+    music = open_yaml(f_name='./modules/adv_music.yml')
 
     # 好みのやつ
-    fav_music = open_yaml(f_name='./modules/fav_music.yaml')
+    fav_music = open_yaml(f_name='./modules/fav_music.yml')
 
     # 作業用
     sagyou_music = {}
