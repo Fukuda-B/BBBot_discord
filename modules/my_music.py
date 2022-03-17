@@ -1,12 +1,3 @@
-# 好みのADV (PC, 他 / 美少女ゲーム) 曲
-# 数が多いため、内部で異なるブランドの場合も同じブランドとする場合がある
-# 非公式の場合は、コメントを書くこと
-# オープニング等は、OPで省略
-#
-# 同会社でも別ブランドがある場合や、さらにそのサブブランドという位置付けのものもあるので難しい。姉妹ブランドやグループブランドなども。
-# ブランドの詳細は https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%80%E3%83%AB%E3%83%88%E3%82%B2%E3%83%BC%E3%83%A0%E3%83%A1%E3%83%BC%E3%82%AB%E3%83%BC%E4%B8%80%E8%A6%A7
-# 2021/12頃 更新
-
 import random
 import yaml
 
@@ -22,40 +13,13 @@ def open_yaml(f_name):
 
 def get_my_music():
     # 通常
-    music = open_yaml(f_name='./modules/adv_music.yml')
+    music = open_yaml(f_name='./modules/adv_music.yaml')
 
     # 好みのやつ
-    fav_music = open_yaml(f_name='./modules/fav_music.yml')
+    fav_music = open_yaml(f_name='./modules/fav_music.yaml')
 
     # 作業用
     sagyou_music = {}
-
-    # アリスソフト, みなとそふと, TYPE-MOON, 自宅すたじお,
-    # May-Be SOFT -> ぱいタッチ！ OP
-    # aries soft -> タラレバ ED
-    # Cabbit -> キミへ贈る、ソラの花 OP
-    # lantis -> ましろ色シンフォニー
-    # Navel -> 月乙
-    # 絶対☆大好き https://www.youtube.com/watch?v=YA5EioW0oLQ
-    # leaf フルアニ, ToHeart2
-    # ケロＱ / 枕 -> サクラノ詩
-    # WillPlus/PULLTOP.. 系列
-    # chien, unicorn, Navel, 
-    # whitepowder -> lamunation!
-    # rask -> Re:Lief
-    # MOONSTONE, チュアブルソフト, studio-ege, 
-    # GLacé / Galette, プラリネ, ILLUSIONI, 
-
-    # akabei3 = [
-    #     https://www.youtube.com/channel/UC-nhyMMGNXQQsXrdtDx3mSg
-    # ]
-
-    # Frontwing = [
-    #     # https://www.youtube.com/channel/UCCaZwRx_HS61ZiNUrBdmDoA
-    # ]
-
-    # giga, PULLTOP, tyuaburu_soft, silkysplus, Lose, tone_works, SWEETTEA, palette_qualia, Campus, Key. QUINCE_SOFT
-    # Galette, Navel, CUBE, sumikko_soft, Escu_de
 
     return music, fav_music, sagyou_music
 

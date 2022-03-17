@@ -1,4 +1,12 @@
-# ファイルの分割テスト
+# 好みのADV (PC, 他 / 美少女ゲーム) 曲
+# 数が多いため、内部で異なるブランドの場合も同じブランドとする場合がある
+# 非公式の場合は、コメントを書くこと
+# オープニング等は、OPで省略
+#
+# 同会社でも別ブランドがある場合や、さらにそのサブブランドという位置付けのものもあるので難しい。姉妹ブランドやグループブランドなども。
+# ブランドの詳細は https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%80%E3%83%AB%E3%83%88%E3%82%B2%E3%83%BC%E3%83%A0%E3%83%A1%E3%83%BC%E3%82%AB%E3%83%BC%E4%B8%80%E8%A6%A7
+# 2021/3頃 更新
+
 {
     "ALcot":[
         # https://www.youtube.com/channel/UCeGV6IHoiLkI4wu0kAVUV6Q
@@ -80,6 +88,7 @@
         #
         # ----- CIRCUS | https://circus-co.jp/ -----
         #
+        {"title":"D.C.4 Sweet Harmony ～ダ・カーポ4～ スイートハーモニー OP", "url":"https://www.youtube.com/watch?v=cYv8qU0vbCg"},
         {"title":"D.C.4 Fortunate Departures OP", "url":"https://youtu.be/ZwKpvrCe-LQ"},
         {"title":"D.C.4 Plus Harmony ～ダ・カーポ4～ プラスハーモニー OP", "url":"https://www.youtube.com/watch?v=U3s89VJgA7k"},
         {"title":"D.C.4 ～ダ・カーポ4～ 中間ルートOP 恋するMODE", "url":"https://www.youtube.com/watch?v=8hY_DOLgR-k"},
@@ -143,6 +152,7 @@
         # {"title":"抜きゲーみたいな島に住んでる貧乳はどうすりゃいいですか？ 1stOP", "url":"https://www.youtube.com/watch?v=-5lP5j52eSY"}, # 年齢制限あり
         {"title":"抜きゲーみたいな島に住んでる貧乳はどうすりゃいいですか？ 2ndOP", "url":"https://www.youtube.com/watch?v=1MWD5CF36pU"},
         {"title":"抜きゲーみたいな島に住んでる貧乳はどうすりゃいいですか？ 2 OP", "url":"https://www.youtube.com/watch?v=0jYAKWdIJ7Q"},
+        {"title":"ヘンタイ・プリズン OP", "url":"https://www.youtube.com/watch?v=LODU8y6ZM48"},
     ],
     "AUGUST":[
         # https://www.youtube.com/channel/UCVj6bacaTQ6r6Dsv0frD_sA
@@ -390,7 +400,8 @@
         {"title":"蒼の彼方のフォーリズム 挿入歌 - INFINITE SKY", "url":"https://www.youtube.com/watch?v=-WO1UuEq3QY"},
         {"title":"蒼の彼方のフォーリズム High Resolution", "url":"https://www.youtube.com/watch?v=aDwOJb9p2lg"},
         {"title":"恋と選挙とチョコレート High Resolution", "url":"https://www.youtube.com/watch?v=e-rKk_uDOTU"},
-        {"title":"蒼の彼方のフォーリズム EXTRA2 主題歌", "url":"https://www.youtube.com/watch?v=nSVMrYAThHg"},
+        {"title":"蒼の彼方のフォーリズム EXTRA2 主題歌 one of a kind", "url":"https://www.youtube.com/watch?v=nSVMrYAThHg"},
+        {"title":"蒼の彼方のフォーリズム EXTRA2 OP", "url":"https://www.youtube.com/watch?v=XnxKFvEVI8E"},
 
         # 非公式
         {"title":"Believe in the Sky", "url":"https://www.youtube.com/watch?v=ykhIMEEEvCM"},
@@ -430,6 +441,7 @@
         {"title":"絆きらめく恋いろは-椿恋歌- OP", "url":"https://www.youtube.com/watch?v=1xwCFcC4Oi4"},
         {"title":"白刃きらめく恋しらべ", "url":"https://www.youtube.com/watch?v=m4NN_Xs4BUU"},
         {"title":"紅月ゆれる恋あかり", "url":"https://www.youtube.com/watch?v=5wYva2gAgF8"},
+        {"title":"RE:D Cherish! OP", "url":"https://www.youtube.com/watch?v=SGz-EnYjPEI"},
     ],
     "Nana Wind":[
         # https://www.youtube.com/user/nanawindchannel
@@ -572,6 +584,8 @@
         {"title":"竜姫ぐーたらいふ OP", "url":"https://www.youtube.com/watch?v=c4vWWKW3-j8"},
         {"title":"竜姫ぐーたらいふ２", "url":"https://www.youtube.com/watch?v=1TT4ZwCi0Sw"},
         {"title":"けもの道☆ガーリッシュスクエア OP", "url":"https://www.youtube.com/watch?v=elB5B5YsmK8"},
+        {"title":"アンレス・テルミナリア OP Gift ～the reason you are～", "url":"https://www.youtube.com/watch?v=o9GB4FS-hmw"},
+        {"title":"アンレス・テルミナリア ED1 祈り", "url":"https://www.youtube.com/watch?v=NY1B15GUT6Q"},
     ],
     "purple software":[
         # https://www.youtube.com/user/purplesoftware01
@@ -800,6 +814,7 @@
         {"title":"かりぐらし恋愛 OP", "url":"https://www.youtube.com/watch?v=CqcrT1rL-_c"},
         {"title":"恋愛、借りちゃいました OP", "url":"https://www.youtube.com/watch?v=lLJHa5mTPSI"},
         {"title":"恋愛×ロワイアル  OP", "url":"https://www.youtube.com/watch?v=rYUlY05gRII"},
+        {"title":"フタマタ恋愛 OP", "url":"https://www.youtube.com/watch?v=arCkpmIqAlg"},
 
         # 非公式
         {"title":"めいくるッ! Welcome to Happy Maid Life!! OP", "url":"https://www.youtube.com/watch?v=_3UfgkAsfZw"},
@@ -984,7 +999,6 @@
         {"title":"ISLAND OP", "url":"https://www.youtube.com/watch?v=n4QWGinK5S0"},
         {"title":"ISLAND ED", "url":"https://www.youtube.com/watch?v=6VfdaFq-INE"},
         {"title":"Purino Party PV", "url":"https://www.youtube.com/watch?v=xRoaL_pRcd8"},
-        {"title":"グリザイア：ファントムトリガー vol.7 OP", "url":"https://www.youtube.com/watch?v=gGqakHLrS90"},
         {"title":"ももいろクローゼット OP", "url":"https://www.youtube.com/watch?v=sHNWjafLMP8"},
         {"title":"ろけらぶ 同棲×後輩 OP", "url":"https://www.youtube.com/watch?v=ji8xiNNX-TI"},
         {"title":"ろけらぶ 電車×同級生 OP", "url":"https://www.youtube.com/watch?v=N_8n70EQ22s"},
@@ -996,6 +1010,10 @@
         {"title":"魔界天使ジブリール3 OP", "url":"https://www.youtube.com/watch?v=knjTg9-jn8E"},
         {"title":"戦国天使ジブリール OP", "url":"https://www.youtube.com/watch?v=ZyDj1M5gAXA"},
         {"title":"魔界天使ジブリ－ル episode2", "url":"https://www.youtube.com/watch?v=paBqrf4qXvs"},
+        {"title":"グリザイア：ファントムトリガー vol.1&2 OP", "url":"https://www.youtube.com/watch?v=8S6REu6xJyk"},
+        {"title":"グリザイア：ファントムトリガー vol.7 OP", "url":"https://www.youtube.com/watch?v=gGqakHLrS90"},
+        {"title":"グリザイア：ファントムトリガー vol.8 OP", "url":"https://www.youtube.com/watch?v=ZP8nTFEWeRw"},
+        {"title":"グリザイア：ファントムトリガー EDテーマ きみと僕の小さな願い", "url":"https://www.youtube.com/watch?v=-a-k7DjQRmY"},
 
         # 非公式
         {"title":"カナリア～この想いを歌に乗せて～", "url":"https://www.youtube.com/watch?v=qDse0L0L4ac"},
@@ -1102,6 +1120,7 @@
         {"title":"Making*Lovers OP", "url":"https://www.youtube.com/watch?v=4705SQQFR5U"},
         {"title":"Sugar*Style OP", "url":"https://www.youtube.com/watch?v=Tx-8WmSV2Ko"},
         {"title":"Sugar*Style", "url":"https://www.youtube.com/watch?v=4UKrkoRy5Hs"},
+        {"title":"１／１彼氏彼女 OP", "url":"https://www.youtube.com/watch?v=caiWGpXBgCE"},
 
         # 非公式
         {"title":"リリミエスタ OP", "url":"https://www.youtube.com/watch?v=tnc2eGTV92Q"},
@@ -1161,13 +1180,14 @@
         {"title":"星織ユメミライ Perfect Edition OP", "url":"https://www.youtube.com/watch?v=SRnQo9UVgrc"},
     ],
     "プレカノ":[
-        # (戯画) https://www.youtube.com/channel/UCJfWoSur-QkoSOZr1ULjBrA
+        # (戯画 giga) https://www.youtube.com/channel/UCJfWoSur-QkoSOZr1ULjBrA
         #
         # ----- プレカノ | http://prekano.com/top.html -----
         #
         {"title":"経験ゼロなクラスメイトπ", "url":"https://www.youtube.com/watch?v=nuN19zWCy4g"},
         {"title":"おにあま -わたしに甘えて、お兄ちゃん♡- OP", "url":"https://www.youtube.com/watch?v=zoii6AQYH-U"},
         {"title":"キスから始まるギャルの恋　～くるみのウワサとホントのキモチ～", "url":"https://www.youtube.com/watch?v=MfugKyy5xb0"},
+        {"title":"姫宮さんはかまいたい", "url":"https://www.youtube.com/watch?v=K4Ffm3T1euI"},
     ],
     "Aino+Links":[
         #
@@ -1183,6 +1203,9 @@
         #
         # CUFFS
         # CUFFS - CUBE
+        {"title":"神様のような君へ Extended Edition OP", "url":"https://www.youtube.com/watch?v=DsIOwn0KmPg"},
+        {"title":"神様のような君へ Extended Edition 新OP ハレルヤ！", "url":"https://www.youtube.com/watch?v=Z45zFxmmrpc"},
+
         # CUFFS - MintCUBE
         # CUFFS - Sonora
         {"title":"ウチはもう、延期できない。 OP", "url":"https://www.youtube.com/watch?v=vQ_dYZ9BO24"},
@@ -1226,5 +1249,78 @@
         {"title":"姫様ＬＯＶＥライフ！ -もーっと！イチャイチャ☆ぱらだいす！- OP", "url":"https://www.youtube.com/watch?v=DIfjDPo_nRM"},
         {"title":"姫と乙女のヤキモチＬＯＶＥ OP Jewelry Kiss", "url":"https://www.youtube.com/watch?v=boC6oIvVMJ0"},
         {"title":"姫と乙女のヤキモチＬＯＶＥ -きらめき夏物語！- OP", "url":"https://www.youtube.com/watch?v=F-6224Upv0s"},
-    ]
+    ],
+    "Navel":[
+        # https://www.youtube.com/channel/UC-fIJ_iz5Y4wyjbcle_dASA
+        #
+        # ----- Navel | https://project-navel.com/ -----
+        #
+        {"title":"空飛ぶ羊と真夏の花 -When girls wish upon a star.- OP", "url":"https://www.youtube.com/watch?v=RmlQac97eH4"},
+        {"title":"マジカル☆ディアーズ OP", "url":"https://www.youtube.com/watch?v=jXUdMw1SG-U"},
+        {"title":"世界征服彼女 OP", "url":"https://www.youtube.com/watch?v=yreO8kOAORw"},
+        {"title":"俺たちに翼はない OP", "url":"https://www.youtube.com/watch?v=fiii69vKmGE"},
+        {"title":"World Wide Love! 世界征服彼女ファンディスク OP", "url":"https://www.youtube.com/watch?v=nrPoxxd_lkw"},
+        {"title":"SHUFFLE! Love Rainbow PV", "url":"https://www.youtube.com/watch?v=iVQBjEyc1k8"},
+        {"title":"俺たちに翼はない AfterStory OP", "url":"https://www.youtube.com/watch?v=DGDOOvEujh0"},
+        {"title":"俺たちに翼はない ～Prelude～ OP", "url":"https://www.youtube.com/watch?v=asVK_s3femM"},
+        {"title":"SHUFFLE! Essence+ OP", "url":"https://www.youtube.com/watch?v=rlQKg6F8aiI"},
+        {"title":"Soul Link OP", "url":"https://www.youtube.com/watch?v=6pSk7coB83k"},
+        {"title":"Tick! Tack! OP", "url":"https://www.youtube.com/watch?v=uB7hYbU29-w"},
+        {"title":"SHUFFLE! OP", "url":"https://www.youtube.com/watch?v=RXzusX2F108"},
+        {"title":"Really? Really! OP", "url":"https://www.youtube.com/watch?v=FzJuwYSYCpg"},
+        {"title":"君と目覚める幾つかの方法 PV", "url":"https://www.youtube.com/watch?v=AGwBu036I7k"},
+        {"title":"SHUFFLE!エピソード2～神にも悪魔にも狙われている男～ OP", "url":"https://www.youtube.com/watch?v=cINKG3RpzZI"},
+        {"title":"SPIRAL!! OP", "url":"https://www.youtube.com/watch?v=5NmsqLj2kYM"},
+        # つり乙系
+        {"title":"月に寄りそう乙女の作法 OP", "url":"https://www.youtube.com/watch?v=lxY5yj7avuM"},
+        {"title":"乙女理論とその周辺-Ecole de Paris- OP", "url":"https://www.youtube.com/watch?v=TovSwrgGYUw"},
+        {"title":"月に寄りそう乙女の作法２ OP", "url":"https://www.youtube.com/watch?v=gejrdyb-8L8"},
+        {"title":"乙女理論とその後の周辺 -Belle Époque- OP", "url":"https://www.youtube.com/watch?v=borWl0cbU80"},
+        {"title":"月に寄りそう乙女の作法2.1 E×S×PAR!! エスト", "url":"https://www.youtube.com/watch?v=Bhlz1D-3VME"},
+        {"title":"月に寄りそう乙女の作法2.1 E×S×PAR!! パル子", "url":"https://www.youtube.com/watch?v=Jwfn60zV9WQ"},
+        {"title":"月に寄りそう乙女の作法2.2 A×L+SA!!(アルプラザ) OP", "url":"https://www.youtube.com/watch?v=Uaq5E-oNgj0"},
+    ],
+    "citrus":[
+        # (Navel) https://www.youtube.com/user/ProjectNavelsoft
+        #
+        # ----- citrus | https://citrus-soft.net/ -----
+        #
+        {"title":"黄昏のフォルクローレ OP", "url":"https://www.youtube.com/watch?v=qcsIEcSvdBA"},
+        {"title":"保健室のセンセーとシャボン玉中毒の助手 OP", "url":"https://www.youtube.com/watch?v=-qTpdsh7XRI"},
+        {"title":"保健室のセンセーとゴスロリの校医 OP", "url":"https://www.youtube.com/watch?v=mYGHGvj77rw"},
+    ],
+    "LIFE0":[
+        # https://www.youtube.com/channel/UCI7vHmItu7cLoL_dLkqWRUw
+        #
+        # ----- LIFE0 | https://life0.info/lostsmilelife0/lostsmile/index.html -----
+        # ----- セヴンデイズ | http://tom-games.com/life0/7days/ -----
+        #
+        {"title":"セヴンデイズ あなたとすごす七日間 OP 水想花", "url":"https://www.youtube.com/watch?v=N4FOHiKM8wU"},
+        {"title":"LOST:SMILE memories + promises OP White Promise", "url":"https://www.youtube.com/watch?v=0l7hVGnSWq4"},
+        {"title":"Dreamin' Her - 僕は、彼女の夢を見る。- OP おやすみモノクローム", "url":"https://www.youtube.com/watch?v=5B0m1OkUgzA"},
+    ],
 }
+
+# アリスソフト, みなとそふと, TYPE-MOON, 自宅すたじお, みなとカーニバルWorld
+# May-Be SOFT -> ぱいタッチ！ OP
+# aries soft -> タラレバ ED
+# Cabbit -> キミへ贈る、ソラの花 OP
+# lantis -> ましろ色シンフォニー
+# Navel -> 月乙
+# 絶対☆大好き https://www.youtube.com/watch?v=YA5EioW0oLQ
+# leaf フルアニ, ToHeart2
+# ケロＱ / 枕 -> サクラノ詩
+# WillPlus/PULLTOP.. 系列
+# chien, unicorn, Navel, 
+# whitepowder -> lamunation!
+# rask -> Re:Lief
+# MOONSTONE, チュアブルソフト, studio-ege, 
+# GLacé / Galette, プラリネ, ILLUSION, 
+
+# giga, PULLTOP, tyuaburu_soft, silkysplus, Lose, tone_works, 
+# SWEETTEA, palette_qualia, Campus, Key. QUINCE_SOFT, 
+# Galette, Navel, CUBE, sumikko_soft, Escu_de, 
+# Liar-soft, 裸足少女, わるきゅ～れ,
+
+# akabei3 https://www.youtube.com/channel/UC-nhyMMGNXQQsXrdtDx3mSg
+# fromtwing https://www.youtube.com/channel/UCCaZwRx_HS61ZiNUrBdmDoA
