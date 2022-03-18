@@ -37,7 +37,7 @@ AI:
   ai           a3rt AI TalkAPI
 
 Archive:
-  archive      Simple text arching (only this channel)
+  archive      Simple text archiving (only this channel)
   ms_cnt       message counter (count this channel) / This will take a long time
 
 B:
