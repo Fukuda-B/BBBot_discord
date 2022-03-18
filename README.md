@@ -3,146 +3,157 @@
 Discord Bot with multiple functions written in python.  
 Chat response, Calculation, Earthquake notification, Translation, ydl, TTS on voice channel..
 
----  
 # Usage  
-Add DiscordBot's [Token](https://discord.com/developers/applications), Channel to "my_key.py".  
-Run discordbot."version".py  
+Add DiscordBot's [Token](https://discord.com/developers/applications) to "my_key.py" (TOKEN).  
+Add Discord main channel id and bot logging channels id to "my_key.py" (LOG_C, MAIN_C) respectively.  
+Run discordbot.py  
 
-If you are using the "AI" class, add the [A3RT](https://a3rt.recruit-tech.co.jp/product/talkAPI/) key to "my_key.py".  
-If you want to use "Translate" class, set up main.gs in Google Apps Script and add url to "my_key.py".  
-
----  
+If you are using the "AI" class, add the [A3RT](https://a3rt.recruit-tech.co.jp/product/talkAPI/) key to "my_key.py" (A3RT_KEY).  
+If you want to use "Translate" class, set up main.gs in Google Apps Script and add url to "my_key.py" (GoogleTranslateAPP_URL).  
   
-# Command list
-BBBot v2.6.13 (prefix is "?")
+# Command
+BBBot v2.8.0b (prefix is "?")
 ```c
-?B hello            // -> Hello B!
-?add 1000 11        // -> 1011
-?asc_enc aBBBcdefg  // -> 97 66 66 66 99 100 101 102 103
+----- command examples
+
+?B hello            // --> Hello B!
+?add 1000 11        // --> 1011
+?asc_enc aBBBcdefg  // --> 97 66 66 66 99 100 101 102 103
+?timer 180          // --> 180s timer
+?pomodoro           // --> Default pomodoro (?pomodoro 4 25 5)
+?archive            // --> archive only 100 latest messages
+
+----- sub class command examples
+
+?v_music b_loop
+?img abya
+?img majiyaba
+?archive full
 ```
-**AI**
-| command | outline |
---- | ---
-| ai | a3rt AI TalkAPI  |
-  
- **B**
- | command | outline |
---- | ---
-| B greet | show version |
-| B sysinfo | show execution environment (CPU, MEM, OS..) |
-| B hello | Hello B! |
-| B block | show block B |
-| B typing | set typing state |
-| B hattori | ﾊｯﾄﾘｨ- |
-| BLOOP | send meny "B". (BLOOP number<=11) ex: `?BLOOP 5`|
-  
- **BrainFuck** based on [BrainF-ck.py](https://github.com/Fukuda-B/BrainF-ck_py)
- | command | outline |
---- | ---
-| bf | Exec BrainF\*ck |
-| bf_debug | Debug BrainF\*ck |
 
- **Calc**
-| command | outline |
---- | ---
-| add | Add number + number |
-| sub | Sub number - number |
-| div | Div number / number |
-| mul | Mul number * number |
-| calc | Calc number Eval |
-| ent | EntropyFunc H(p) |
-| rand | Random(int) 1~x |
-| randd | Random(float) 1.0~x |
-| self_info | Self-information I(p) |
+### Command Class
+```
+AI:
+  ai           a3rt AI TalkAPI
 
-**Encode**
-| command | outline |
---- | ---
-| asc_dec | ASCII Decode |
-| asc_enc | ASCII Encode |
+Archive:
+  archive      Simple text arching (only this channel)
+  ms_cnt       message counter (count this channel) / This will take a long time
 
-**Image**  
-| command | outline |
---- | ---
-| b_img | b_img url file_name |
-| img abya | abya picture |
-| img b_pic | B picture |
-| img melt | melt picture |
-| img party | party parrot GIF |
-| img presen | gaming presentation GIF |
-| img shiran | shiran kedo~ picture |
-| img majiyaba | maji yabakune |
-| img bohe | bohe~ |
-| img gyu | gyu GIF |
-| img ha | ha! GIF |
-| img hello | hello GIF|
-| img maken | maken GIF |
-| img onegai | onegai GIF |
-| img b_pet | Pet the B !! |
+B:
+  B            B (greet / sysinfo / hello / block / typing) -> ?help b
+  BLOOP        BLOOP number<=11
 
-**Translate**
-| command | outline |
---- | ---
-| trans | Translate  English -> Japanese |
-| transJ | Translate Japanese -> English |
+BrainFuck:
+  bf           Exec BrainF*ck
+  bf_debug     Debug BrainF*ck
 
-**VoiceChat**
-| command | outline |
---- | ---
-| v_bd | ALL D (Disconnect) |
-| v_boice | Voice TTS (Japanese) |
-| v_voice | Voice TTS (Japanese) (same as v_boice) |
-| v_boice_en | Voice TTS (English) |
-| v_voice_en | Voice TTS (English) (same as v_voice_en) |
-| v_connect | Voice Connect |
-| v_disconnect | Voice Disconnect |
-| v_d | Voice Disconnect (same as v_disconnect) |
-| v_list | voice channel member list |
-| v_mute | mute member's voice (b = all) |
-| v_unmute | unmute member's voice (b = all) |
-| | |
-| v_add "url" | add queue |
-| v_volume | volume ( 0.0 - 1.0 ) |
-| v_music b | recommended (random) |
-| v_music b_loop | recommended (random & loop) |
-| v_music b_loop "brand name" | select brand name (random & loop) |
-| v_music b_list | recommended brand name list |
-| v_music "url" | youtube player |
-| v_music skip | skip to next song |
-| v_music queue | show queue |
-| v_music queue_del | delete queue |
-| v_music play | playback |
-| v_music stop | stop playback |
-| v_music pause | pause music |
-| v_music resume | resume paused music |
-| v_music nightcore | nightcore effect toggle |
-| v_music bassboost | bassboost effect toggle |
+Calc:
+  add          Add number + number
+  calc         Calc number Eval
+  div          Div number / number
+  ent          EntropyFunc H(p)
+  fractor      Factorization
+  mul          Mul number * number
+  rand         Random(int) 1~x
+  randd        Random(float) 1.0~x
+  self_info    Self-information I(p)
+  sub          Sub number - number
 
-**ydl**
-| command | outline |
---- | ---
-| ydl | youtube-dl audio only [ org ] |
-| ydl_mp3 | youtube-dl audio only [ mp3 ] |
-| ydl_m4a | youtube-dl audio only [ m4a ] |
-| ydl_aac | youtube-dl audio only [ aac ] |
+Encode:
+  asc_dec      ASCII Decode
+  asc_enc      ASCII Encode
 
-**Timer**
-| command | outline |
---- | ---
-| timer | Timer (s)  🍜`?timer 180` |
-| pomodoro | set, work(min), break(min). Default: `?pomodoro 4 25 5` |
+Image:
+  b_img        b_img url file_name
+  img          send img. (melt/abya/shiran/party/...) -> ?help img
 
-**URL**
-| command | outline |
---- | ---
-| url_short | Generate Shorter URL |
-| url_expand | Restore the shortened URL |
-| url_enc | URL encode |
-| url_dec | URL decode |
+Timer:
+  pomodoro     pomodoro set, work(min), break(min)
+  timer        Timer (s)
 
-**Archive**
-| command | outline |
---- | ---
-| ms_cnt | message counter |
-| archive | Simple text arching |
-| archive full | fill arching |
+Translate:
+  trans        Translate  English -> Japanese
+  transJ       Translate Japanese -> English
+
+URL:
+  url_dec      URL decode
+  url_enc      URL encode
+  url_expand   Restore the shortened URL
+  url_short    Generate shorter url
+
+VoiceChat:
+  v_add        add queue
+  v_bd         Voice ALL D
+  v_boice      Voice TTS (Japanese)
+  v_boice_en   Voice TTS EN (English)
+  v_connect    Voice Connect
+  v_d          Voice Disconnect (same as ?v_disconnect)
+  v_disconnect Voice Disconnect
+  v_list       channel member list
+  v_music      play music. (b/b_loop/b_list/stop/skip/queue/queue_del/play) -> ?help v_music
+  v_mute       voice mute. (b = all)
+  v_unmute     voice unmute. (b = all)
+  v_voice      Voice TTS (Japanese) (same as ?v_boice)
+  v_voice_en   Voice TTS EN (English) (same as v_boice_en)
+  v_volume     change music volume
+
+Youtube:
+  ydl          youtube-dl audio only [ org ]
+  ydl_aac      youtube-dl audio only [ aac ]
+  ydl_m4a      youtube-dl audio only [ m4a ]
+  ydl_mp3      youtube-dl audio only [ mp3 ]
+
+No Category:
+  help         Shows this message
+
+-----
+Sub class
+
+VoiceChat.v_music:
+  b            One song from Mr. B's recommendation
+  b_list       b/b_loop brand list
+  b_loop       infinity random play!
+  bassboost 
+  del_queue    delete queue
+  nightcore 
+  pause        pause music
+  play         play queue
+  queue        show queue
+  resume       resume paused music
+  skip         skip current music
+  stop         stop music
+
+Image.img:
+  abya         abya picture
+  b_pet        Pet the B GIF
+  b_pic        B picture
+  bohe         bohe
+  gyu          gyu GIF
+  ha           ha! GIF
+  hello        hello GIF
+  majiyaba     maji yabakune
+  maken        maken GIF
+  melt         melt picture
+  onegai       onegai GIF
+  party        party parrot GIF
+  presen       gaming presentation GIF
+  shiran       shiran kedo~ picture
+  thx          thx GIF
+ 
+ Archive.archive:
+  full     Full archive of this channel. This will take a long time.
+ 
+ B.b:
+  block  
+  button       B button
+  greet   
+  hattori      htr 
+  hello   
+  many_b       1011 of B
+  more_b       11*1024 of B (11KB)
+  most_b       11*1024**2 of B (11MB)
+  ping    
+  sysinfo 
+  typing 
+ ```
