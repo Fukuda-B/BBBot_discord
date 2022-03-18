@@ -1367,7 +1367,7 @@ class Archive(commands.Cog):
 
     @commands.group(description="Simple text archiving")
     async def archive(self, ctx):
-        """Simple text arching (only this channel)"""
+        """Simple text archiving (only this channel)"""
         if ctx.invoked_subcommand is None:
             try:
                 pre_send = await Basic.send(self, ctx, "only 100 will be archived\nNow processing...")

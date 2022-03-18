@@ -75,8 +75,8 @@ class EqCheck(object):
             + "Update     : " + str(json_data['report_num']) + " / Final = " + str(json_data['is_final']) + "\n"\
             + "```"
 
-        print(scale_list[json_data['calcintensity']])
         # main
+        # print(scale_list[json_data['calcintensity']])
         if (json_data['calcintensity'] in scale_list): # 震度の変換ができるか
             if (scale_list[json_data['calcintensity']] >= self.EQ_NMIN): # 緊急地震速報(警報) の場合はメインチャンネルに通知
                 if (json_data['report_id'] not in self.res_log_main):
