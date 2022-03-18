@@ -1,98 +1,101 @@
-# 地震の通知用モジュール
+'''
+    eq_check/eq_check.py
+'''
 
-import aiohttp
-import urllib
 import asyncio
+import aiohttp
+import datetime
 
-P2PEQ_URI = 'https://api.p2pquake.net/v1/human-readable'
-# P2PEQ_URI = 'http://localhost:1011/p2p_ex/'
-P2PEQ_INT = 5 # GET interval (s)
-P2PEW_NMIN = 40 # Notification minimum earthquake scale
-P2PEW_NMIN_LOG = 20 # Notification minimum earthquake scale (logger)
-
-class EqCheck:
+class EqCheck(object):
     def __init__(self, bot, log_c, main_c):
+        self.EQ_URI = 'http://www.kmoni.bosai.go.jp/webservice/hypo/eew/'
+        # self.EQ_URI = 'http://localhost:3000/'
+        self.EQ_INT = 2 # request interval (s)
+        self.EQ_NMIN = 40 # Notification minimum earthquake scale
+
+        # $res_log structure
+        # {
+        #   'report_id': {
+        #       'discord_message_id':val,
+        #       'report_num':val
+        #   },
+        #   'report_id': {
+        #       ...
+        #   },
+        # }
+        self.res_log_main = {} # Earthake report id list
+        self.res_log_log = {}
+
+        # Discord
         self.bot = bot
-        self.log_c = log_c
-        self.main_c = main_c
+        self.lChannel = self.bot.get_channel(log_c) # logger discord channel
+        self.mChannel = self.bot.get_channel(main_c) # main discord channel
 
     async def p2peq_check(self):
-        # req = urllib.request.Request(P2PEQ_URI)
-        res_log = [] # Earthquake log
-        lChannel = self.bot.get_channel(self.log_c)
-        mChannel = self.bot.get_channel(self.main_c)
-
         while True:
-            # print('req')
+            t_delta = datetime.timedelta(hours=9)
+            jst = datetime.timezone(t_delta, 'JST')
+            dt = datetime.datetime.now(jst)
+            j_name = dt.strftime('%Y%m%d%H%M%S') + '.json'
+            # j_name = ''
             try:
                 async with aiohttp.ClientSession() as session:
-                    async with session.get(P2PEQ_URI) as res:
+                    async with session.get(self.EQ_URI+j_name) as res:
                         if res.status == 200:
                             res_json = await res.json()
-                            # res_json = json.loads(body.decode('utf-8'))
-                            for i in range(len(res_json)):
-                                # print(res_json[i]['code'])
-                                if int(res_json[i]['code']) == 551: # Earthquake Code
-                                    # await mChannel.send(json.dumps(res_json[i]))
-                                    # print(len(res_log))
-                                    try:
-                                        if len(res_log) <= 0: # 初回の処理
-                                            res_log  = res_json[i]
-                                        elif res_log != res_json[i] \
-                                        and type(res_json[i]['earthquake']['maxScale']) != type(None)\
-                                        and int(res_json[i]['earthquake']['maxScale']) >= P2PEW_NMIN \
-                                        and res_json[i]['earthquake']['domesticTsunami'] != "Checking" :
-                                            res_log  = res_json[i]
-                                            await mChannel.send(await EqCheck.castRes(self, res_json, i))
-                                            await lChannel.send(await EqCheck.castRes(self, res_json, i))
-                                            # await lChannel.send(res_json)
-                                        elif res_log != res_json[i] \
-                                        and type(res_json[i]['earthquake']['maxScale']) != type(None)\
-                                        and int(res_json[i]['earthquake']['maxScale']) >= P2PEW_NMIN_LOG:
-                                            await lChannel.send(await EqCheck.castRes(self,res_json, i))
-                                            res_log  = res_json[i]
-                                        break
-                                    except Exception as e:
-                                        print(e)
-                                        continue
+                            if res_json['result']['status'] == "success" and\
+                                'alertflg' in res_json and\
+                                len(res_json['report_id']) > 0 and\
+                                res_json['is_training'] == False:
+                                await self.report(res_json)
+            except Exception as e:
+                print(e)
+            await asyncio.sleep(self.EQ_INT)
 
-            except urllib.error.URLError as err:
-                print(err.reason)
-            await asyncio.sleep(P2PEQ_INT)
-
-    async def castScale(self, scale: int):
-        print(scale)
-        if scale <= 40 or scale == 70:
-            return str(int(scale/10))
-        elif scale%10 == 5:
-            return str(int(scale/10)+1)+"弱"
-        else:
-            return str(int(scale/10))+"強"
-
-    async def castTsunami(self, status: str):
-        if status == 'None':
-            return 'なし'
-        elif status == 'Unknown':
-            return '不明'
-        elif status == 'Checking':
-            return '調査中'
-        elif status == 'NonEffective':
-            return '若干の海面変動 (被害の心配なし)'
-        elif status == 'Watch':
-            return '津波注意報'
-        elif status == 'Warning':
-            return '津波警報 (種類不明)'
-        else:
-            return status
-
-    async def castRes(self, res_json, i: int):
-        return "```yaml\n"\
-            + "Earthquake : " + str(res_json[i]['time']) + "\n"\
-            + "Place      : " + str(res_json[i]['earthquake']['hypocenter']['name'])\
-            + " (" + str(res_json[i]['earthquake']['hypocenter']['latitude']) + " "\
-            + str(res_json[i]['earthquake']['hypocenter']['longitude']) + ")\n"\
-            + "Depth      : " + str(res_json[i]['earthquake']['hypocenter']['depth']) + "\n"\
-            + "MaxScale   : " + await EqCheck.castScale(self, res_json[i]['earthquake']['maxScale'])+"\n"\
-            + "Magnitude  : " + str(res_json[i]['earthquake']['hypocenter']['magnitude'])+"\n"\
-            + "Tsunami    : " + await EqCheck.castTsunami(self, res_json[i]['earthquake']['domesticTsunami'])+"\n"\
+    async def report(self, json_data):
+        scale_list = {
+            '0': 0,
+            '1': 10,
+            '2': 20,
+            '3': 30,
+            '4': 40,
+            '5弱': 45,
+            '5強': 50,
+            '6弱': 55,
+            '6強': 60,
+            '7': 70,
+        }
+        send_data = "```yaml\n"\
+            + "Earthquake : " + str(json_data['report_time']) + "\n"\
+            + "Place      : " + str(json_data['region_name'])\
+            + " (N" + str(json_data['latitude']) + " E" + str(json_data['longitude']) + ")\n"\
+            + "Depth      : " + str(json_data['depth']) + "\n"\
+            + "MaxScale   : " + str(json_data['calcintensity']) + "\n"\
+            + "Magnitude  : " + str(json_data['magunitude']) + "\n"\
+            + "Update     : " + str(json_data['report_num']) + " / Final = " + str(json_data['is_final']) + "\n"\
             + "```"
+
+        print(scale_list[json_data['calcintensity']])
+        # main
+        if (json_data['calcintensity'] in scale_list): # 震度の変換ができるか
+            if (scale_list[json_data['calcintensity']] >= self.EQ_NMIN): # 緊急地震速報(警報) の場合はメインチャンネルに通知
+                if (json_data['report_id'] not in self.res_log_main):
+                    res = await self.mChannel.send(send_data)
+                    self.res_log_main[json_data['report_id']] = {
+                        "discord_message_id": res,
+                        "report_num": json_data['report_num'],
+                    }
+                elif json_data['report_num'] != self.res_log_main[json_data['report_id']]['report_num']:
+                        res = self.res_log_main[json_data['report_id']]['discord_message_id']
+                        await res.edit(send_data)
+
+        # logger
+        if (json_data['report_id'] not in self.res_log_log):
+            res = await self.lChannel.send(send_data) # 緊急地震速報(予報) の場合はログチャンネルに通知
+            self.res_log_log[json_data['report_id']] = {
+                "discord_message_id": res,
+                "report_num": json_data['report_num'],
+            }
+        elif json_data['report_num'] != self.res_log_log[json_data['report_id']]['report_num']:
+                res = self.res_log_log[json_data['report_id']]['discord_message_id']
+                await res.edit(send_data)
