@@ -88,6 +88,7 @@ class EqCheck(object):
                 elif json_data['report_num'] != self.res_log_main[json_data['report_id']]['report_num']:
                         res = self.res_log_main[json_data['report_id']]['discord_message_id']
                         await res.edit(send_data)
+                        self.res_log_main[json_data['report_id']]['report_num'] = json_data['report_num']
 
         # logger
         if (json_data['report_id'] not in self.res_log_log):
@@ -99,3 +100,4 @@ class EqCheck(object):
         elif json_data['report_num'] != self.res_log_log[json_data['report_id']]['report_num']:
                 res = self.res_log_log[json_data['report_id']]['discord_message_id']
                 await res.edit(send_data)
+                self.res_log_log[json_data['report_id']]['report_num'] = json_data['report_num']
