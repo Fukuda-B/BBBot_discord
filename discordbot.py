@@ -42,9 +42,9 @@ import discord
 from discord.ext import commands
 from discord_slash import SlashCommand
 from discord_slash import cog_ext, SlashContext
+from discord_components import Button, ButtonStyle, Select, SelectOption, ComponentsBot
 import urllib.request
 import urllib.parse
-# from niconico_dl_async import NicoNico
 import ffmpeg
 # ---- my module ----
 from modules import my_key # get my api keys
@@ -57,7 +57,7 @@ from modules import htr_dead
 from modules import eq_check
 from modules import up_server
 
-VERSION='v2.7.2'
+VERSION='v2.8.1b'
 
 _TOKEN, _A3RT_URI, _A3RT_KEY, _GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, _UP_SERVER,\
@@ -70,6 +70,7 @@ HTRD_LIST = htr_dead.dead_hattori()
 
 
 description = 'BさんのBBBot ('+VERSION+')'
+bot = ComponentsBot('?') # オーバーライド前(discord_components)
 bot = commands.Bot(
     command_prefix='?', # コマンドの最初の文字
     description=description,
@@ -299,7 +300,7 @@ class B(commands.Cog):
             await Basic.send(self, ctx, HTRD_LIST[random.randrange(len(HTRD_LIST))])
         else:
             await Basic.send(self, ctx, HTR_LIST[random.randrange(len(HTR_LIST))])
-            
+
     # @B.command()
     # async def morning_call(self, ctx):
     #     """強制モーニングコールが行われる"""
@@ -309,6 +310,22 @@ class B(commands.Cog):
     #     await user.move_to(vChannel)
     #     await vChannel.connect()
     #     VoiceChat.v_music(self, ctx, M_CALL)
+
+    @B.command()
+    async def button(self, ctx):
+        """B button"""
+        b_list = ['God', 'Bot', 'Cat']
+        await ctx.send(
+            "B is",
+            components=[
+                Button(label="God", custom_id="god", style=ButtonStyle.blue),
+                Button(label="Bot", custom_id="bot", style=ButtonStyle.green),
+                Button(label="Cat", custom_id="cat", style=ButtonStyle.red)
+                ])
+        interaction = await bot.wait_for(
+            "button_click", check=lambda inter: inter.custom_id == "god"
+        )
+        await interaction.send(content="B is GOD")
 
 
 #---------------------------------------------------------- 画像系
@@ -523,51 +540,44 @@ class Youtube(commands.Cog):
 
     async def ydl_proc(self, ctx, url:str, ytdl_opts):
         """" download video & return title + filename """
-        if 'nico' in urllib.parse.urlparse(url).netloc: # niconico
-            e = 'Currently, Nico Nico Douga is not supported.'
-            await Basic.send(self, ctx, e)
-            await bot.get_channel(LOG_C).send(str(e))
-            return False
-            # return await Youtube.ndl_proc(self, ctx, url)
-        else: # youtube
-            async with ctx.typing():
-                try:
-                    # 事前に情報取得
-                    with youtube_dl.YoutubeDL(ytdl_opts) as ydl:
-                        pre_info = ydl.extract_info(url, download=False)
-                    if 'entries' in pre_info:
-                        # playlist (multiple video)
-                        video = pre_info['entries']
-                        res = []
-                        for i, item in enumerate(video):
-                            with youtube_dl.YoutubeDL(ytdl_opts) as ydl:
-                                info = ydl.extract_info(pre_info['entries'][i]['webpage_url'], download=True)
-                                filename = ydl.prepare_filename(info)
-                                title = info['title']
-                                if 'postprocessors' in ytdl_opts:
-                                    filename = str(pathlib.Path(filename).with_suffix('.'+ytdl_opts['postprocessors'][0]['preferredcodec']))
-                                res.append({'title':title, 'filename':filename})
-                        return res
-                    else:
-                        # single video
+        async with ctx.typing():
+            try:
+                # 事前に情報取得
+                with youtube_dl.YoutubeDL(ytdl_opts) as ydl:
+                    pre_info = ydl.extract_info(url, download=False)
+                if 'entries' in pre_info:
+                    # playlist (multiple video)
+                    video = pre_info['entries']
+                    res = []
+                    for i, item in enumerate(video):
                         with youtube_dl.YoutubeDL(ytdl_opts) as ydl:
-                            info = pre_info
-                            # info = ydl.extract_info(url, download=True)
-                            title = info['title']
+                            info = ydl.extract_info(pre_info['entries'][i]['webpage_url'], download=True)
                             filename = ydl.prepare_filename(info)
-
-                            dl_thread = threading.Thread(target = ydl.extract_info, args=(url,))
-                            dl_thread.setDaemon(True)
-                            dl_thread.start()
-                            dl_thread.join()
-
+                            title = info['title']
                             if 'postprocessors' in ytdl_opts:
                                 filename = str(pathlib.Path(filename).with_suffix('.'+ytdl_opts['postprocessors'][0]['preferredcodec']))
-                            return [{'title':title, 'filename':filename}]
-                except Exception as e:
-                    await Basic.send(self, ctx, 'Error: Youtube.ydl_proc')
-                    await bot.get_channel(LOG_C).send(str(e))
-                    return False
+                            res.append({'title':title, 'filename':filename})
+                    return res
+                else:
+                    # single video
+                    with youtube_dl.YoutubeDL(ytdl_opts) as ydl:
+                        info = pre_info
+                        # info = ydl.extract_info(url, download=True)
+                        title = info['title']
+                        filename = ydl.prepare_filename(info)
+
+                        dl_thread = threading.Thread(target = ydl.extract_info, args=(url,))
+                        dl_thread.setDaemon(True)
+                        dl_thread.start()
+                        dl_thread.join()
+
+                        if 'postprocessors' in ytdl_opts:
+                            filename = str(pathlib.Path(filename).with_suffix('.'+ytdl_opts['postprocessors'][0]['preferredcodec']))
+                        return [{'title':title, 'filename':filename}]
+            except Exception as e:
+                await Basic.send(self, ctx, 'Error: Youtube.ydl_proc')
+                await bot.get_channel(LOG_C).send(str(e))
+                return False
 
     def ydl_pre(self, url:str, ytdl_opts):
         """ pre yt download """
@@ -578,20 +588,6 @@ class Youtube(commands.Cog):
         except Exception as e:
             print(e)
             return
-
-    # niconico download
-    async def ndl_proc(self, ctx, url:str):
-        try:
-            nico_path = pathlib.Path(str(url)).name
-            nico = NicoNico(nico_path)
-            nico_data = await nico.get_info()
-            title = nico_data["video"]["title"] + '.mp4'
-            await nico.download(title) # download & save
-            nico.close()
-            return await Youtube.ffmpeg(self, title, 'm4a')
-        except Exception as e:
-            await bot.get_channel(LOG_C).send(str(e))
-            return False
 
     # convert (need install ffmpeg) fmt = m4a, mp3, ...
     async def ffmpeg(self, filename:str, fmt):
@@ -727,15 +723,18 @@ class VoiceChat(commands.Cog):
                 self.now = None
 
             await ctx.message.delete()
-            pre_send = await Basic.send(self, ctx, "Now processing...")
+            pre_send = await Basic.send(self, ctx, "Starting the process...")
             plist = await Youtube.ydl_getc(self, ctx, tx, self.ytdl_opts)
             if plist:
                 self.queue.extend(plist)
             if self.now == None and len(self.queue):
                 if len(self.queue) > 1: # 複数曲の場合 (曲の表示等あり)
                     await Basic.edit(self, pre_send, str(len(plist))+" songs added ("+str(len(self.queue))+" songs in the queue)")
+                else: await Basic.delete(self, pre_send)
                 await VoiceChat.play(self, ctx)
-            else: return False
+            else:
+                await Basic.edit(self, pre_send, 'ydl_getc error')
+                return False
 
     @v_music.command(description='skip')
     async def skip(self, ctx):
@@ -779,7 +778,7 @@ class VoiceChat(commands.Cog):
         if self.now != None and self.now.is_paused():
             self.now.resume()
         else:
-            await Basic.send(self, ctx, 'The son has not been paused')
+            await Basic.send(self, ctx, 'The song has not been paused')
 
     @v_music.command(description='random play!')
     async def b(self, ctx):
@@ -1297,7 +1296,7 @@ class Slash(commands.Cog):
 
     @cog_ext.cog_slash(name="v_connect")
     async def v_connect(self, ctx:SlashContext):
-        """connect voice chat"""
+        """connect to voice chat"""
         await VoiceChat.v_connect(self, ctx)
         await Basic.send_hidden(self, ctx, 'connected')
 
@@ -1323,6 +1322,7 @@ class Slash(commands.Cog):
 
     @cog_ext.cog_slash(name="v_music")
     async def v_music(self, ctx:SlashContext):
+        # print(vars(ctx))
         await VoiceChat.v_music(self, ctx)
         await Basic.send_hidden(self, ctx, 'v_music')
 
