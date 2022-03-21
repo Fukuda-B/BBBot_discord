@@ -4,12 +4,12 @@ Discord Bot with multiple functions written in python.
 Chat response, Calculation, Earthquake notification, Translation, ydl, TTS on voice channel..
 
 # Usage  
-Add DiscordBot's [Token](https://discord.com/developers/applications) to "my_key.py" (TOKEN).  
-Add Discord main channel id and bot logging channels id to "my_key.py" (LOG_C, MAIN_C) respectively.  
+Add DiscordBot's [Token](https://discord.com/developers/applications) to [my_key.py](./modules/my_key.py) (TOKEN).  
+Add Discord main channel id and bot logging channels id to [my_key.py](./modules/my_key.py) (LOG_C, MAIN_C) respectively.  
 Run discordbot.py  
 
-If you are using the "AI" class, add the [A3RT](https://a3rt.recruit-tech.co.jp/product/talkAPI/) key to "my_key.py" (A3RT_KEY).  
-If you want to use "Translate" class, set up main.gs in Google Apps Script and add url to "my_key.py" (GoogleTranslateAPP_URL).  
+If you are using the "AI" class, add the [A3RT](https://a3rt.recruit-tech.co.jp/product/talkAPI/) key to [my_key.py](./modules/my_key.py) (A3RT_KEY).  
+If you want to use "Translate" class, set up main.gs in Google Apps Script and add url to [my_key.py](./modules/my_key.py) (GoogleTranslateAPP_URL).  
   
 # Command
 BBBot v2.8.0b (prefix is "?")
