@@ -29,7 +29,9 @@ import zipfile
 import datetime
 import secrets
 # ----- extend module -----
-import aiohttp #画像転送系
+import aiohttp
+from click import style
+from numpy import delete #画像転送系
 from pyshorteners import Shortener
 from gtts import gTTS
 import asyncio
@@ -42,7 +44,8 @@ import discord
 from discord.ext import commands
 from discord_slash import SlashCommand
 from discord_slash import cog_ext, SlashContext
-from discord_components import Button, ButtonStyle, Select, SelectOption, ComponentsBot
+from discord_slash.model import ButtonStyle
+from discord_slash.utils.manage_components import create_button, create_actionrow, wait_for_component
 import urllib.request
 import urllib.parse
 import ffmpeg
@@ -57,7 +60,7 @@ from modules import htr_dead
 from modules import eq_check
 from modules import up_server
 
-VERSION='v2.8.1b'
+VERSION='v2.8.2'
 
 _TOKEN, _A3RT_URI, _A3RT_KEY, _GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, _UP_SERVER,\
@@ -70,7 +73,6 @@ HTRD_LIST = htr_dead.dead_hattori()
 
 
 description = 'BさんのBBBot ('+VERSION+')'
-bot = ComponentsBot('?') # オーバーライド前(discord_components)
 bot = commands.Bot(
     command_prefix='?', # コマンドの最初の文字
     description=description,
@@ -108,7 +110,14 @@ async def on_ready():
 async def on_message(message):
     if message.content.startswith('?'):
         lChannel = bot.get_channel(LOG_C)
-        await lChannel.send("```\n@"+str(message.author.name)+"\n"+str(message.author.id)+"\n"+str(message.content)+" ```")
+        await lChannel.send("```"\
+            +"\nGuild  : "+str(message.guild.id)\
+            +"\nChannel: "+str(message.channel.id)\
+            +"\nAuthor : "+str(message.author.name)+"#"\
+            +str(message.author.discriminator)\
+            +" (ID: "+str(message.author.id)+")"\
+            +"\n"+str(message.content)+"```")
+        # await lChannel.send("```\n@"+str(message.author.name)+"\n"+str(message.author.id)+"\n"+str(message.content)+" ```")
         if message.author.bot: return # ボットだったら何もしない
         await bot.process_commands(message)
 
@@ -116,7 +125,6 @@ async def on_message(message):
 class Calc(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self._last_member = None
 
     @commands.command(description='計算 Eval')
     # Evalなので攻撃しないでください。
@@ -220,7 +228,6 @@ class Calc(commands.Cog):
 class B(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self._last_member = None
 
     @commands.command(description='Bを連続送信します')
     async def BLOOP(self, ctx, times: int):
@@ -314,106 +321,184 @@ class B(commands.Cog):
     @B.command()
     async def button(self, ctx):
         """B button"""
-        b_list = ['God', 'Bot', 'Cat']
-        await ctx.send(
+        buttons = [
+                create_button(label="God", custom_id="God", style=ButtonStyle.blue),
+                create_button(label="Bot", custom_id="Bot", style=ButtonStyle.green),
+                create_button(label="Cat", custom_id="Cat", style=ButtonStyle.red)
+        ]
+        action_row = create_actionrow(*buttons)
+        res = await ctx.send(
             "B is",
-            components=[
-                Button(label="God", custom_id="god", style=ButtonStyle.blue),
-                Button(label="Bot", custom_id="bot", style=ButtonStyle.green),
-                Button(label="Cat", custom_id="cat", style=ButtonStyle.red)
-                ])
-        interaction = await bot.wait_for(
-            "button_click", check=lambda inter: inter.custom_id == "god"
+            components=[action_row]
         )
-        await interaction.send(content="B is GOD")
-
+        interaction = await wait_for_component(
+            bot, components=[action_row]
+        )
+        # await interaction.edit_origin(content=interaction.component_id)
+        await res.delete()
+        await Basic.send(self, ctx, f"B is {interaction.component_id}")
 
 #---------------------------------------------------------- 画像系
 class Image(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self._last_member = None
+        self.img_link = {
+            # '':{'url':'', 'name':''},
+            'melt': {'url':'https://dic.nicovideo.jp/oekaki/674964.png', 'name':'melt.png'},
+            'abya': {'url':'https://livedoor.blogimg.jp/mn726/imgs/0/3/03812153.jpg', 'name':'abya.jpg'},
+            'shiran': {'url':'https://pbs.twimg.com/media/DoGwbj0UwAALenI.jpg', 'name':'shiran.jpg'},
+            'party':{'url':'https://cdn.discordapp.com/attachments/705099416083890281/766528750456012841/parrot.gif', 'name':'party_parrot.gif'},
+            'b_pic':{'url':'https://cdn.discordapp.com/attachments/705099416083890281/766668684188975114/letter-b-clipart-158558-5546542.jpg', 'name':'b.jpg'},
+            'presen':{'url':'https://cdn.discordapp.com/attachments/733937061199085610/768300192818135040/GPW.gif', 'name':'gaming_presentation.gif'},
+            'majiyaba':{'url':'https://pbs.twimg.com/media/C34X4w0UcAEyKW-.jpg', 'name':'majiyaba.jpg'},
+            'bohe':{'url':'https://maidragon.jp/news/wordpress/wp-content/uploads/2021/07/806b36e95d491beec2aaaec7af98ad28-2.gif', 'name':'bohe.gif'},
+            'gyu':{'url':'https://maidragon.jp/news/wordpress/wp-content/uploads/2021/07/58b9f8279c61a217bc7770446a6d542f.gif', 'name':'gyu.gif'},
+            'ha':{'url':'https://maidragon.jp/news/wordpress/wp-content/uploads/2021/07/13a658840a8373deb4355975b3e56e0b.gif', 'name':'ha.gif'},
+            'hello':{'url':'https://maidragon.jp/news/wordpress/wp-content/uploads/2021/07/3f5592cb37efa6b1a0e1f5ac2cc86e26.gif', 'name':'hello.gif'},
+            'maken':{'url':'https://maidragon.jp/news/wordpress/wp-content/uploads/2021/07/a5f64bc592c42aecea1e8fb29eac3642-2.gif', 'name':'maken.gif'},
+            'onegai':{'url':'https://maidragon.jp/news/wordpress/wp-content/uploads/2021/07/a533a6932106c9f63ae9ee4ea3a478a5.gif', 'name':'onegai.gif'},
+            'b_pet':{'url':'https://cdn.discordapp.com/attachments/705099416083890281/880373964088692736/Pet_the_B.gif', 'name':'Pet_the_B.gif'},
+            'thx':{'url':'https://cdn.discordapp.com/attachments/880371118148558848/880701571917307914/meidora2.gif', 'name':'thx.gif'},
+        }
 
     @commands.group(description='send img')
     async def img(self, ctx):
         """send img. melt/abya/shiran/party/... -> ?help img"""
         if ctx.invoked_subcommand is None:
-            await Basic.send(self, ctx, 'img help: `?help img`')
+            # await Basic.send(self, ctx, 'img help: `?help img`')
+            buttons = []
+            actions = [] # action rows
+            for i, name in enumerate(self.img_link.keys()):
+                buttons.append(create_button(
+                    label=name,
+                    custom_id=name,
+                    style=ButtonStyle.blue
+                    ))
+                if (i%5==4):
+                    action_row = create_actionrow(*buttons)
+                    actions.append(action_row)
+                    buttons = []
+            if len(buttons):
+                action_row = create_actionrow(*buttons)
+                actions.append(action_row)
+
+            res = await ctx.send(
+                "img select",
+                components=actions,
+            )
+            interaction = await wait_for_component(
+                bot, components=actions,
+            )
+            await res.delete()
+            await Image.get_pic(
+                self, ctx, self.img_link[interaction.component_id]['url'],
+                self.img_link[interaction.component_id]['name']
+            )
 
     @img.command(description='melt picture')
     async def melt(self, ctx):
         """melt picture"""
-        await Image.get_pic(self, ctx, 'https://dic.nicovideo.jp/oekaki/674964.png', 'melt.png')
+        await Image.get_pic(
+            self, ctx, self.img_link['melt']['url'],
+            self.img_link['melt']['name'])
 
     @img.command(description='abya picture')
     async def abya(self, ctx):
         """abya picture"""
-        await Image.get_pic(self, ctx, 'https://livedoor.blogimg.jp/mn726/imgs/0/3/03812153.jpg', 'abya.png')
+        await Image.get_pic(
+            self, ctx, self.img_link['abya']['url'],
+            self.img_link['abya']['name'])
 
     @img.command(description='shiran kedo~ picture')
     async def shiran(self, ctx):
         """shiran kedo~ picture"""
-        await Image.get_pic(self, ctx, 'https://pbs.twimg.com/media/DoGwbj0UwAALenI.jpg', 'shiran.jpg')
+        await Image.get_pic(
+            self, ctx, self.img_link['shiran']['url'],
+            self.img_link['shiran']['name'])
 
     @img.command(description='party parrot GIF')
     async def party(self, ctx):
         """party parrot GIF"""
-        await Image.get_pic(self, ctx, 'https://cdn.discordapp.com/attachments/705099416083890281/766528750456012841/parrot.gif', 'party_parrot.gif')
+        await Image.get_pic(
+            self, ctx, self.img_link['party']['url'],
+            self.img_link['party']['name'])
 
     @img.command(description='B picture')
     async def b_pic(self, ctx):
         """B picture"""
-        await Image.get_pic(self, ctx, 'https://cdn.discordapp.com/attachments/705099416083890281/766668684188975114/letter-b-clipart-158558-5546542.jpg', 'b_picture.jpg')
+        await Image.get_pic(
+            self, ctx, self.img_link['b_pic']['url'],
+            self.img_link['b_pic']['name'])
 
     @img.command(description='gaming presentation GIF')
     async def presen(self, ctx):
         """gaming presentation GIF"""
-        await Image.get_pic(self, ctx, 'https://cdn.discordapp.com/attachments/733937061199085610/768300192818135040/GPW.gif', 'gaming_presentation.gif')
+        await Image.get_pic(
+            self, ctx, self.img_link['b_pic']['url'],
+            self.img_link['b_pic']['name'])
 
     @img.command(description='maji yabakune')
     async def majiyaba(self, ctx):
         """maji yabakune"""
-        await Image.get_pic(self, ctx, 'https://pbs.twimg.com/media/C34X4w0UcAEyKW-.jpg', 'majiyaba.jpg')
+        await Image.get_pic(
+            self, ctx, self.img_link['majiyaba']['url'],
+            self.img_link['majiyaba']['name'])
 
     @img.command(description='bohe')
     async def bohe(self, ctx):
         """bohe"""
-        await Image.get_pic(self, ctx, 'https://maidragon.jp/news/wordpress/wp-content/uploads/2021/07/806b36e95d491beec2aaaec7af98ad28-2.gif', 'bohe.gif')
+        await Image.get_pic(
+            self, ctx, self.img_link['bohe']['url'],
+            self.img_link['bohe']['name'])
 
     @img.command(description='gyu')
     async def gyu(self, ctx):
         """gyu GIF"""
-        await Image.get_pic(self, ctx, 'https://maidragon.jp/news/wordpress/wp-content/uploads/2021/07/58b9f8279c61a217bc7770446a6d542f.gif', 'gyu.gif')
+        await Image.get_pic(
+            self, ctx, self.img_link['gyu']['url'],
+            self.img_link['gyu']['name'])
 
     @img.command(description='ha!')
     async def ha(self, ctx):
         """ha! GIF"""
-        await Image.get_pic(self, ctx, 'https://maidragon.jp/news/wordpress/wp-content/uploads/2021/07/13a658840a8373deb4355975b3e56e0b.gif', 'ha!.gif')
+        await Image.get_pic(
+            self, ctx, self.img_link['ha']['url'],
+            self.img_link['ha']['name'])
 
     @img.command(description='hello')
     async def hello(self, ctx):
         """hello GIF"""
-        await Image.get_pic(self, ctx, 'https://maidragon.jp/news/wordpress/wp-content/uploads/2021/07/3f5592cb37efa6b1a0e1f5ac2cc86e26.gif', 'hello.gif')
+        await Image.get_pic(
+            self, ctx, self.img_link['hello']['url'],
+            self.img_link['hello']['name'])
 
     @img.command(description='maken')
     async def maken(self, ctx):
         """maken GIF"""
-        await Image.get_pic(self, ctx, 'https://maidragon.jp/news/wordpress/wp-content/uploads/2021/07/a5f64bc592c42aecea1e8fb29eac3642-2.gif', 'maken.gif')
+        await Image.get_pic(
+            self, ctx, self.img_link['maken']['url'],
+            self.img_link['maken']['name'])
 
     @img.command(description='onegai')
     async def onegai(self, ctx):
         """onegai GIF"""
-        await Image.get_pic(self, ctx, 'https://maidragon.jp/news/wordpress/wp-content/uploads/2021/07/a533a6932106c9f63ae9ee4ea3a478a5.gif', 'onegai.gif')
+        await Image.get_pic(
+            self, ctx, self.img_link['onegai']['url'],
+            self.img_link['onegai']['name'])
 
     @img.command(description='Pet the B')
     async def b_pet(self, ctx):
         """Pet the B GIF"""
-        await Image.get_pic(self, ctx, 'https://cdn.discordapp.com/attachments/705099416083890281/880373964088692736/Pet_the_B.gif', 'Pet_the_B.gif')
+        await Image.get_pic(
+            self, ctx, self.img_link['b_pet']['url'],
+            self.img_link['b_pet']['name'])
 
     @img.command(description='thx')
     async def thx(self, ctx):
         """thx GIF"""
-        await Image.get_pic(self, ctx, 'https://cdn.discordapp.com/attachments/880371118148558848/880701571917307914/meidora2.gif', 'thx.gif')
+        await Image.get_pic(
+            self, ctx, self.img_link['thx']['url'],
+            self.img_link['thx']['name'])
 
     @commands.command(description='send photo')
     async def b_img(self, ctx, url: str, file_name: str):
@@ -433,7 +518,6 @@ class Image(commands.Cog):
 class AI(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self._last_member = None
 
     @commands.command(description='a3rt AI TalkAPI')
     async def ai(self, ctx, talk: str):
@@ -466,7 +550,6 @@ class Youtube(commands.Cog):
     # ytdl = youtube_dl.YoutubeDL(ytdl_opts)
     def __init__(self, bot):
         self.bot = bot
-        self._last_member = None
 
     @commands.command(description='youtube-dl audio only')
     async def ydl(self, ctx, url: str):
@@ -617,7 +700,6 @@ class Youtube(commands.Cog):
 class VoiceChat(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self._last_member = None
         self.now = None # now playing
         self.volume = 1.0 # music volume
         # self.voice_volume = 1.0 # voice volume
@@ -1132,7 +1214,6 @@ class VoiceChat(commands.Cog):
 class Encode(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self._last_member = None
 
     @commands.command(description='ASCII Encode')
     async def asc_enc(self, ctx, *text:str):
@@ -1155,7 +1236,6 @@ class Encode(commands.Cog):
 class Translate(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self._last_member = None
 
     @commands.command(description='Translate en -> ja')
     async def trans(self, ctx, *text):
@@ -1180,7 +1260,6 @@ class Translate(commands.Cog):
 class Timer(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self._last_member = None
 
     @commands.command(description='Timer (s)')
     async def timer(self, ctx, time_set:float):
@@ -1228,7 +1307,6 @@ class Timer(commands.Cog):
 class BrainFuck(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self._last_member = None
 
     @commands.command(description='Exec BrainF*ck')
     async def bf(self, ctx, *tx:str):
@@ -1249,7 +1327,6 @@ class BrainFuck(commands.Cog):
 class URL(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self._last_member = None
 
     @commands.command(description='Generate Shorter URL')
     async def url_short(self, ctx, tx:str):
@@ -1278,57 +1355,97 @@ class Slash(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    async def logger(self, ctx):
+        lChannel = self.bot.get_channel(LOG_C)
+        await lChannel.send("```"\
+            +"\nGuild  : "+str(ctx.guild_id)
+            +"\nChannel: "+str(ctx.channel_id)\
+            +"\nAuthor : "+str(ctx.author.name)+"#"\
+            +str(ctx.author.discriminator)+" (ID: "+str(ctx.author.id)+")"\
+            +"\n/"+str(ctx.command)+" "+str(' '.join(ctx.args))+"```")
+
     @cog_ext.cog_slash(name="ping")
     async def ping(self, ctx:SlashContext):
+        """ping test"""
         await Basic.send(self, ctx, f"{bot.latency*1000}ms")
+        await self.logger(ctx)
 
     @cog_ext.cog_slash(name="hattori")
     async def hattori(self, ctx:SlashContext):
+        """hello, htr!"""
         await B.hattori(self, ctx)
+        await self.logger(ctx)
 
     @cog_ext.cog_slash(name="ydl")
     async def ydl(self, ctx:SlashContext, url:str):
         await Youtube.ydl(self, ctx, url)
+        await self.logger(ctx)
 
     @cog_ext.cog_slash(name="ydl_m4a")
     async def ydl_m4a(self, ctx:SlashContext, url:str):
         await Youtube.ydl_m4a(self, ctx, url)
+        await self.logger(ctx)
 
     @cog_ext.cog_slash(name="v_connect")
     async def v_connect(self, ctx:SlashContext):
         """connect to voice chat"""
         await VoiceChat.v_connect(self, ctx)
         await Basic.send_hidden(self, ctx, 'connected')
+        await self.logger(ctx)
 
     @cog_ext.cog_slash(name="v_disconnect")
     async def v_disconnect(self, ctx:SlashContext):
+        """disconnect from voice chat"""
         await VoiceChat.v_disconnect(self, ctx)
         await Basic.send_hidden(self, ctx, 'disconnected')
+        await self.logger(ctx)
 
     @cog_ext.cog_slash(name="v_voice")
     async def v_voice(self, ctx:SlashContext, tx:str):
         await VoiceChat.v_boice(self, ctx, tx)
         await Basic.send_hidden(self, ctx, 'b')
+        await self.logger(ctx)
 
     @cog_ext.cog_slash(name="v_voice_en")
     async def v_voice_en(self, ctx:SlashContext, tx:str):
         await VoiceChat.v_boice_en(self, ctx, tx)
         await Basic.send_hidden(self, ctx, 'b')
+        await self.logger(ctx)
 
     @cog_ext.cog_slash(name="v_bd")
     async def v_bd(self, ctx:SlashContext):
         await VoiceChat.v_bd(self, ctx)
         await Basic.send_hidden(self, ctx, 'v_bd')
+        await self.logger(ctx)
 
     @cog_ext.cog_slash(name="v_music")
     async def v_music(self, ctx:SlashContext):
         # print(vars(ctx))
-        await VoiceChat.v_music(self, ctx)
+        vc_c = VoiceChat(self.bot)
+        await VoiceChat.v_music(vc_c, ctx)
         await Basic.send_hidden(self, ctx, 'v_music')
+        await self.logger(ctx)
 
     @cog_ext.cog_slash(name="v_volume")
     async def v_volume(self, ctx:SlashContext, volume:str):
         await VoiceChat.v_volume(self, ctx, volume)
+        await self.logger(ctx)
+
+    @cog_ext.cog_slash(name="send")
+    async def send(self, ctx:SlashContext, tx:str):
+        ch = ctx.channel_id
+        ch_s = bot.get_channel(ch)
+        await ch_s.send(tx)
+        await Basic.send_hidden(self, ctx, 'ok')
+        await self.logger(ctx)
+
+    @cog_ext.cog_slash(name="img")
+    async def img(self, ctx:SlashContext):
+        img_c = Image(self.bot)
+        await Image.img(img_c, ctx)
+        await Basic.send_hidden(self, ctx, 'ok')
+        await self.logger(ctx)
+
 
 #---------------------------------------------------------- Archive
 class Archive(commands.Cog):
