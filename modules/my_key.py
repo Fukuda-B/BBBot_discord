@@ -12,6 +12,8 @@ def get_keys():
     MAIN_C= # SEND Channel (試験用)
     VOICE_C= # VOICE Channel (試験用)
     HA = # sleeping people
+    BBB = # 管理者
+    VC_C = [] # 配信中毒者
 
     UP_SERVER = [ # wake up server uri
         '',
@@ -20,4 +22,4 @@ def get_keys():
 
     M_CALL = ''
 
-    return TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL, LOG_C, MAIN_C, VOICE_C
+    return TOKEN, A3RT_URI, A3RT_KEY, GoogleTranslateAPP_URL, LOG_C, MAIN_C, VOICE_C, HA, BBB, VC_C, UP_SERVER, M_CALL

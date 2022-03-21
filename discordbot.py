@@ -60,10 +60,10 @@ from modules import htr_dead
 from modules import eq_check
 from modules import up_server
 
-VERSION='v2.8.2'
+VERSION='v2.9.1'
 
 _TOKEN, _A3RT_URI, _A3RT_KEY, _GoogleTranslateAPP_URL,\
-    LOG_C, MAIN_C, VOICE_C, HA, _UP_SERVER,\
+    LOG_C, MAIN_C, VOICE_C, HA, BBB, VC_C, _UP_SERVER,\
     M_CALL = my_key.get_keys()
 
 HTR_LIST = htr.get_hattori()
@@ -105,9 +105,10 @@ async def on_ready():
         ups.up_server(),
     )
 
-# メッセージ受信時に動作する処理
+#---------------------------------------------------------- イベント実行系
 @bot.event
 async def on_message(message):
+    '''メッセージ受信時'''
     if message.content.startswith('?'):
         lChannel = bot.get_channel(LOG_C)
         await lChannel.send("```"\
@@ -120,6 +121,71 @@ async def on_message(message):
         # await lChannel.send("```\n@"+str(message.author.name)+"\n"+str(message.author.id)+"\n"+str(message.content)+" ```")
         if message.author.bot: return # ボットだったら何もしない
         await bot.process_commands(message)
+
+    elif isinstance(message.channel, discord.DMChannel) and message.author != bot.user:
+        host = await bot.fetch_user(int(BBB))
+        if message.author != host:
+            await host.send(f'```\n{message.channel}\n{message.content}```')
+
+@bot.event
+async def on_voice_state_update(member, before, after):
+    '''ボイスチャット接続/切断時'''
+    lChannel = bot.get_channel(LOG_C)
+    if (before.channel==after.channel): # チャンネルの移動がなかったとき
+        if (not before.self_stream and after.self_stream):
+            await lChannel.send("```"\
+                +"\nStream : "+str(after.channel.name)+" (ID: "+str(after.channel.id)+")"\
+                +"\nMember : "+str(member)\
+                +"\n```")
+            for i in VC_C:
+                user = await bot.fetch_user(int(i))
+                await user.send(f'```\n{after.channel.name}で配信が開始されました\nこのメッセージは自動送信されています\n```')
+
+    elif after.channel != None and member != bot.user: # メンバーが接続/移動
+        await lChannel.send("```"\
+            +"\nVC >>  : "+str(after.channel.name)+" (ID: "+str(after.channel.id)+")"\
+            +"\nMember : "+str(member)\
+            +"\n```")
+
+        # print(after, before)
+        ch_aft = bot.get_channel(after.channel.id)
+        if before.channel:
+            ch_bef = bot.get_channel(before.channel.id)
+        vch = ch_aft.guild.voice_channels
+        # print(f'{ch} {ch.guild} {ch.guild.voice_channels}')
+        bot_i, bot_pos = None, None
+        bot_ch_len = 1
+        for ch_p in vch:
+            for ch_i in ch_p.members:
+                if ch_i == bot.user:
+                    bot_i = ch_i
+                    bot_pos = ch_p
+                    bot_ch_len = len(ch_bef.members)
+
+        if bot_pos == None: # BBBotがどこにも接続していない場合
+            await after.channel.connect()
+        elif bot_ch_len == 1: # BBBotの入っているチャンネルにBBBot以外いない
+            await bot_i.move_to(ch_aft)
+
+    elif after.channel == None and before.channel != None and member != bot.user: # メンバーが切断したとき
+        ch_bef = bot.get_channel(before.channel.id)
+        vch = ch_bef.guild.voice_channels
+        bot_i, bot_pos = None, None
+        all_d_flag = True # 全滅
+        for ch_p in vch:
+            for ch_i in ch_p.members:
+                if ch_i != bot.user: # メンバーがいたら、そのチャンネルに移動
+                    await ch_i.move_to(ch_p)
+                    all_d_flag = False
+                else:
+                    bot_i = ch_i
+                    bot_pos = ch_p
+
+        if all_d_flag and bot_pos: # 全滅 かつ BBBotがボイスチャットに接続している
+            await bot_i.move_to(None) # 全滅したらBBBotも消える
+            jst = datetime.timezone(datetime.timedelta(hours=9), 'JST')
+            await lChannel.send(f"```\nALL D  : {datetime.datetime.now(jst)}\n```")
+
 
 #---------------------------------------------------------- 計算系
 class Calc(commands.Cog):
