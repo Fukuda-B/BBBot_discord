@@ -60,7 +60,7 @@ from modules import htr_dead
 from modules import eq_check
 from modules import up_server
 
-VERSION='v2.9.1'
+VERSION='v2.9.2'
 
 _TOKEN, _A3RT_URI, _A3RT_KEY, _GoogleTranslateAPP_URL,\
     LOG_C, MAIN_C, VOICE_C, HA, BBB, VC_C, _UP_SERVER,\
@@ -1136,25 +1136,33 @@ class VoiceChat(commands.Cog):
         org_filename = filename
         split_filename = os.path.basename(filename).split('.')
         split_filename_ext = split_filename.pop(len(split_filename)-1) # ファイルの拡張子を除く
-        if split_filename_ext != 'mp3':
-            try:
-                tmp_audio = ffmpeg.input(filename)
-                tmp_audio_enc = ffmpeg.output(tmp_audio, str('.'.join(split_filename))+'.mp3', format='mp3')
-                ffmpeg.run(tmp_audio_enc)
-                try: os.remove(org_filename) # ファイル形式の変換前のファイルを削除
-                except Exception as e: print(e)
-                filename = str('.'.join(split_filename))+'.mp3'
-            except Exception as e:
-                print(e)
-                await bot.get_channel(LOG_C).send(str(e))
-                # await Basic.send('Error: VoiceChat.effect')
-                return filename
+        # if split_filename_ext != 'mp3':
+        #     try:
+        #         tmp_audio = ffmpeg.input(filename)
+        #         tmp_audio_enc = ffmpeg.output(tmp_audio, str('.'.join(split_filename))+'.mp3', format='mp3')
+        #         ffmpeg.run(tmp_audio_enc)
+        #         try: os.remove(org_filename) # ファイル形式の変換前のファイルを削除
+        #         except Exception as e: print(e)
+        #         filename = str('.'.join(split_filename))+'.mp3'
+        #     except Exception as e:
+        #         print(e)
+        #         await bot.get_channel(LOG_C).send(str(e))
+        #         # await Basic.send('Error: VoiceChat.effect')
+        #         return filename
         imouto = kawaii_voice_gtts.kawaii_voice(filename)
         if self.nightcore:
             imouto = imouto.music_pack1()
         if self.bassboost:
             imouto = imouto.bass_boost(0)
+        filename = str('.'.join(split_filename))+'.mp3'
         imouto.audio.export(filename, 'mp3') # 保存
+        if split_filename_ext != 'mp3':
+            try:
+                os.remove(org_filename) # 元のファイルを削除
+            except Exception as e:
+                print(e)
+                await bot.get_channel(LOG_C).send(str(e))
+                return filename
         return filename
 
     async def voice_send(self, ctx, filename):
@@ -1251,7 +1259,8 @@ class VoiceChat(commands.Cog):
     @commands.command(description='Discord_VoiceChat ALL D')
     async def v_bd(self, ctx):
         """Voice ALL D"""
-        channel = ctx.author.voice.channel
+        ch = ctx.author.voice.channel.id
+        channel = bot.get_channel(ch) # BBBotを起動する前にボイスチャットに入っていた人が切断できないので、再取得
         for ch in channel.guild.voice_channels:
             for member in ch.members:
                 await member.move_to(None)
