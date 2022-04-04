@@ -65,8 +65,10 @@ class EqCheck(object):
             '6強': 60,
             '7': 70,
         }
+        eq_date = datetime.datetime.strptime(str(json_data['report_id']), '%Y%m%d%H%M%S')
+        eq_date = eq_date.strftime('%Y/%m/%d %H:%M:%S')
         send_data = "```yaml\n"\
-            + "Earthquake : " + str(json_data['report_time']) + "\n"\
+            + "Earthquake : " + str(eq_date) + "\n"\
             + "Place      : " + str(json_data['region_name'])\
             + " (N" + str(json_data['latitude']) + " E" + str(json_data['longitude']) + ")\n"\
             + "Depth      : " + str(json_data['depth']) + "\n"\
@@ -77,18 +79,17 @@ class EqCheck(object):
 
         # main
         # print(scale_list[json_data['calcintensity']])
-        if (json_data['calcintensity'] in scale_list): # 震度の変換ができるか
-            if (scale_list[json_data['calcintensity']] >= self.EQ_NMIN): # 緊急地震速報(警報) の場合はメインチャンネルに通知
-                if (json_data['report_id'] not in self.res_log_main):
-                    res = await self.mChannel.send(send_data)
-                    self.res_log_main[json_data['report_id']] = {
-                        "discord_message_id": res,
-                        "report_num": json_data['report_num'],
-                    }
-                elif json_data['report_num'] != self.res_log_main[json_data['report_id']]['report_num']:
-                        res = self.res_log_main[json_data['report_id']]['discord_message_id']
-                        await res.edit(send_data)
-                        self.res_log_main[json_data['report_id']]['report_num'] = json_data['report_num']
+        if scale_list.get(str(json_data['calcintensity']), -1) >= self.EQ_NMIN: # 震度がEQ_NMINより大きい場合はメインチャンネルに通知
+            if (json_data['report_id'] not in self.res_log_main):
+                res = await self.mChannel.send(send_data)
+                self.res_log_main[json_data['report_id']] = {
+                    "discord_message_id": res,
+                    "report_num": json_data['report_num'],
+                }
+            elif json_data['report_num'] != self.res_log_main[json_data['report_id']]['report_num']:
+                    res = self.res_log_main[json_data['report_id']]['discord_message_id']
+                    await res.edit(content = send_data)
+                    self.res_log_main[json_data['report_id']]['report_num'] = json_data['report_num']
 
         # logger
         if (json_data['report_id'] not in self.res_log_log):
@@ -99,5 +100,5 @@ class EqCheck(object):
             }
         elif json_data['report_num'] != self.res_log_log[json_data['report_id']]['report_num']:
                 res = self.res_log_log[json_data['report_id']]['discord_message_id']
-                await res.edit(send_data)
+                await res.edit(content = send_data)
                 self.res_log_log[json_data['report_id']]['report_num'] = json_data['report_num']
