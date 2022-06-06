@@ -5,7 +5,7 @@
 #
 # 同会社でも別ブランドがある場合や、さらにそのサブブランドという位置付けのものもあるので難しい。姉妹ブランドやグループブランドなども。
 # ブランドの詳細は https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%80%E3%83%AB%E3%83%88%E3%82%B2%E3%83%BC%E3%83%A0%E3%83%A1%E3%83%BC%E3%82%AB%E3%83%BC%E4%B8%80%E8%A6%A7
-# 2022/3頃 更新
+# 2022/6頃 更新
 
 {
     "ALcot":[
@@ -222,6 +222,7 @@
         #
         # ----- SAGA PLANETS | http://sagaplanets.product.co.jp/top.html -----
         #
+        {"title":"AMBITIOUS MISSION", "url":"https://www.youtube.com/watch?v=vAaShHXUJ3M"},
         {"title":"Coming×Humming!! OP", "url":"https://www.youtube.com/watch?v=BMu8czT7aN4"},
         {"title":"ナツユメナギサ OP", "url":"https://www.youtube.com/watch?v=RZQhrywN7vs"},
         {"title":"キサラギGOLD★STAR OP", "url":"https://www.youtube.com/watch?v=p0o_CxJjqv8"},
@@ -294,6 +295,7 @@
         {"title":"ねこツク、さくら。 OP", "url":"https://www.youtube.com/watch?v=jNg5qSNO5-A"},
         {"title":"まどひ白きの神隠し", "url":"https://www.youtube.com/watch?v=qsIR1DXfqsQ"},
         {"title":"もののあはれは彩の頃。", "url":"https://www.youtube.com/watch?v=5dLuEJVxrw0"},
+        {"title":"ゆまほろめ　時を停めた館で明日を探す迷子たち OP", "url":"https://www.youtube.com/watch?v=tc_WsHfphP4"},
 
         # 非公式
         {"title":"いつか、届く、あの空に。 OP", "url":"https://www.youtube.com/watch?v=gBkd0BimRNo"},
@@ -473,6 +475,8 @@
         {"title":"あまいろショコラータ OP", "url":"https://www.youtube.com/watch?v=jVXvAeulJzM"},
         {"title":"さくらの雲＊スカアレットの恋 OP", "url":"https://www.youtube.com/watch?v=ze7LofS9bC0"},
         {"title":"あまいろショコラータ２ OP", "url":"https://www.youtube.com/watch?v=pBh5DyzMqjo"},
+        {"title":"ジュエリー・ハーツ・アカデミア OP 君とのミチシルベ", "url":"https://www.youtube.com/watch?v=IoVk5_pVH5g"},
+        {"title":"ジュエリー・ハーツ・アカデミア 2ndOP Will of Adamant", "url":"https://www.youtube.com/watch?v=vpas-duCP78"},
     ],
     "CLEARRAVE - ぱれっと":[
         # https://www.youtube.com/channel/UCyU9cOKPWJTrOyLooTfDlJw
@@ -603,7 +607,7 @@
         {"title":"リアライブ OP", "url":"https://www.youtube.com/watch?v=lXxO-8IZ0Os"},
         {"title":"青春フラジャイル OP", "url":"https://www.youtube.com/watch?v=0y9sdeJjbaY"},
     ],
-    "ういんどみる / ういんどみるOasis":[
+    "ういんどみる / ういんどみるOasis / ういんどみるCOSMOS":[
         # https://www.youtube.com/user/WindmillSoftware
         #
         # ----- ういんどみる / ういんどみるOasis | https://windmill.suki.jp/main.html
@@ -627,6 +631,7 @@
         {"title":"はぴねす！2 Sakura Celebration OP", "url":"https://www.youtube.com/watch?v=RpF8OASsK0E"},
         {"title":"はぴねす！2 りらっくす", "url":"https://www.youtube.com/watch?v=D9h-rAP7B0k"},
         {"title":"一途な（処女→）彼女と恋したい OP", "url":"https://www.youtube.com/watch?v=CP34ab-jRKc"},
+        {"title":"一途な（処女→）彼女と恋したい ver.広橋るな OP", "url":"https://www.youtube.com/watch?v=F2t95YxFWkQ"},
     ],
     "Iris":[
         # https://www.youtube.com/channel/UCcDfw0rrVoox0TgSGhsGlbw
@@ -1051,9 +1056,11 @@
         # (メイドinウィッチライフ) https://www.youtube.com/channel/UCQ6G4W8taU0HGVmJs0igx8Q
         # (トリニティxカラミティ) https://www.youtube.com/channel/UCKpiWnWUhoVBgmJxaMX_aAw
         # (放課後 エデュケーション!) https://www.youtube.com/channel/UCZ4Gcqj_-kcOsZM5KUi__yA
+        # (姫と婬欲のテスタメント) https://www.youtube.com/channel/UCoq4gaEqmH6_qglpsmENQlA
         #
         # ----- Escu:de | https://www.escude.co.jp/ -----
         #
+        {"title":"姫と婬欲のテスタメント OP", "url":"https://www.youtube.com/watch?v=k_PGKgaJe8k"},
         {"title":"闇染Revenger－墜ちた魔王と堕ちる戦姫－ OP", "url":"https://www.youtube.com/watch?v=VO4DMSEIs6M"},
         {"title":"メイドinウィッチライフ－館で始まるHな魅了性活－ OP", "url":"https://www.youtube.com/watch?v=FWqADE5SajI"},
         {"title":"姫と穢欲のサクリファイス OP", "url":"https://www.youtube.com/channel/UCtaIrQdelThsw6uC43w0YJA"},
@@ -1203,6 +1210,7 @@
         #
         # CUFFS
         # CUFFS - CUBE
+        {"title":"ネコと女子寮せよ! OP", "url":"https://www.youtube.com/watch?v=x2-bkQxdmg8"},
         {"title":"神様のような君へ Extended Edition OP", "url":"https://www.youtube.com/watch?v=DsIOwn0KmPg"},
         {"title":"神様のような君へ Extended Edition 新OP ハレルヤ！", "url":"https://www.youtube.com/watch?v=Z45zFxmmrpc"},
 
@@ -1215,6 +1223,7 @@
         #
         # ----- ensemble | http://www.ensemble-game.com/ -----
         #
+        {"title":"乙女とふれあう、ひとつ屋根の下 OP", "url":"https://www.youtube.com/watch?v=iOo3yUhuIdI"},
         {"title":"星の乙女と六華の姉妹 OP", "url":"https://www.youtube.com/watch?v=dlS3qYYqcqw"},
 
     ],
@@ -1288,6 +1297,7 @@
         {"title":"黄昏のフォルクローレ OP", "url":"https://www.youtube.com/watch?v=qcsIEcSvdBA"},
         {"title":"保健室のセンセーとシャボン玉中毒の助手 OP", "url":"https://www.youtube.com/watch?v=-qTpdsh7XRI"},
         {"title":"保健室のセンセーとゴスロリの校医 OP", "url":"https://www.youtube.com/watch?v=mYGHGvj77rw"},
+        {"title":"保健室のセンセーと小悪魔な会長 OP", "url":"https://www.youtube.com/watch?v=1OHEGXWtibE"},
     ],
     "LIFE0":[
         # https://www.youtube.com/channel/UCI7vHmItu7cLoL_dLkqWRUw
@@ -1320,7 +1330,9 @@
 # giga, PULLTOP, tyuaburu_soft, silkysplus, Lose, tone_works, 
 # SWEETTEA, palette_qualia, Campus, Key. QUINCE_SOFT, 
 # Galette, Navel, CUBE, sumikko_soft, Escu_de, 
-# Liar-soft, 裸足少女, わるきゅ～れ,
+# Liar-soft, 裸足少女, わるきゅ～れ, DESSERT Soft, boot UP!, North Box, 
+# BISHOP, あざらしそふと, propeller, とこはな, -ちいさきものたちのゆめ-,
+# Barista Lab, light, BaseSon, CHAOS-R, SYOKU, 
 
 # akabei3 https://www.youtube.com/channel/UC-nhyMMGNXQQsXrdtDx3mSg
 # fromtwing https://www.youtube.com/channel/UCCaZwRx_HS61ZiNUrBdmDoA
