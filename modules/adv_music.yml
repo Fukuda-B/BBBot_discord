@@ -5,7 +5,7 @@
 #
 # 同会社でも別ブランドがある場合や、さらにそのサブブランドという位置付けのものもあるので難しい。姉妹ブランドやグループブランドなども。
 # ブランドの詳細は https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%80%E3%83%AB%E3%83%88%E3%82%B2%E3%83%BC%E3%83%A0%E3%83%A1%E3%83%BC%E3%82%AB%E3%83%BC%E4%B8%80%E8%A6%A7
-# 2022/6頃 更新
+# 2022/7頃 更新
 
 {
     "ALcot":[
@@ -128,6 +128,7 @@
         {"title":"プライマルハーツ OP", "url":"https://youtu.be/RKR4fmdWcAE"},
         {"title":"プライマルハーツ2 OP", "url":"https://youtu.be/bJ4LFnk785g"},
         {"title":"おうちに帰るまでがましまろです OP", "url":"https://youtu.be/yyadpR7etv4"},
+        {"title":"スタディ§ステディ2 OP", "url":"https://youtu.be/pgw6I6sQQVs"},
 
         # 非公式
         {"title":"スタディ§ステディ OP", "url":"https://www.youtube.com/watch?v=9RA3JAQID0g"}, 
@@ -1213,6 +1214,7 @@
         {"title":"ネコと女子寮せよ! OP", "url":"https://www.youtube.com/watch?v=x2-bkQxdmg8"},
         {"title":"神様のような君へ Extended Edition OP", "url":"https://www.youtube.com/watch?v=DsIOwn0KmPg"},
         {"title":"神様のような君へ Extended Edition 新OP ハレルヤ！", "url":"https://www.youtube.com/watch?v=Z45zFxmmrpc"},
+        {"title":"夏ノ終熄 OP", "url":"https://youtu.be/YbIh7mJ4l0w"},
 
         # CUFFS - MintCUBE
         # CUFFS - Sonora
@@ -1311,6 +1313,8 @@
     ],
 }
 
+# ----- 追加前 -----
+
 # アリスソフト, みなとそふと, TYPE-MOON, 自宅すたじお, みなとカーニバルWorld
 # May-Be SOFT -> ぱいタッチ！ OP
 # aries soft -> タラレバ ED
@@ -1332,7 +1336,8 @@
 # Galette, Navel, CUBE, sumikko_soft, Escu_de, 
 # Liar-soft, 裸足少女, わるきゅ～れ, DESSERT Soft, boot UP!, North Box, 
 # BISHOP, あざらしそふと, propeller, とこはな, -ちいさきものたちのゆめ-,
-# Barista Lab, light, BaseSon, CHAOS-R, SYOKU, 
+# Barista Lab, light, BaseSon, CHAOS-R, SYOKU, TinkerBell, 
+# evoLL, 
 
 # akabei3 https://www.youtube.com/channel/UC-nhyMMGNXQQsXrdtDx3mSg
 # fromtwing https://www.youtube.com/channel/UCCaZwRx_HS61ZiNUrBdmDoA
